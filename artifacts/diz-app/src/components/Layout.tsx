@@ -33,12 +33,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <div className="flex items-center gap-2">
             <button
-              className="bg-[#1a2b3c] border border-[#1e3048] text-[#f0f4f8] px-3 py-1.5 rounded text-xs font-medium hover:bg-[#243447] transition-colors hidden md:block"
-              data-testid="button-login"
-            >
-              Login
-            </button>
-            <button
               className="md:hidden flex flex-col gap-1 p-2"
               onClick={() => setMenuOpen((o) => !o)}
               aria-label="Menü"
@@ -62,12 +56,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 {l.label}
               </Link>
             ))}
-            <button
-              className="mt-1 bg-[#1a2b3c] border border-[#1e3048] text-[#f0f4f8] px-3 py-2 rounded text-sm font-medium hover:bg-[#243447] transition-colors text-left"
-              data-testid="button-login"
-            >
-              Login
-            </button>
           </div>
         )}
       </nav>
