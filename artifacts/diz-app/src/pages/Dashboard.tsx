@@ -49,8 +49,8 @@ export default function DashboardPage() {
 
   function handleShare() {
     const url = window.location.href;
-    const title = "Deutschlandsimulator — Ergebnis-Dashboard";
-    const text = "Schau dir das Ergebnis-Dashboard des Deutschlandsimulators an.";
+    const title = "Deutschlandsimulator — Kennzahlen-Dashboard";
+    const text = "Schau dir das Kennzahlen-Dashboard des Deutschlandsimulators an.";
     if (navigator.share) {
       navigator.share({ title, text, url }).catch(() => {});
     } else {
@@ -73,10 +73,10 @@ export default function DashboardPage() {
           <div className="text-[#8faabb] text-sm mb-1">
             <span>Startseite</span>
             <span className="mx-1">›</span>
-            <span className="text-[#00c8b4]">Ergebnisse</span>
+            <span className="text-[#00c8b4]">Dashboard</span>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h1 className="text-xl md:text-2xl font-bold" data-testid="text-dashboard-title">Ergebnis-Dashboard</h1>
+            <h1 className="text-xl md:text-2xl font-bold" data-testid="text-dashboard-title">Kennzahlen-Dashboard</h1>
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-2 text-xs text-[#8faabb]">
                 <span className="w-2 h-2 rounded-full bg-[#4caf82]" /> Hohe Evidenz
