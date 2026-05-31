@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   Info, CheckCircle2, AlertTriangle, XCircle,
   TrendingUp, TrendingDown, Users, Wallet,
-  HeartPulse, Briefcase, ShoppingCart, Building2,
+  HeartPulse, Briefcase, ShoppingCart, Building2, RotateCcw,
 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { InfoPanel } from "@/components/simulator/InfoPanel";
@@ -40,12 +40,14 @@ function EvidenzDot({ level }: { level: EvidenzLevel }) {
 }
 
 function SliderRow({
-  label, infoKey, value, min, max, step = 1, unit, onChange, onInfo,
+  label, infoKey, value, defaultValue, min, max, step = 1, unit, onChange, onInfo,
 }: {
-  label: string; infoKey: string; value: number; min: number; max: number;
-  step?: number; unit?: string; onChange: (v: number) => void; onInfo: (k: string) => void;
+  label: string; infoKey: string; value: number; defaultValue: number;
+  min: number; max: number; step?: number; unit?: string;
+  onChange: (v: number) => void; onInfo: (k: string) => void;
 }) {
   const info = SLIDER_INFO[infoKey];
+  const isDirty = value !== defaultValue;
   return (
     <div>
       <div className="flex justify-between items-center mb-1.5 text-sm">
@@ -62,7 +64,17 @@ function SliderRow({
           )}
         </div>
         <div className="flex items-center gap-1.5">
-          <Badge variant="outline" className="bg-[#243447] text-[#00c8b4] border-[#1e3048] text-xs py-0">
+          {isDirty && (
+            <button
+              onClick={() => onChange(defaultValue)}
+              title="Zurücksetzen"
+              className="text-[#8faabb] hover:text-[#f5a623] transition-colors"
+              data-testid={`reset-${infoKey}`}
+            >
+              <RotateCcw size={12} />
+            </button>
+          )}
+          <Badge variant="outline" className={`border-[#1e3048] text-xs py-0 ${isDirty ? "bg-[#2a3a1c] text-[#f5a623]" : "bg-[#243447] text-[#00c8b4]"}`}>
             {value}{unit}
           </Badge>
           {info && <EvidenzDot level={info.evidenz} />}
@@ -316,18 +328,18 @@ export default function SimulatorPage() {
             <AccordionItem value="item-1" className="border-[#1e3048]">
               <AccordionTrigger className="text-[#8faabb] hover:text-[#f0f4f8] text-sm">Staat</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-2">
-                <SliderRow label="Beamte"           infoKey="beamte"        value={beamte}       min={4200} max={6000}          unit="k"     onChange={setBeamte}       onInfo={setInfoKey} />
-                <SliderRow label="Ministerien"      infoKey="ministerien"   value={ministerien}  min={10}   max={25}             onChange={setMinisterien}  onInfo={setInfoKey} />
-                <SliderRow label="Verteidigung"     infoKey="verteidigung"  value={verteidigung} min={1.0}  max={3.0} step={0.1} unit="% BIP" onChange={setVerteidigung} onInfo={setInfoKey} />
-                <SliderRow label="Entwicklungshilfe" infoKey="entwicklung"  value={entwicklung}  min={0.2}  max={0.8} step={0.1} unit="% BIP" onChange={setEntwicklung}  onInfo={setInfoKey} />
+                <SliderRow label="Beamte"           infoKey="beamte"        value={beamte}       defaultValue={4900} min={4200} max={6000}          unit="k"     onChange={setBeamte}       onInfo={setInfoKey} />
+                <SliderRow label="Ministerien"      infoKey="ministerien"   value={ministerien}  defaultValue={16}   min={10}   max={25}             onChange={setMinisterien}  onInfo={setInfoKey} />
+                <SliderRow label="Verteidigung"     infoKey="verteidigung"  value={verteidigung} defaultValue={2.0}  min={1.0}  max={3.0} step={0.1} unit="% BIP" onChange={setVerteidigung} onInfo={setInfoKey} />
+                <SliderRow label="Entwicklungshilfe" infoKey="entwicklung"  value={entwicklung}  defaultValue={0.4}  min={0.2}  max={0.8} step={0.1} unit="% BIP" onChange={setEntwicklung}  onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border-[#1e3048]">
               <AccordionTrigger className="text-[#8faabb] hover:text-[#f0f4f8] text-sm">Migration</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-2">
-                <SliderRow label="Flüchtlingsaufnahme"   infoKey="fluechtlinge" value={fluechtlinge} min={50}  max={400} unit="k/J" onChange={setFluechtlinge} onInfo={setInfoKey} />
-                <SliderRow label="Fachkräftezuwanderung" infoKey="fachkraefte"  value={fachkraefte}  min={50}  max={500} unit="k/J" onChange={setFachkraefte}  onInfo={setInfoKey} />
+                <SliderRow label="Flüchtlingsaufnahme"   infoKey="fluechtlinge" value={fluechtlinge} defaultValue={180} min={50}  max={400} unit="k/J" onChange={setFluechtlinge} onInfo={setInfoKey} />
+                <SliderRow label="Fachkräftezuwanderung" infoKey="fachkraefte"  value={fachkraefte}  defaultValue={200} min={50}  max={500} unit="k/J" onChange={setFachkraefte}  onInfo={setInfoKey} />
                 <ToggleRow label="EU-Zuwanderung frei"   value={euZuwanderung}  onChange={setEuZuwanderung} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
@@ -337,26 +349,26 @@ export default function SimulatorPage() {
               <AccordionContent className="space-y-4 pt-2">
                 <ToggleRow label="Einheitsversicherung"          value={einheitsversicherung} onChange={setEinheitsversicherung} onInfo={setInfoKey} />
                 <ToggleRow label="Privatversicherung abschaffen" value={privatAbschaffen}     onChange={setPrivatAbschaffen}     danger onInfo={setInfoKey} />
-                <SliderRow label="Beitragssatz" infoKey="beitragssatz" value={beitragssatz}  min={14}  max={18}  step={0.1} unit="%" onChange={setBeitragssatz} onInfo={setInfoKey} />
+                <SliderRow label="Beitragssatz" infoKey="beitragssatz" value={beitragssatz} defaultValue={14.6} min={14}  max={18}  step={0.1} unit="%" onChange={setBeitragssatz} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-[#1e3048]">
               <AccordionTrigger className="text-[#8faabb] hover:text-[#f0f4f8] text-sm">Soziales</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-2">
-                <SliderRow label="Bürgergeld"          infoKey="buergergeld" value={buergergeld}  min={400} max={700}          unit=" €"   onChange={setBuergergeld}  onInfo={setInfoKey} />
-                <SliderRow label="Renteneintrittsalter" infoKey="rentenalter" value={rentenalter}  min={63}  max={70}           unit=" J."  onChange={setRentenalter}  onInfo={setInfoKey} />
-                <SliderRow label="Rentenniveau"        infoKey="rentenniveau" value={rentenniveau} min={40}  max={55}           unit="%"    onChange={setRentenniveau} onInfo={setInfoKey} />
+                <SliderRow label="Bürgergeld"          infoKey="buergergeld" value={buergergeld}  defaultValue={502} min={400} max={700}          unit=" €"   onChange={setBuergergeld}  onInfo={setInfoKey} />
+                <SliderRow label="Renteneintrittsalter" infoKey="rentenalter" value={rentenalter}  defaultValue={67}  min={63}  max={70}           unit=" J."  onChange={setRentenalter}  onInfo={setInfoKey} />
+                <SliderRow label="Rentenniveau"        infoKey="rentenniveau" value={rentenniveau} defaultValue={48}  min={40}  max={55}           unit="%"    onChange={setRentenniveau} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="border-[#1e3048]">
               <AccordionTrigger className="text-[#8faabb] hover:text-[#f0f4f8] text-sm">Steuern</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-2">
-                <SliderRow label="Spitzensteuersatz"   infoKey="einkommensteuer"   value={einkommensteuer}   min={30} max={55} step={0.5} unit="%" onChange={setEinkommensteuer}   onInfo={setInfoKey} />
-                <SliderRow label="Unternehmenssteuer"  infoKey="unternehmenssteuer" value={unternehmenssteuer} min={10} max={35} step={0.1} unit="%" onChange={setUnternehmenssteuer} onInfo={setInfoKey} />
+                <SliderRow label="Spitzensteuersatz"   infoKey="einkommensteuer"   value={einkommensteuer}   defaultValue={42}    min={30} max={55} step={0.5} unit="%" onChange={setEinkommensteuer}   onInfo={setInfoKey} />
+                <SliderRow label="Unternehmenssteuer"  infoKey="unternehmenssteuer" value={unternehmenssteuer} defaultValue={29.9}  min={10} max={35} step={0.1} unit="%" onChange={setUnternehmenssteuer} onInfo={setInfoKey} />
                 <ToggleRow label="Vermögenssteuer einführen"   value={vermoegenssteuer} onChange={setVermoegenssteuer} onInfo={setInfoKey} />
-                <SliderRow label="Erbschaft-Freibetrag" infoKey="erbschaftssteuer"  value={erbschaftssteuer}  min={100} max={1000} step={50} unit="k €" onChange={setErbschaftssteuer} onInfo={setInfoKey} />
+                <SliderRow label="Erbschaft-Freibetrag" infoKey="erbschaftssteuer"  value={erbschaftssteuer}  defaultValue={400}   min={100} max={1000} step={50} unit="k €" onChange={setErbschaftssteuer} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
