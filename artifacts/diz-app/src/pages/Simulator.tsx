@@ -234,15 +234,22 @@ export default function SimulatorPage() {
     .map((p) => ({ ...p, match: calcPartyMatch(vals, p) }))
     .sort((a, b) => b.match - a.match);
 
+  const defizitNum     = Number(defizit);
+  const steuerNum      = Number(steuer);
+  const rentenNum      = Number(rentenKosten);
+  const alqNum         = Number(alq);
+  const fachlueckeNum  = Number(fachluecke);
+  const wachstumNum2   = Number(wachstum);
+
   const kpiCards = [
-    { label: "Haushaltsdefizit",    val: `${defizit} Mrd.`,       col: "#e05c5c",                                                src: "BMF",         upd: "Mär 2024" },
-    { label: "Staatsverschuldung",  val: "2.445 Mrd.",             col: "#f0f4f8",                                                src: "Bundesbank",  upd: "Feb 2024" },
-    { label: "Steueraufkommen",     val: `${steuer} Mrd.`,         col: "#4caf82",                                                src: "Destatis",    upd: "Jan 2024" },
-    { label: "Gesundheitskosten",   val: "468 Mrd.",               col: "#f0f4f8",                                                src: "BMG",         upd: "Feb 2024" },
-    { label: "Rentenkosten",        val: `${rentenKosten} Mrd.`,   col: "#f0f4f8",                                                src: "DRV Bund",    upd: "Jan 2024" },
-    { label: "Arbeitslosenquote",   val: `${alq}%`,                col: Number(alq) > 5.5 ? "#e05c5c" : "#4caf82",               src: "BA",          upd: "Mär 2024" },
-    { label: "Fachkräftemangel",    val: `${fachluecke}k`,         col: "#f5a623",                                                src: "IW Köln",     upd: "Feb 2024" },
-    { label: "Wirtschaftswachstum", val: `+${wachstum}% BIP`,      col: "#4caf82",                                                src: "SVR Wirtschaft", upd: "Nov 2023" },
+    { label: "Haushaltsdefizit",    val: `${defizit} Mrd.`,     col: defizitNum >= 0    ? "#4caf82" : "#e05c5c",                 src: "BMF",            upd: "Mär 2024" },
+    { label: "Staatsverschuldung",  val: "2.445 Mrd.",           col: "#f0f4f8",                                                  src: "Bundesbank",     upd: "Feb 2024" },
+    { label: "Steueraufkommen",     val: `${steuer} Mrd.`,       col: steuerNum >= 916   ? "#4caf82" : "#e05c5c",                 src: "Destatis",       upd: "Jan 2024" },
+    { label: "Gesundheitskosten",   val: "468 Mrd.",              col: "#f0f4f8",                                                  src: "BMG",            upd: "Feb 2024" },
+    { label: "Rentenkosten",        val: `${rentenKosten} Mrd.`,  col: rentenNum < 362    ? "#4caf82" : rentenNum > 380 ? "#e05c5c" : "#f0f4f8", src: "DRV Bund", upd: "Jan 2024" },
+    { label: "Arbeitslosenquote",   val: `${alq}%`,               col: alqNum <= 5.0      ? "#4caf82" : alqNum <= 6.0 ? "#f5a623" : "#e05c5c",  src: "BA",       upd: "Mär 2024" },
+    { label: "Fachkräftemangel",    val: `${fachluecke}k`,        col: fachlueckeNum < 600 ? "#4caf82" : fachlueckeNum < 800 ? "#f5a623" : "#e05c5c", src: "IW Köln", upd: "Feb 2024" },
+    { label: "Wirtschaftswachstum", val: `${wachstumNum2 >= 0 ? "+" : ""}${wachstum}% BIP`, col: wachstumNum2 >= 1.0 ? "#4caf82" : wachstumNum2 >= 0.5 ? "#f5a623" : "#e05c5c", src: "SVR Wirtschaft", upd: "Nov 2023" },
   ];
 
   const citizenCards = [
