@@ -86,14 +86,6 @@ export default function ImpressumPage() {
             vorherzusagen oder politische Empfehlungen auszusprechen.
           </p>
         </Section>
-
-        <div className="bg-[#243447] border border-[#1e3048] rounded-lg p-4 mt-2 text-sm text-[#8faabb]">
-          <span className="text-[#f5a623] font-semibold">Hinweis: </span>
-          Dieses Projekt dient der Veranschaulichung möglicher Auswirkungen politischer
-          Entscheidungen. Die Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und
-          können fehlerhaft oder unvollständig sein. Bitte prüfen Sie wichtige Informationen
-          anhand der angegebenen Quellen.
-        </div>
       </div>
     </Layout>
   );
