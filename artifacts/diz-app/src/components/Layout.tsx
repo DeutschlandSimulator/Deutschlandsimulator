@@ -63,6 +63,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 flex flex-col">
         {children}
       </main>
+
+      <footer className="border-t border-[#1e3048] px-6 py-4 text-center">
+        <Link href="/impressum" className="text-xs text-[#8faabb] hover:text-[#00c8b4] transition-colors">
+          Impressum
+        </Link>
+      </footer>
     </div>
   );
 }
