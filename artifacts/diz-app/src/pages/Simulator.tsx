@@ -16,7 +16,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { InfoPanel } from "@/components/simulator/InfoPanel";
 import {
-  SLIDER_INFO, scenarioMultipliers, partyProfiles, barData, lineData,
+  SLIDER_INFO, scenarioMultipliers, partyProfiles,
 } from "@/components/simulator/data";
 import { EvidenzLevel, ScenarioMode } from "@/components/simulator/types";
 
@@ -165,17 +165,70 @@ export default function SimulatorPage() {
   const sm = scenarioMultipliers[scenario];
   const vals = { beamte, ministerien, verteidigung, fachkraefte, buergergeld, rentenalter, einkommensteuer, vermoegenssteuer };
 
-  const defizit      = (-(34.2 + (verteidigung - 2.0) * 39.9 - (einkommensteuer - 42) * 3.2 * sm)).toFixed(1);
-  const steuer       = (916 + (einkommensteuer - 42) * 3.2 + (fachkraefte - 200) * 0.029 + (vermoegenssteuer ? 9 : 0)).toFixed(0);
-  const wachstum     = ((0.8 + (fachkraefte - 200) * 0.0008 - (verteidigung - 2.0) * 0.1) * sm).toFixed(1);
-  const alq          = (5.7 - (fachkraefte - 200) * 0.003 + (buergergeld - 502) * 0.001).toFixed(1);
+  // --- Ausgaben-Delta vs. Baseline (alle Werte in Mrd. €) ---
+  const ausgabenDelta =
+    (verteidigung  - 2.0)  * 39.9  +   // NATO-Ausgaben (1% BIP = 39,9 Mrd)
+    (entwicklung   - 0.4)  * 39.9  +   // Entwicklungshilfe (gleiche Skala)
+    (beamte        - 4900) * 0.072  +   // Beamte (58.400 € × 23% Versorgung × 1.000)
+    (ministerien   - 16)   * 0.12   +   // Ministerien (120 Mio. € pro Ministerium)
+    (fluechtlinge  - 180)  * 0.018  +   // Flüchtlinge (18.000 €/Person × 1.000)
+    (buergergeld   - 502)  * 0.066  +   // Bürgergeld (5,5 Mio. × 12 × 1 €)
+    (rentenniveau  - 48)   * 4.0    -   // Rentenniveau (+4 Mrd. pro %-Punkt)
+    (rentenalter   - 67)   * 18.5   -   // Rentenalter (−18,5 Mrd. pro Jahr Anhebung)
+    (beitragssatz  - 14.6) * 4.0;      // Beitragssatz (höher = weniger Bundeszuschuss)
+
+  // --- Einnahmen-Delta vs. Baseline (alle Werte in Mrd. €) ---
+  const einnahmenDelta =
+    (einkommensteuer    - 42)    * 3.2    +   // Spitzensteuersatz (3,2 Mrd. pro %-Punkt)
+    (fachkraefte        - 200)   * 0.0145 +   // Fachkräfte (14.500 € Steuer/Person)
+    (vermoegenssteuer ? 9 : 0)             +  // Vermögenssteuer (+9 Mrd.)
+    (unternehmenssteuer - 29.9)  * 3.0    +   // Körperschaftsteuer (3 Mrd. pro %-Punkt)
+    (400 - erbschaftssteuer)     * 0.005;     // Erbschaftsfreibetrag (höher = weniger Einnahmen)
+
+  const netDelta     = (ausgabenDelta - einnahmenDelta) * sm;
+  const defizit      = (-(34.2 + netDelta)).toFixed(1);
+  const steuer       = (916 + einnahmenDelta * sm).toFixed(0);
+  const wachstum     = Math.max(0,
+    (0.8
+      + (fachkraefte        - 200)  * 0.0008
+      - (verteidigung       - 2.0)  * 0.08
+      - (einkommensteuer    - 42)   * 0.008
+      - (unternehmenssteuer - 29.9) * 0.015
+      - (beamte             - 4900) * 0.00002
+    ) * sm
+  ).toFixed(1);
+  const alq          = Math.max(0,
+    5.7
+    - (fachkraefte - 200) * 0.003
+    + (buergergeld - 502) * 0.0015
+    + (rentenalter - 67)  * 0.05
+  ).toFixed(1);
   const rentenKosten = (362 + (rentenniveau - 48) * 4 - (rentenalter - 67) * 18.5).toFixed(0);
   const fachluecke   = Math.max(0, 890 - (fachkraefte - 200) * 1.5).toFixed(0);
 
   const reformDelta = {
-    ausgaben: -((beamte < 4900 ? (4900 - beamte) * 0.012 : 0) + (ministerien < 16 ? (16 - ministerien) * 0.12 : 0)).toFixed(1),
-    steuer:   ((einkommensteuer - 42) * 3.2 + (vermoegenssteuer ? 9 : 0)).toFixed(1),
+    ausgaben: (-(ausgabenDelta * sm)).toFixed(1),
+    steuer:   (einnahmenDelta  * sm).toFixed(1),
   };
+
+  // --- Dynamische Chart-Daten ---
+  const wachstumNum = Number(wachstum);
+  const dynBarData = [
+    { name: "Soziales",     einnahmen: 0,                                               ausgaben: Math.round(175 + (buergergeld - 502) * 0.066 + (rentenniveau - 48) * 4) },
+    { name: "Verteidigung", einnahmen: 0,                                               ausgaben: Math.round(52  + (verteidigung - 2.0) * 39.9) },
+    { name: "Bildung",      einnahmen: 0,                                               ausgaben: 21 },
+    { name: "Zinsen",       einnahmen: 0,                                               ausgaben: Math.round(37  - netDelta * 0.05) },
+    { name: "Sonstiges",    einnahmen: Math.round(460 + einnahmenDelta * sm),           ausgaben: Math.round(191 + (beamte - 4900) * 0.072 + (ministerien - 16) * 0.12) },
+  ];
+  const dynLineData = [
+    { year: "2024", statusQuo: 0.2, simulation: 0.2 },
+    { year: "2025", statusQuo: 0.5, simulation: +(0.2 + wachstumNum * 0.5).toFixed(2) },
+    { year: "2026", statusQuo: 0.8, simulation: +(0.2 + wachstumNum * 1.0).toFixed(2) },
+    { year: "2027", statusQuo: 1.0, simulation: +(0.2 + wachstumNum * 1.5).toFixed(2) },
+    { year: "2028", statusQuo: 1.1, simulation: +(0.2 + wachstumNum * 1.9).toFixed(2) },
+    { year: "2029", statusQuo: 1.2, simulation: +(0.2 + wachstumNum * 2.2).toFixed(2) },
+    { year: "2030", statusQuo: 1.2, simulation: +(0.2 + wachstumNum * 2.5).toFixed(2) },
+  ];
 
   const partyMatches = partyProfiles
     .map((p) => ({ ...p, match: calcPartyMatch(vals, p) }))
@@ -323,7 +376,7 @@ export default function SimulatorPage() {
             <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] h-[220px]">
               <h3 className="text-[#8faabb] mb-3 text-xs font-semibold uppercase tracking-widest">Bundeshaushalt: Einnahmen vs. Ausgaben</h3>
               <ResponsiveContainer width="100%" height="88%">
-                <BarChart data={barData}>
+                <BarChart data={dynBarData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
                   <XAxis dataKey="name" stroke="#8faabb" fontSize={10} />
                   <YAxis stroke="#8faabb" fontSize={10} />
@@ -337,7 +390,7 @@ export default function SimulatorPage() {
             <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] h-[220px]">
               <h3 className="text-[#8faabb] mb-3 text-xs font-semibold uppercase tracking-widest">Wirtschaftswachstum 2024–2030</h3>
               <ResponsiveContainer width="100%" height="88%">
-                <LineChart data={lineData}>
+                <LineChart data={dynLineData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
                   <XAxis dataKey="year" stroke="#8faabb" fontSize={10} />
                   <YAxis stroke="#8faabb" fontSize={10} />
