@@ -9,6 +9,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/simulator", label: "Simulator" },
     { href: "/dashboard", label: "Dashboard" },
     { href: "/vergleich", label: "Vergleich" },
+    { href: "/annahmen", label: "Annahmen" },
   ];
 
   return (

@@ -8,6 +8,7 @@ import SimulatorPage from "@/pages/Simulator";
 import DashboardPage from "@/pages/Dashboard";
 import VergleichPage from "@/pages/Vergleich";
 import ImpressumPage from "@/pages/Impressum";
+import AnnahmenPage from "@/pages/Annahmen";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/vergleich" component={VergleichPage} />
       <Route path="/impressum" component={ImpressumPage} />
+      <Route path="/annahmen" component={AnnahmenPage} />
       <Route component={NotFound} />
     </Switch>
   );
