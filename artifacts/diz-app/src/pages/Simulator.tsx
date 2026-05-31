@@ -109,12 +109,14 @@ function computeKPIs(
     einkommensteuer: number; unternehmenssteuer: number;
     vermoegenssteuer: boolean; erbschaftssteuer: number;
     einheitsversicherung: boolean; privatAbschaffen: boolean;
+    euZuwanderung: boolean;
   }
 ) {
   const {
     beamte, ministerien, verteidigung, entwicklung, fluechtlinge, fachkraefte,
     beitragssatz, buergergeld, rentenalter, rentenniveau, einkommensteuer,
     unternehmenssteuer, vermoegenssteuer, erbschaftssteuer, einheitsversicherung, privatAbschaffen,
+    euZuwanderung,
   } = params;
 
   // Vermögenssteuer: scenario-dependent
@@ -149,7 +151,8 @@ function computeKPIs(
     (unternehmenssteuer - 29.9)   * 3.0   +
     (400 - erbschaftssteuer)      * 0.005 +
     (einheitsversicherung ? 22 : 0)        +
-    (privatAbschaffen     ?  7 : 0);
+    (privatAbschaffen     ?  7 : 0)        +
+    (euZuwanderung        ?  0 : -10);     // EU-Freizügigkeit: -10 Mrd. bei Abschaffung
 
   const netDelta = (ausgabenDelta - einnahmenDelta) * smVal;
   const defizit  = -(34.2 + netDelta);
@@ -160,6 +163,7 @@ function computeKPIs(
     - (fachkraefte - 200)  * 0.003
     + (buergergeld - 502)  * 0.0015
     + (rentenalter - 67)   * 0.05
+    + (euZuwanderung ? 0 : 0.2)   // structural ALQ rise without EU labor supply
   );
 
   // Wachstum — no floor (recessions allowed), scenario + defense effect
@@ -170,6 +174,7 @@ function computeKPIs(
     - (einkommensteuer    - 42)   * 0.008
     - (unternehmenssteuer - 29.9) * 0.015
     - (beamte             - 4900) * 0.00002
+    - (euZuwanderung ? 0 : 0.35)  // labor supply shock
   ) * smVal;
 
   // Chain model: wachstum & alq feed back into Steueraufkommen
@@ -179,7 +184,7 @@ function computeKPIs(
 
   const steuer     = 916 + einnahmenDelta * smVal + chainSteuer;
   const rentenKosten = 362 + (rentenniveau - 48) * 4 - (rentenalter - 67) * 18.5 * RENTE_RISK;
-  const fachluecke = Math.max(0, 890 - (fachkraefte - 200) * 1.5);
+  const fachluecke = Math.max(0, 890 - (fachkraefte - 200) * 1.5 + (euZuwanderung ? 0 : 180));
 
   return { defizit, steuer, alq, wachstum, rentenKosten, fachluecke, einnahmenDelta, ausgabenDelta };
 }
@@ -238,6 +243,7 @@ export default function SimulatorPage() {
     beamte, ministerien, verteidigung, entwicklung, fluechtlinge, fachkraefte,
     beitragssatz, buergergeld, rentenalter, rentenniveau, einkommensteuer,
     unternehmenssteuer, vermoegenssteuer, erbschaftssteuer, einheitsversicherung, privatAbschaffen,
+    euZuwanderung,
   };
 
   // Compute all 3 scenario bands + current
@@ -391,7 +397,7 @@ export default function SimulatorPage() {
                 <p className="text-[10px] text-[#8faabb] leading-relaxed -mt-2">
                   Integrationsfaktor: Jahr 1 = 60%, Jahr 2 = 80%, Jahr 3 = 100%. Modell nutzt Ø 80%.
                 </p>
-                <ToggleRow label="EU-Zuwanderung frei" value={euZuwanderung} onChange={setEuZuwanderung} onInfo={setInfoKey} />
+                <ToggleRow label="EU-Freizügigkeit" infoKey="euZuwanderung" value={euZuwanderung} onChange={setEuZuwanderung} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
 

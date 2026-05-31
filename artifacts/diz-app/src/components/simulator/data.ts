@@ -104,6 +104,24 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
     evidenz: "hoch",
     evidenzHinweis: "Fiskalische Effekte sehr gut modelliert; soziale Verteilungswirkung kontrovers.",
   },
+  euZuwanderung: {
+    titel: "EU-Freizügigkeit",
+    beschreibung: "Die EU-Freizügigkeit (Art. 45 AEUV) ermöglicht ca. 4,5 Mio. EU-Bürger:innen das Arbeiten in Deutschland. Sie ist ein Grundprinzip des EU-Binnenmarkts und kann von Deutschland nicht einseitig aufgekündigt werden. Das Modell simuliert ein hypothetisches Szenario, um wirtschaftliche Abhängigkeiten zu veranschaulichen.",
+    aktuellerWert: "Aktiv (EU-Vertrag Art. 45 AEUV)",
+    berechnungslogik: "Bei Abschaffung: ca. −10 Mrd. € Steuer- und Beitragseinnahmen (Ø 10.200 € je EU-Arbeitnehmer × 4,5 Mio.), −0,35 % BIP-Wachstum, +180k offene Fachkraftstellen. Handelswirkungen nicht modelliert.",
+    annahmen: [
+      "4,5 Mio. EU-Arbeitnehmer in Deutschland",
+      "Ø Steuern und Sozialbeiträge: 10.200 €/Jahr",
+      "Sofortiger vollständiger Effekt angenommen",
+      "Keine Modellierung von Handelsumlenkungen",
+    ],
+    quellen: [
+      { name: "Institut für Arbeitsmarkt- und Berufsforschung (IAB)", url: "https://iab.de", aktualisiert: "Jan 2024" },
+      { name: "Eurostat – Arbeitsmigration EU", url: "https://ec.europa.eu/eurostat", aktualisiert: "Feb 2024" },
+    ],
+    evidenz: "mittel" as EvidenzLevel,
+    evidenzHinweis: "Grundeffekte durch IAB-Daten gut belegt; langfristige Verhaltens- und Handelsanpassungen unsicher.",
+  },
   einkommensteuer: {
     titel: "Einkommensteuer Spitzensatz",
     beschreibung: "Gilt ab einem zu versteuernden Einkommen von 66.761 €/Jahr. Beeinflusst Steueraufkommen, Leistungsanreize und Einkommensverteilung.",
