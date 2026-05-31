@@ -23,6 +23,20 @@ export default function Landing() {
             Simuliere politische Entscheidungen in Echtzeit und erkenne die wirtschaftlichen Konsequenzen.
             Ein Cockpit für Deutschland — transparent, datenbasiert und unabhängig.
           </p>
+          <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4 mb-8 text-left">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">Datenbasis</p>
+            <p className="text-xs text-[#8faabb] leading-relaxed mb-3">
+              Basierend auf Daten des Statistischen Bundesamtes, der Bundesbank, des Bundeshaushalts,
+              der Bundesagentur für Arbeit und weiterer öffentlicher Quellen.
+            </p>
+            <Link
+              href="/annahmen"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
+            >
+              Quellen &amp; Methodik →
+            </Link>
+          </div>
+
           <Link
             href="/simulator"
             className="inline-block bg-[#00c8b4] hover:bg-[#00a896] text-[#0d1b2a] font-bold py-3 md:py-4 px-8 md:px-10 rounded text-base md:text-lg transition-transform hover:-translate-y-0.5 shadow-lg shadow-[#00c8b4]/20"
