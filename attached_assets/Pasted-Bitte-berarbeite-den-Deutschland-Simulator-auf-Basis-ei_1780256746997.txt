@@ -1,0 +1,240 @@
+Bitte überarbeite den Deutschland-Simulator auf Basis eines fachlichen Reviews der Modellannahmen.
+
+Ziel:
+Der Simulator soll weiterhin einfach verständlich bleiben, aber ökonomisch realistischer und politisch neutraler werden.
+
+Änderungen:
+
+## 1. Beamtenabbau realistischer modellieren
+
+Aktuell:
+- Einsparungen wirken sofort zu 100 %
+- Beamte können praktisch beliebig reduziert werden
+
+Neu:
+- Einsparungen entstehen hauptsächlich durch natürliche Fluktuation
+- Beamte können nicht direkt entlassen werden
+- Einsparungen wirken zeitverzögert
+
+Modell:
+Jahr 1 = 10 % der theoretischen Einsparung
+Jahr 5 = 50 %
+Jahr 10 = 100 %
+
+Im UI anzeigen:
+"Beamtenabbau wirkt nur schrittweise aufgrund von Pensionsansprüchen und Kündigungsschutz."
+
+---
+
+## 2. Flüchtlingsmigration langfristig berücksichtigen
+
+Aktuell:
+- Nur Kosten werden berücksichtigt
+
+Neu:
+Zusätzliche Langfristparameter einführen:
+
+- Erwerbsquote nach 5 Jahren
+- Steuerzahlungen
+- Sozialbeiträge
+- Konsumeffekt
+
+Beispielmodell:
+
+Jahr 1–3:
+Netto negativ
+
+Jahr 5–10:
+Teilweise Rückflüsse
+
+Jahr 10+:
+Teilweise positive Fiskalwirkung möglich
+
+Im Ergebnis:
+Kurzfristige und langfristige Effekte getrennt ausweisen.
+
+---
+
+## 3. Fachkräftemigration realistischer machen
+
+Aktuell:
+- Sofortige Vollbeschäftigung
+
+Neu:
+Integrationsfaktor einführen
+
+Jahr 1 = 60 %
+Jahr 2 = 80 %
+Jahr 3 = 100 %
+
+Steuereinnahmen und BIP-Effekte entsprechend skalieren.
+
+---
+
+## 4. Renteneintrittsalter realistischer modellieren
+
+Aktuell:
+- Einsparungen vollständig positiv
+
+Neu zusätzlich berücksichtigen:
+
+- Erwerbsminderungsrenten
+- Krankheitsbedingte Ausfälle
+- Branchen mit hoher körperlicher Belastung
+
+Reduziere die Nettoeinsparung um einen Risikofaktor.
+
+---
+
+## 5. Vermögenssteuer als Unsicherheitsbereich
+
+Aktuell:
++9 Mrd. €
+
+Neu:
+
+Pessimistisch: 4 Mrd. €
+Realistisch: 8 Mrd. €
+Optimistisch: 15 Mrd. €
+
+Die Einnahmen sollen vom Szenario abhängen.
+
+---
+
+## 6. Negative Wachstumsraten zulassen
+
+Aktuell:
+Wirtschaftswachstum besitzt Untergrenze von 0 %
+
+Neu:
+Untergrenze entfernen.
+
+Rezessionen müssen möglich sein.
+
+---
+
+## 7. Verteidigungsausgaben neutraler modellieren
+
+Aktuell:
+Mehr Verteidigung reduziert Wachstum.
+
+Neu:
+
+Kurzfristiger Nachfrageeffekt:
++0,02 bis +0,05 Prozentpunkte Wachstum
+
+Langfristiger Produktivitätseffekt:
+0 bis -0,03 Prozentpunkte
+
+Effekt abhängig vom Szenario.
+
+Optimistisch:
+positiv
+
+Realistisch:
+neutral
+
+Pessimistisch:
+leicht negativ
+
+---
+
+## 8. Wechselwirkungen berücksichtigen
+
+Aktuell:
+Alle Effekte werden einfach addiert.
+
+Neu:
+
+Beispiele:
+
+- Fachkräftemigration reduziert Fachkräftemangel
+- Weniger Fachkräftemangel erhöht Wachstum
+- Höheres Wachstum erhöht Steuereinnahmen
+- Höhere Arbeitslosigkeit senkt Steuereinnahmen
+
+Ein einfaches Kettenmodell implementieren.
+
+Keine vollständige volkswirtschaftliche Simulation erforderlich.
+
+---
+
+## 9. Unsicherheiten sichtbar machen
+
+Für jede Kennzahl zusätzlich anzeigen:
+
+- Optimistisch
+- Realistisch
+- Pessimistisch
+
+Statt nur eines einzelnen Werts.
+
+Beispiel:
+
+Haushaltsdefizit:
+Optimistisch: -15 Mrd. €
+Realistisch: -28 Mrd. €
+Pessimistisch: -45 Mrd. €
+
+---
+
+## 10. Quellen- und Transparenzbereich
+
+Neue Seite:
+"Annahmen & Quellen"
+
+Für jede Formel anzeigen:
+
+- Formel
+- Quelle
+- Unsicherheitsgrad
+
+Kennzeichnung:
+
+🟢 Hohe Evidenz
+🟡 Mittlere Evidenz
+🔴 Niedrige Evidenz
+
+---
+
+## 11. Vertrauensindex einführen
+
+Für jede Simulation berechnen:
+
+100 Punkte = sehr belastbar
+0 Punkte = extrem spekulativ
+
+Je mehr Parameter mit niedriger Evidenz verändert werden,
+desto geringer der Vertrauensindex.
+
+Anzeige als Fortschrittsbalken.
+
+---
+
+## 12. Ergebnisdarstellung verbessern
+
+Ergebnisse in drei Kategorien darstellen:
+
+1. Direkte Fiskalwirkung
+   - Einnahmen
+   - Ausgaben
+   - Defizit
+
+2. Volkswirtschaftliche Wirkung
+   - BIP
+   - Wachstum
+   - Beschäftigung
+
+3. Gesellschaftliche Wirkung
+   - Fachkräftemangel
+   - Rentensystem
+   - Gesundheitskosten
+
+---
+
+Wichtig:
+Der Simulator soll politisch neutral bleiben.
+
+Er darf weder linke noch konservative Maßnahmen systematisch bevorzugen.
+
+Alle Wirkungen sollen transparent über dokumentierte Annahmen, Unsicherheiten und Quellen erklärt werden.
