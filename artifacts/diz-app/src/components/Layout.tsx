@@ -64,10 +64,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="border-t border-[#1e3048] px-6 py-4 text-center">
-        <Link href="/impressum" className="text-xs text-[#8faabb] hover:text-[#00c8b4] transition-colors">
-          Impressum
-        </Link>
+      <footer className="border-t border-[#1e3048] px-6 py-4 space-y-2">
+        <p className="text-xs text-[#8faabb] text-center leading-relaxed max-w-3xl mx-auto">
+          <span className="text-[#f5a623] font-semibold">Hinweis: </span>
+          Dieses Projekt dient der Veranschaulichung möglicher Auswirkungen politischer Entscheidungen.
+          Die Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und können fehlerhaft oder
+          unvollständig sein. Bitte prüfen Sie wichtige Informationen anhand der angegebenen Quellen.
+        </p>
+        <p className="text-center">
+          <Link href="/impressum" className="text-xs text-[#8faabb] hover:text-[#00c8b4] transition-colors">
+            Impressum
+          </Link>
+        </p>
       </footer>
     </div>
   );
