@@ -1,0 +1,148 @@
+Du bist ein Senior UX Designer, Data Visualization Expert und Full-Stack Entwickler.
+
+Verbessere die bestehende Deutschland-Simulationsplattform zu einer professionellen politischen Entscheidungs- und Bildungssimulation.
+
+Ziele:
+
+1. Vertrauen schaffen
+2. Transparenz erhöhen
+3. Auswirkungen politischer Entscheidungen verständlich machen
+4. Nutzer zum Experimentieren motivieren
+
+Design-Anforderungen:
+
+- Behalte das bestehende Dark Dashboard Design
+- Mobile First
+- Moderne Data-Visualization
+- Professioneller Look ähnlich Bloomberg, Statista oder Financial Times
+
+Neue Funktionen:
+
+### Transparenz-System
+
+Für jeden politischen Regler:
+
+- Informations-Icon anzeigen
+- Klick öffnet ein Side Panel
+
+Im Side Panel:
+
+- Beschreibung der Maßnahme
+- Aktueller Wert
+- Berechnungslogik
+- Verwendete Annahmen
+- Datenquellen
+- Evidenz-Level
+
+Evidenz-Level:
+
+- Grün = hohe wissenschaftliche Evidenz
+- Gelb = mittlere Evidenz
+- Rot = hohe Unsicherheit
+
+### Quellen-System
+
+Für jede Kennzahl:
+
+- Quellen anzeigen
+- Letztes Aktualisierungsdatum anzeigen
+- Originalquelle verlinken
+
+Beispiele:
+
+- Destatis
+- Bundeshaushalt
+- OECD
+- Bundesbank
+- IWF
+- Eurostat
+- Bundesagentur für Arbeit
+
+### Auswirkungen verständlicher darstellen
+
+Erstelle zusätzlich einen Bereich:
+
+"Was bedeutet das für Bürger?"
+
+Zeige Auswirkungen auf:
+
+- Durchschnittsnettoeinkommen
+- Steuerlast
+- Rentenniveau
+- Krankenversicherungsbeitrag
+- Arbeitsmarkt
+- Kaufkraft
+- Staatsverschuldung pro Einwohner
+
+Nutze große Icons und verständliche Sprache.
+
+### Reform-Zusammenfassung
+
+Generiere automatisch:
+
+"Dein Deutschland"
+
+Beispiel:
+
+- Staatsausgaben: -42 Mrd €
+- Steueraufkommen: +18 Mrd €
+- Wirtschaftswachstum: +1,3 %
+- Arbeitslosenquote: -0,5 %
+- Rentenniveau: -3 %
+
+Zusätzlich:
+
+Vorteile
+Nachteile
+Risiken
+
+### Vergleich mit Parteien
+
+Füge einen Bereich hinzu:
+
+"Welche Partei liegt deiner Simulation am nächsten?"
+
+Vergleiche die aktuellen Einstellungen mit:
+
+- CDU
+- SPD
+- FDP
+- Grüne
+- AfD
+- Linke
+
+Zeige pro Partei:
+
+- Übereinstimmung in %
+- Größte Unterschiede
+
+### Szenarien
+
+Ermögliche drei Modi:
+
+- Optimistisch
+- Realistisch
+- Pessimistisch
+
+Alle Prognosen werden entsprechend angepasst.
+
+### Simulation Engine
+
+Jede Kennzahl muss besitzen:
+
+{
+  source: "",
+  lastUpdated: "",
+  confidence: "",
+  assumptions: []
+}
+
+Die UI soll diese Informationen jederzeit sichtbar machen.
+
+### Ziel
+
+Der Nutzer soll das Gefühl haben:
+
+"Ich verstehe die Folgen politischer Entscheidungen und kann jede Zahl nachvollziehen."
+
+Erstelle Mockups, Komponentenstruktur, Datenmodell und UI-Konzept.

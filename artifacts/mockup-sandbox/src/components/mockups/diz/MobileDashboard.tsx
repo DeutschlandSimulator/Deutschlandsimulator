@@ -1,105 +1,156 @@
 import React from "react";
 import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
+import { TrendingUp, TrendingDown, ExternalLink, Share2, Download } from "lucide-react";
 
 const areaData = [
-  { year: '2020', einnahmen: 750, ausgaben: 850 },
-  { year: '2025', einnahmen: 930, ausgaben: 960 },
-  { year: '2030', einnahmen: 1040, ausgaben: 1060 },
+  { year: "2020", einnahmen: 750, ausgaben: 850 },
+  { year: "2021", einnahmen: 780, ausgaben: 860 },
+  { year: "2022", einnahmen: 820, ausgaben: 840 },
+  { year: "2023", einnahmen: 890, ausgaben: 910 },
+  { year: "2024", einnahmen: 916, ausgaben: 950 },
+  { year: "2025", einnahmen: 930, ausgaben: 960 },
+  { year: "2030", einnahmen: 1040, ausgaben: 1060 },
 ];
 
 const barData = [
-  { name: 'Soziales', einnahmen: 0, ausgaben: 175 },
-  { name: 'Verteidigung', einnahmen: 0, ausgaben: 52 },
-  { name: 'Zinsen', einnahmen: 0, ausgaben: 37 },
+  { name: "Soziales",    ausgaben: 175 },
+  { name: "Verteidigung", ausgaben: 52 },
+  { name: "Bildung",     ausgaben: 21 },
+  { name: "Zinsen",      ausgaben: 37 },
+  { name: "Sonstiges",   ausgaben: 154 },
+];
+
+type ConfLevel = "hoch" | "mittel";
+const confDot: Record<ConfLevel, string> = { hoch: "bg-[#4caf82]", mittel: "bg-[#f5a623]" };
+
+interface KPI { label: string; val: string; color: string; spark: string; sparkColor: string; src: string; conf: ConfLevel; pos?: boolean }
+
+const kpis: KPI[] = [
+  { label: "Haushaltsdefizit",    val: "−34,2 Mrd.",  color: "#e05c5c", spark: "0,4 8,6 16,2 24,8 32,4 40,10 50,16", sparkColor: "#e05c5c", src: "BMF",        conf: "hoch" },
+  { label: "Staatsverschuldung",  val: "2.445 Mrd.",  color: "#f0f4f8", spark: "0,14 10,12 20,11 30,9 40,7 50,5",    sparkColor: "#8faabb", src: "Bundesbank", conf: "hoch" },
+  { label: "Steueraufkommen",     val: "916 Mrd.",    color: "#4caf82", spark: "0,14 10,11 20,13 30,8 40,4 50,1",    sparkColor: "#4caf82", src: "Destatis",   conf: "hoch",  pos: true },
+  { label: "Arbeitslosenquote",   val: "5,7 %",       color: "#e05c5c", spark: "0,4 10,7 20,6 30,9 40,11 50,13",     sparkColor: "#e05c5c", src: "BA",         conf: "hoch" },
+  { label: "Fachkräftemangel",    val: "890k",        color: "#f5a623", spark: "0,4 10,6 20,8 30,10 40,12 50,14",    sparkColor: "#f5a623", src: "IW Köln",    conf: "mittel" },
+  { label: "Wirtschaftswachstum", val: "+0,8 %",      color: "#4caf82", spark: "0,14 10,11 20,9 30,6 40,3 50,1",     sparkColor: "#4caf82", src: "SVR",        conf: "mittel", pos: true },
 ];
 
 export function MobileDashboard() {
   return (
-    <div className="w-[390px] h-[844px] bg-[#0d1b2a] mx-auto overflow-y-auto flex flex-col text-[#f0f4f8] font-sans border border-[#1e3048]">
-      <header className="p-4 border-b border-[#1e3048] bg-[#1a2b3c] sticky top-0 z-10 flex justify-between items-center">
-        <h1 className="text-lg font-bold">Ergebnisse</h1>
-        <button className="bg-[#00c8b4] text-[#0d1b2a] text-xs font-bold px-3 py-1 rounded">Export</button>
+    <div className="w-[390px] min-h-[844px] bg-[#0d1b2a] mx-auto text-[#f0f4f8] font-sans border-x border-[#1e3048]">
+      {/* Header */}
+      <header className="px-4 py-3 border-b border-[#1e3048] bg-[#1a2b3c] sticky top-0 z-10 flex items-center justify-between">
+        <div>
+          <h1 className="text-base font-bold">Ergebnis-Dashboard</h1>
+          <div className="text-[10px] text-[#8faabb]">Startseite › Ergebnisse</div>
+        </div>
+        <div className="flex gap-2">
+          <button className="w-8 h-8 flex items-center justify-center bg-[#0d1b2a] border border-[#1e3048] rounded-lg text-[#8faabb]">
+            <Share2 size={14} />
+          </button>
+          <button className="flex items-center gap-1.5 bg-[#00c8b4] text-[#0d1b2a] text-xs font-bold px-3 py-1.5 rounded-lg">
+            <Download size={12} /> PDF
+          </button>
+        </div>
       </header>
 
-      <div className="p-4 space-y-4">
-        <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] relative">
-          <div className="text-[#8faabb] text-sm mb-1">Haushaltsdefizit</div>
-          <div className="text-2xl font-bold text-[#e05c5c]">-34.2 Mrd</div>
+      <div className="px-4 pb-8 space-y-4 pt-4">
+        {/* Evidence legend */}
+        <div className="flex items-center gap-3 text-[10px] text-[#8faabb]">
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82]" /> Hohe Evidenz</span>
+          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f5a623]" /> Mittel</span>
+          <span className="ml-auto">Stand: Mär 2024</span>
         </div>
-        <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] relative">
-          <div className="text-[#8faabb] text-sm mb-1">Staatsverschuldung</div>
-          <div className="text-2xl font-bold">2.445 Mrd</div>
-        </div>
-        <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] relative">
-          <div className="text-[#8faabb] text-sm mb-1">Steueraufkommen</div>
-          <div className="text-2xl font-bold text-[#4caf82]">916 Mrd</div>
-        </div>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-[#1a2b3c] p-3 rounded border border-[#1e3048]">
-            <div className="text-[#8faabb] text-xs mb-1">Arbeitslosenquote</div>
-            <div className="text-lg font-bold text-[#e05c5c]">5.7%</div>
+
+        {/* KPI cards */}
+        {kpis.map((kpi) => (
+          <div key={kpi.label} className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl p-4 flex items-center justify-between">
+            <div className="flex-1">
+              <div className="text-[#8faabb] text-xs mb-1">{kpi.label}</div>
+              <div className="text-2xl font-bold" style={{ color: kpi.color }}>{kpi.val}</div>
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <span className={`w-1.5 h-1.5 rounded-full ${confDot[kpi.conf]}`} />
+                <span className="text-[10px] text-[#8faabb]">{kpi.src}</span>
+                <ExternalLink size={9} className="text-[#8faabb]" />
+              </div>
+            </div>
+            <div className="flex flex-col items-end gap-2">
+              <svg className="w-16 h-8" viewBox="0 0 50 20">
+                <polyline points={kpi.spark} fill="none" stroke={kpi.sparkColor} strokeWidth="2" />
+              </svg>
+              {kpi.pos !== undefined && (
+                kpi.pos
+                  ? <TrendingUp size={16} style={{ color: kpi.color }} />
+                  : <TrendingDown size={16} style={{ color: kpi.color }} />
+              )}
+            </div>
           </div>
-          <div className="bg-[#1a2b3c] p-3 rounded border border-[#1e3048]">
-            <div className="text-[#8faabb] text-xs mb-1">Wirtschaftswachstum</div>
-            <div className="text-lg font-bold text-[#4caf82]">+0.8%</div>
+        ))}
+
+        {/* Area chart */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold">Einnahmen vs. Ausgaben</h3>
+            <span className="text-[10px] text-[#8faabb]">2020–2030</span>
+          </div>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={areaData}>
+                <defs>
+                  <linearGradient id="einM" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#00c8b4" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#00c8b4" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="ausM" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#e05c5c" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#e05c5c" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
+                <XAxis dataKey="year" stroke="#8faabb" fontSize={10} />
+                <YAxis stroke="#8faabb" fontSize={10} />
+                <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${v} Mrd. €`]} />
+                <Area type="monotone" dataKey="ausgaben" stroke="#e05c5c" fill="url(#ausM)" strokeWidth={1.5} name="Ausgaben" />
+                <Area type="monotone" dataKey="einnahmen" stroke="#00c8b4" fill="url(#einM)" strokeWidth={1.5} name="Einnahmen" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="text-[10px] text-[#8faabb] mt-2 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4caf82]" /> Quelle: Destatis / BMF · Feb 2024
           </div>
         </div>
 
-        <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] h-[300px]">
-          <h3 className="text-sm font-bold mb-4">Einnahmen vs Ausgaben</h3>
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={areaData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
-              <XAxis dataKey="year" stroke="#8faabb" fontSize={10} />
-              <YAxis stroke="#8faabb" fontSize={10} />
-              <RechartsTooltip contentStyle={{backgroundColor: '#0d1b2a', borderColor: '#1e3048'}} />
-              <Area type="monotone" dataKey="ausgaben" stroke="#e05c5c" fill="#e05c5c" fillOpacity={0.3} />
-              <Area type="monotone" dataKey="einnahmen" stroke="#00c8b4" fill="#00c8b4" fillOpacity={0.3} />
-            </AreaChart>
-          </ResponsiveContainer>
+        {/* Bar chart */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-bold">Haushaltsaufteilung</h3>
+            <span className="text-[10px] text-[#8faabb]">2024 Mrd. €</span>
+          </div>
+          <div className="h-[200px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={barData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
+                <XAxis dataKey="name" stroke="#8faabb" fontSize={9} />
+                <YAxis stroke="#8faabb" fontSize={10} />
+                <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${v} Mrd. €`]} />
+                <Bar dataKey="ausgaben" fill="#00c8b4" radius={[3, 3, 0, 0]} name="Ausgaben" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="text-[10px] text-[#8faabb] mt-2 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4caf82]" /> Quelle: Bundeshaushalt.de · Feb 2024
+          </div>
         </div>
 
-        <div className="bg-[#1a2b3c] p-4 rounded border border-[#1e3048] h-[300px] mb-20">
-          <h3 className="text-sm font-bold mb-4">Bundeshaushalt</h3>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={barData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
-              <XAxis dataKey="name" stroke="#8faabb" fontSize={10} />
-              <YAxis stroke="#8faabb" fontSize={10} />
-              <RechartsTooltip contentStyle={{backgroundColor: '#0d1b2a', borderColor: '#1e3048'}} />
-              <Bar dataKey="ausgaben" fill="#e05c5c" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-      
-      <div className="h-[80px] bg-[#0d1b2a] border-t border-[#1e3048] flex fixed bottom-0 w-full max-w-[390px]">
-        <div className="flex-1 flex flex-col items-center justify-center text-[#8faabb]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-1">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="3" y1="9" x2="21" y2="9"></line>
-            <line x1="9" y1="21" x2="9" y2="9"></line>
-          </svg>
-          <span className="text-xs">Parameter</span>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center text-[#00c8b4]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-1">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
-            <polyline points="10 9 9 9 8 9"></polyline>
-          </svg>
-          <span className="text-xs font-bold">Ergebnisse</span>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center text-[#8faabb]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mb-1">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
-          <span className="text-xs">Charts</span>
+        {/* Source footer */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl p-4">
+          <h3 className="text-xs font-bold text-[#8faabb] uppercase tracking-widest mb-2">Datenquellen</h3>
+          <div className="flex flex-wrap gap-2">
+            {["Destatis", "Bundesbank", "BMF", "BA", "DRV", "IW Köln", "OECD", "SVR"].map((s) => (
+              <span key={s} className="bg-[#0d1b2a] border border-[#1e3048] text-[#8faabb] text-[10px] px-2 py-1 rounded flex items-center gap-1">
+                {s} <ExternalLink size={8} />
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
