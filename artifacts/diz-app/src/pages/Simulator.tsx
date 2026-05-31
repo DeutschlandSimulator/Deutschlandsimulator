@@ -245,8 +245,13 @@ export default function SimulatorPage() {
   const fachlueckeNum  = Number(fachluecke);
   const wachstumNum2   = Number(wachstum);
 
+  const defizitLabel = defizitNum >= 0 ? "Haushaltsüberschuss" : "Haushaltsdefizit";
+  const defizitVal   = defizitNum >= 0
+    ? `+${defizit} Mrd.`
+    : `${Math.abs(defizitNum).toFixed(1)} Mrd.`;
+
   const kpiCards = [
-    { label: "Haushaltsdefizit",    val: `${defizit} Mrd.`,     col: defizitNum >= 0    ? "#4caf82" : "#e05c5c",                 src: "BMF",            upd: "Mär 2024" },
+    { label: defizitLabel,          val: defizitVal,            col: defizitNum >= 0    ? "#4caf82" : "#e05c5c",                 src: "BMF",            upd: "Mär 2024" },
     { label: "Staatsverschuldung",  val: "2.445 Mrd.",           col: "#f0f4f8",                                                  src: "Bundesbank",     upd: "Feb 2024" },
     { label: "Steueraufkommen",     val: `${steuer} Mrd.`,       col: steuerNum >= 916   ? "#4caf82" : "#e05c5c",                 src: "Destatis",       upd: "Jan 2024" },
     { label: "Gesundheitskosten",   val: "468 Mrd.",              col: "#f0f4f8",                                                  src: "BMG",            upd: "Feb 2024" },
