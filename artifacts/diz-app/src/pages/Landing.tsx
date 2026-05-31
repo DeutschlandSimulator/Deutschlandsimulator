@@ -7,7 +7,7 @@ export default function Landing() {
     <Layout>
       <div className="flex-1 max-w-6xl mx-auto px-6 py-16 w-full flex flex-col justify-center">
         <div className="text-center mb-16 max-w-3xl mx-auto mt-12">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">Deutschland in Zahlen</h1>
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">Deutschlandsimulator</h1>
           <p className="text-xl text-[#8faabb] mb-10 leading-relaxed">
             Simuliere politische Entscheidungen in Echtzeit und erkenne die wirtschaftlichen Konsequenzen. 
             Ein Cockpit für Deutschland — transparent, datenbasiert und unabhängig.

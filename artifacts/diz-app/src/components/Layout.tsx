@@ -8,7 +8,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="bg-[#0d1b2a] min-h-screen text-[#f0f4f8] font-sans flex flex-col">
       <nav className="flex items-center justify-between px-6 py-3 border-b border-[#1e3048] sticky top-0 bg-[#0d1b2a]/95 backdrop-blur z-40">
         <Link href="/" className="text-lg font-bold text-[#00c8b4]">
-          Deutschland in Zahlen
+          Deutschlandsimulator
         </Link>
         <div className="flex gap-6 text-[#8faabb] text-sm font-medium">
           <Link href="/simulator" className={`hover:text-[#f0f4f8] transition-colors ${location === '/simulator' ? 'text-[#f0f4f8]' : ''}`}>
