@@ -1,0 +1,233 @@
+Prompt für Replit
+
+⸻
+
+Verbessere die Seite „Annahmen“ des Deutschland-Simulators mit dem Ziel, maximale Transparenz, Nachvollziehbarkeit und Glaubwürdigkeit zu erreichen.
+
+Ziel
+
+Der Nutzer soll jederzeit erkennen können:
+
+* Welche Daten verwendet werden
+* Woher die Daten stammen
+* Wie sicher die Annahmen sind
+* Wie stark die Ergebnisse von einzelnen Annahmen abhängen
+* Welche Annahmen bereits verifiziert wurden
+
+Die Anwendung soll sich eher wie ein wissenschaftliches Analysewerkzeug und weniger wie ein einfacher Rechner anfühlen.
+
+⸻
+
+1. Quellenangaben für jede Annahme
+
+Erweitere jede Annahme um folgende Felder:
+
+* Quelle
+* Veröffentlichungsjahr
+* URL
+* Letzte Überprüfung
+* Datenherkunft
+
+Beispiel:
+
+* Durchschnittliche Kosten pro Beamter
+* Wert: 68.000 €
+* Quelle: Bundesfinanzministerium
+* Jahr: 2024
+* Datenherkunft: Offizielle Statistik
+* Letzte Überprüfung: 31.05.2026
+
+Zeige die Quelle direkt unter der Annahme an.
+
+Die Quelle muss anklickbar sein.
+
+⸻
+
+2. Vertrauensniveau anzeigen
+
+Jede Annahme erhält ein Vertrauensniveau:
+
+Hoch
+
+Für:
+
+* Statistisches Bundesamt
+* Bundeshaushalt
+* OECD
+* Eurostat
+* Bundesbank
+* Ministerien
+
+Mittel
+
+Für:
+
+* Studien
+* wissenschaftliche Schätzungen
+* Experteneinschätzungen
+
+Niedrig
+
+Für:
+
+* Modellannahmen
+* politische Prognosen
+* Verhaltensannahmen
+* Schätzungen ohne belastbare Datenbasis
+
+Visualisierung:
+
+🟢 Hoch
+
+🟡 Mittel
+
+🔴 Niedrig
+
+⸻
+
+3. Verifizierungsstatus
+
+Füge einen Status hinzu:
+
+* Verifiziert
+* Teilweise verifiziert
+* Nicht verifiziert
+
+Visualisierung:
+
+✅ Verifiziert
+
+⚠️ Teilweise verifiziert
+
+❌ Nicht verifiziert
+
+Oben auf der Seite eine Zusammenfassung:
+
+* Verifizierte Annahmen: X %
+* Teilweise verifiziert: Y %
+* Nicht verifiziert: Z %
+
+⸻
+
+4. Erklärung jeder Annahme
+
+Jede Annahme erhält einen Button:
+
+“Warum verwenden wir diesen Wert?”
+
+Beim Öffnen werden angezeigt:
+
+* Herleitung
+* Berechnung
+* Quellen
+* wissenschaftliche Grundlage
+* bekannte Unsicherheiten
+
+Die Informationen sollen in einem aufklappbaren Bereich erscheinen.
+
+⸻
+
+5. Sensitivitätsanalyse
+
+Für jede relevante Annahme soll automatisch dargestellt werden:
+
+Beispiel
+
+Annahme:
+Bürokratieabbau spart 10 %
+
+Simulation:
+
+Wert	Ergebnis
+5 %	8 Mrd €
+10 %	16 Mrd €
+15 %	24 Mrd €
+
+Darstellung als Diagramm und Tabelle.
+
+Dadurch erkennt der Nutzer sofort, wie stark die Ergebnisse von dieser Annahme abhängen.
+
+⸻
+
+6. Unsicherheitsindikator
+
+Berechne für jede Simulation einen Unsicherheitswert.
+
+Beispiel:
+
+* Sehr hohe Sicherheit
+* Hohe Sicherheit
+* Mittlere Sicherheit
+* Niedrige Sicherheit
+* Sehr niedrige Sicherheit
+
+Die Bewertung basiert auf:
+
+* Anteil verifizierter Annahmen
+* Anteil geschätzter Werte
+* Anteil spekulativer Werte
+
+Zeige den Wert prominent neben den Simulationsergebnissen.
+
+⸻
+
+7. Transparenz-Dashboard
+
+Füge oberhalb der Annahmen ein Dashboard hinzu:
+
+Datenqualität
+
+* Anzahl Annahmen
+* Verifizierte Annahmen
+* Durchschnittliches Vertrauensniveau
+* Anzahl Quellen
+* Letzte Datenaktualisierung
+
+Visualisierung als moderne Karten.
+
+⸻
+
+8. Filterfunktion
+
+Nutzer sollen filtern können nach:
+
+* Verifiziert
+* Nicht verifiziert
+* Hohes Vertrauen
+* Mittleres Vertrauen
+* Niedriges Vertrauen
+* Quelle
+* Themengebiet
+
+⸻
+
+9. Suchfunktion
+
+Volltextsuche über:
+
+* Annahmen
+* Quellen
+* Beschreibungen
+* Kategorien
+
+⸻
+
+10. Wissenschaftlicher Hinweis
+
+Ganz oben anzeigen:
+
+Der Deutschland-Simulator ist ein Analyse- und Bildungswerkzeug. Die Ergebnisse stellen keine Vorhersagen dar, sondern zeigen mögliche Auswirkungen auf Basis der zugrunde liegenden Annahmen. Alle Annahmen, Quellen und Unsicherheiten werden transparent dargestellt.
+
+⸻
+
+Technische Anforderungen
+
+* Responsive Design
+* Dark Mode Unterstützung
+* Moderne Kartenansicht
+* Diagramme mit interaktiven Tooltips
+* Saubere TypeScript-Typen
+* Komponentenstruktur für spätere Erweiterungen
+* Vorbereitung für zukünftige automatische Quellenaktualisierung
+
+Wichtig: Die Benutzeroberfläche soll Vertrauen schaffen, wissenschaftlich wirken und dem Nutzer ermöglichen, jede Zahl und jede Annahme vollständig nachzuvollziehen.
