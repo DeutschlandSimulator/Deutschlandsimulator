@@ -9,6 +9,7 @@ import DashboardPage from "@/pages/Dashboard";
 import VergleichPage from "@/pages/Vergleich";
 import ImpressumPage from "@/pages/Impressum";
 import AnnahmenPage from "@/pages/Annahmen";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const queryClient = new QueryClient();
 
@@ -28,14 +29,16 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 

@@ -188,6 +188,94 @@
   }
 }
 
+/* ─── Light mode CSS variable overrides ──────────────────────────────────────── */
+html.light {
+  --background:      210 40% 97%;
+  --foreground:      210 57% 11%;
+  --border:          210 25% 82%;
+  --card:            0 0% 100%;
+  --card-foreground: 210 57% 11%;
+  --card-border:     210 25% 82%;
+  --popover:         0 0% 100%;
+  --popover-foreground: 210 57% 11%;
+  --secondary:       210 30% 93%;
+  --secondary-foreground: 210 57% 11%;
+  --muted:           210 30% 93%;
+  --muted-foreground: 210 20% 42%;
+  --input:           210 25% 82%;
+  --sidebar:         0 0% 100%;
+  --sidebar-foreground: 210 57% 11%;
+  --sidebar-border:  210 25% 82%;
+  --shadow-2xs: 0px 1px 3px 0px rgba(0,0,0,.10);
+  --shadow-xs:  0px 1px 3px 0px rgba(0,0,0,.10);
+  --shadow-sm:  0px 1px 3px 0px rgba(0,0,0,.10), 0px 1px 2px -1px rgba(0,0,0,.10);
+  --shadow:     0px 1px 3px 0px rgba(0,0,0,.10), 0px 1px 2px -1px rgba(0,0,0,.10);
+  --shadow-md:  0px 2px 4px 0px rgba(0,0,0,.12), 0px 2px 4px -1px rgba(0,0,0,.12);
+  --shadow-lg:  0px 4px 12px 0px rgba(0,0,0,.15), 0px 4px 6px -1px rgba(0,0,0,.15);
+}
+
+/* ─── DIZ semantic utility classes (used in Layout + components) ─────────────── */
+/* Dark (default) */
+.diz-bg-base    { background-color: #0d1b2a; }
+.diz-bg-card    { background-color: #1a2b3c; }
+.diz-bg-nav     { background-color: rgba(13,27,42,0.95); }
+.diz-text-primary   { color: #f0f4f8; }
+.diz-text-secondary { color: #8faabb; }
+.diz-border-b   { border-bottom: 1px solid #1e3048; }
+.diz-border-t   { border-top:    1px solid #1e3048; }
+.diz-border     { border:        1px solid #1e3048; }
+.diz-bg-primary-text { background-color: #f0f4f8; }
+
+/* Light overrides */
+html.light .diz-bg-base    { background-color: #f0f5fa; }
+html.light .diz-bg-card    { background-color: #ffffff; }
+html.light .diz-bg-nav     { background-color: rgba(240,245,250,0.95); }
+html.light .diz-text-primary   { color: #0d1b2a; }
+html.light .diz-text-secondary { color: #4a6680; }
+html.light .diz-border-b   { border-bottom: 1px solid #d0dce8; }
+html.light .diz-border-t   { border-top:    1px solid #d0dce8; }
+html.light .diz-border     { border:        1px solid #d0dce8; }
+html.light .diz-bg-primary-text { background-color: #0d1b2a; }
+
+/* ─── Hardcoded-hex overrides for light mode ─────────────────────────────────── */
+
+/* Backgrounds */
+html.light .bg-\[\#0d1b2a\]      { background-color: #f0f5fa; }
+html.light .bg-\[\#1a2b3c\]      { background-color: #ffffff; }
+html.light .bg-\[\#243447\]      { background-color: #eaf0f7; }
+html.light .bg-\[\#1e3048\]      { background-color: #d0dce8; }
+
+/* Semi-transparent backgrounds */
+html.light .bg-\[\#0d1b2a\]\/50  { background-color: rgba(240,245,250,0.5); }
+html.light .bg-\[\#0d1b2a\]\/95  { background-color: rgba(240,245,250,0.95); }
+html.light .bg-\[\#243447\]\/30  { background-color: rgba(234,240,247,0.3); }
+html.light .bg-\[\#1a3d2b\]      { background-color: #dcf5e9; }
+html.light .bg-\[\#3d2d0a\]      { background-color: #fff3d6; }
+html.light .bg-\[\#3d1515\]      { background-color: #fde8e8; }
+html.light .bg-\[\#2a3a1c\]      { background-color: #e8f5dc; }
+html.light .bg-\[\#f0f4f8\]      { background-color: #1e3a5c; }
+
+/* Text */
+html.light .text-\[\#f0f4f8\]    { color: #0d1b2a; }
+html.light .text-\[\#8faabb\]    { color: #4a6680; }
+html.light .text-\[\#1e3048\]    { color: #9ab0c4; }
+html.light .text-\[\#0d1b2a\]    { color: #f0f5fa; }
+
+/* Borders */
+html.light .border-\[\#1e3048\]      { border-color: #d0dce8; }
+html.light .border-\[\#1e3048\]\/50  { border-color: rgba(208,220,232,0.5); }
+html.light .border-\[\#1e3048\]\/30  { border-color: rgba(208,220,232,0.3); }
+html.light .border-\[\#1e3048\]\/20  { border-color: rgba(208,220,232,0.2); }
+
+/* Fix: selects/inputs in light mode */
+html.light select,
+html.light input[type="text"],
+html.light input[type="search"],
+html.light input[type="number"],
+html.light input[type="range"] {
+  color-scheme: light;
+}
+
 @media print {
   nav, .no-print { display: none !important; }
   body { background: #0d1b2a !important; color: #f0f4f8 !important; }
