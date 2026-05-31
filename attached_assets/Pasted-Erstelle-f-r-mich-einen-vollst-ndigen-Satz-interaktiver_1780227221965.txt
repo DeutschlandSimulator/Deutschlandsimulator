@@ -1,0 +1,170 @@
+Erstelle für mich einen vollständigen Satz interaktiver UI-Mockups für eine moderne Webanwendung namens „Deutschland in Zahlen“.
+
+Ziel der Anwendung:
+Die Webseite soll Nutzern ermöglichen, politische Entscheidungen und Reformvorschläge für Deutschland zu simulieren und deren Auswirkungen auf Staatshaushalt, Gesellschaft, Wirtschaft und Demografie zu visualisieren.
+
+WICHTIG:
+
+* Erstelle ausschließlich klickbare Frontend-Mockups.
+* Noch keine Backend-Logik implementieren.
+* Verwende realistische Beispielwerte.
+* Design modern, seriös und datengetrieben.
+* Stil ähnlich Financial Times, Statista, Our World in Data oder Bloomberg.
+* Responsive für Desktop und Tablet.
+* Dark Mode und Light Mode unterstützen.
+
+Farbkonzept:
+
+* Dunkelblau
+* Weiß
+* Dezente Akzentfarbe in Türkis oder Grün
+* Hochwertige Datenvisualisierung
+
+Erstelle folgende Seiten:
+
+1. Landing Page
+
+Hero-Bereich mit Titel:
+
+„Deutschland in Zahlen“
+
+Untertitel:
+
+„Simuliere politische Entscheidungen und entdecke ihre Auswirkungen auf Staat, Gesellschaft und Wirtschaft.“
+
+Elemente:
+
+* Große Deutschlandkarte
+* Aktuelle Kennzahlen-Kacheln
+* Staatsverschuldung
+* Bundeshaushalt
+* Bevölkerung
+* Erwerbstätige
+* Rentner
+* Durchschnittslohn
+* Button „Simulation starten“
+
+2. Politiksimulator
+
+Linke Seite:
+
+Regler und Schalter für politische Entscheidungen.
+
+Bereiche:
+
+Staat
+
+* Anzahl Beamte
+* Anzahl Ministerien
+* Verteidigungsausgaben
+* Entwicklungshilfe
+
+Migration
+
+* Flüchtlingsaufnahme
+* Fachkräftezuwanderung
+* EU-Zuwanderung
+
+Gesundheit
+
+* Gesetzliche Einheitsversicherung
+* Privatversicherung abschaffen
+* Beitragssatz
+
+Soziales
+
+* Bürgergeld
+* Renteneintrittsalter
+* Rentenniveau
+
+Steuern
+
+* Einkommensteuer
+* Unternehmenssteuer
+* Vermögenssteuer
+* Erbschaftssteuer
+
+Jeder Regler soll sofort Auswirkungen simulieren.
+
+3. Ergebnis-Dashboard
+
+Rechte Seite:
+
+Große KPI-Karten:
+
+* Haushaltsdefizit
+* Staatsverschuldung
+* Steueraufkommen
+* Gesundheitskosten
+* Rentenkosten
+* Arbeitslosenquote
+* Fachkräftemangel
+* Wirtschaftswachstum
+
+Zusätzlich:
+
+Diagramme:
+
+* Bundeshaushalt vorher/nachher
+* Bevölkerungsentwicklung
+* Altersstruktur
+* Einnahmen vs Ausgaben
+
+4. Vergleichsansicht
+
+Zwei Szenarien nebeneinander.
+
+Beispiel:
+
+„Status Quo“
+gegen
+„Reformmodell“
+
+Vergleich:
+
+* Staatsverschuldung
+* Steuereinnahmen
+* Arbeitsmarkt
+* Rentensystem
+* Gesundheitskosten
+
+Mit farblicher Hervorhebung der Unterschiede.
+
+5. KI-Analyse
+
+Zusätzliche Seite:
+
+ChatGPT-artiger Bereich.
+
+Nutzerfrage:
+
+„Was passiert, wenn die Beamtenzahl um 20 % sinkt?“
+
+Antwort:
+
+* Chancen
+* Risiken
+* Gewinner
+* Verlierer
+* Langfristige Auswirkungen
+
+Mit modernem Chat-Interface.
+
+6. Mobile Ansicht
+
+Erstelle zusätzliche Mobile-Mockups für:
+
+* Landingpage
+* Simulator
+* Dashboard
+
+Technische Anforderungen:
+
+* React
+* TypeScript
+* Tailwind CSS
+* Shadcn UI
+* Recharts für Diagramme
+* Professionelle Karten, Tabellen und Dashboards
+
+Erzeuge die Mockups direkt als funktionierende React-Komponenten innerhalb eines Replit-Projekts.
