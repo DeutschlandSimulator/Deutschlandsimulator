@@ -1,0 +1,90 @@
+Überarbeite die Startseite des Deutschlandsimulators grundlegend.
+
+WICHTIG:
+Entferne sämtliche Kennzahlen aus der Startseite.
+
+Nicht anzeigen:
+- Staatsverschuldung
+- Bundeshaushalt
+- Defizit
+- Bevölkerung
+- Erwerbstätige
+- oder andere aktuelle Statistik-Kacheln
+
+Die Startseite soll ausschließlich dazu dienen, den Zweck des Projekts zu erklären und den Nutzer in die Simulation zu führen.
+
+Neue Struktur:
+
+1. Hero-Bereich
+
+Titel:
+"Deutschlandsimulator"
+
+Untertitel:
+"Simuliere politische Entscheidungen und entdecke ihre möglichen Auswirkungen auf Staatshaushalt, Wirtschaft, Sozialsysteme und Gesellschaft."
+
+Zusatztext:
+"Ein datenbasiertes und transparentes Werkzeug zur Veranschaulichung politischer Szenarien."
+
+Primärer Button:
+"Simulation starten"
+
+Sekundärer Button:
+"Methodik ansehen"
+
+2. Drei Funktionskarten
+
+💰 Staatshaushalt
+"Verändere Ausgaben, Steuern und Förderungen und analysiere die Auswirkungen auf die öffentlichen Finanzen."
+
+👥 Gesellschaft
+"Untersuche mögliche Effekte auf Bevölkerung, Arbeitsmarkt und soziale Sicherungssysteme."
+
+📈 Wirtschaft
+"Simuliere Auswirkungen auf Wachstum, Wettbewerbsfähigkeit und Staatsverschuldung."
+
+3. Bereich „Unabhängiges Privatprojekt“
+
+Text:
+"Der Deutschlandsimulator ist ein privates, unabhängiges Projekt und steht in keiner Verbindung zu Parteien, Behörden oder Interessengruppen."
+
+4. Bereich „Daten & Methodik“
+
+Text:
+"Die Simulation basiert auf öffentlich zugänglichen Datenquellen, wissenschaftlichen Veröffentlichungen und modellbasierten Annahmen. Ergebnisse dienen der Veranschaulichung möglicher Entwicklungen und stellen keine Prognosen dar."
+
+Button:
+"Quellen & Methodik"
+
+5. Transparenz-Hinweis
+
+Titel:
+"Transparenz"
+
+Text:
+"Politische und wirtschaftliche Zusammenhänge sind komplex. Die dargestellten Ergebnisse beruhen auf Annahmen und vereinfachten Modellen. Trotz sorgfältiger Recherche können Fehler, Ungenauigkeiten oder unvollständige Daten enthalten sein."
+
+6. Optisches Ziel
+
+Die Seite soll wirken wie:
+- modernes Datenprodukt
+- interaktive Simulation
+- sachlich und neutral
+- vertrauenswürdig
+- wissenschaftlich orientiert
+
+Nicht wie:
+- Nachrichtenportal
+- Statistikseite
+- Parteiseite
+- politische Kampagne
+
+7. Mobile Optimierung
+
+- CTA ohne Scrollen sichtbar
+- kompakter Hero-Bereich
+- Karten sauber untereinander
+- weniger vertikale Abstände
+- bessere Lesbarkeit auf Smartphones
+
+Behalte das bestehende Farbschema, Dark Mode und die aktuelle Designsprache bei.
