@@ -175,7 +175,9 @@ export default function SimulatorPage() {
     (buergergeld   - 502)  * 0.066  +   // Bürgergeld (5,5 Mio. × 12 × 1 €)
     (rentenniveau  - 48)   * 4.0    -   // Rentenniveau (+4 Mrd. pro %-Punkt)
     (rentenalter   - 67)   * 18.5   -   // Rentenalter (−18,5 Mrd. pro Jahr Anhebung)
-    (beitragssatz  - 14.6) * 4.0;      // Beitragssatz (höher = weniger Bundeszuschuss)
+    (beitragssatz  - 14.6) * 4.0    +   // Beitragssatz (höher = weniger Bundeszuschuss)
+    (einheitsversicherung  ? 18 : 0) +  // Einheitsversicherung: höhere Versorgungskosten
+    (privatAbschaffen      ? 11 : 0);   // Privatversicherung abschaffen: Umstellungskosten
 
   // --- Einnahmen-Delta vs. Baseline (alle Werte in Mrd. €) ---
   const einnahmenDelta =
@@ -183,7 +185,9 @@ export default function SimulatorPage() {
     (fachkraefte        - 200)   * 0.0145 +   // Fachkräfte (14.500 € Steuer/Person)
     (vermoegenssteuer ? 9 : 0)             +  // Vermögenssteuer (+9 Mrd.)
     (unternehmenssteuer - 29.9)  * 3.0    +   // Körperschaftsteuer (3 Mrd. pro %-Punkt)
-    (400 - erbschaftssteuer)     * 0.005;     // Erbschaftsfreibetrag (höher = weniger Einnahmen)
+    (400 - erbschaftssteuer)     * 0.005  +   // Erbschaftsfreibetrag (höher = weniger Einnahmen)
+    (einheitsversicherung  ? 22 : 0)      +   // Einheitsversicherung: Besserverdienende zahlen mehr
+    (privatAbschaffen      ?  7 : 0);         // Privatversicherung abschaffen: mehr GKV-Beiträge
 
   const netDelta     = (ausgabenDelta - einnahmenDelta) * sm;
   const defizit      = (-(34.2 + netDelta)).toFixed(1);
