@@ -6,7 +6,7 @@ import NotFound from "@/pages/not-found";
 import Landing from "@/pages/Landing";
 import SimulatorPage from "@/pages/Simulator";
 import DashboardPage from "@/pages/Dashboard";
-import VergleichPage from "@/pages/Vergleich";
+
 import ImpressumPage from "@/pages/Impressum";
 import AnnahmenPage from "@/pages/Annahmen";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -19,7 +19,7 @@ function Router() {
       <Route path="/" component={Landing} />
       <Route path="/simulator" component={SimulatorPage} />
       <Route path="/dashboard" component={DashboardPage} />
-      <Route path="/vergleich" component={VergleichPage} />
+
       <Route path="/impressum" component={ImpressumPage} />
       <Route path="/annahmen" component={AnnahmenPage} />
       <Route component={NotFound} />
