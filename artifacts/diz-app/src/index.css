@@ -187,3 +187,10 @@
     background-color: var(--elevate-1);
   }
 }
+
+@media print {
+  nav, .no-print { display: none !important; }
+  body { background: #0d1b2a !important; color: #f0f4f8 !important; }
+  .print-page { padding: 0 !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}

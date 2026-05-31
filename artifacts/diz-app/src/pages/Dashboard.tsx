@@ -1,9 +1,10 @@
+import { useState } from "react";
 import {
   AreaChart, Area, PieChart, Pie, BarChart, Bar,
   XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   ResponsiveContainer, Cell, Legend,
 } from "recharts";
-import { ExternalLink, Info, Download, Share2 } from "lucide-react";
+import { ExternalLink, Info, Download, Share2, Check } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { areaData, pieData, COLORS, ageData, kpis } from "@/components/simulator/data";
 import { EvidenzLevel } from "@/components/simulator/types";
@@ -44,37 +45,60 @@ const reformRows = [
 ];
 
 export default function DashboardPage() {
+  const [copied, setCopied] = useState(false);
+
+  function handleShare() {
+    const url = window.location.href;
+    const title = "Deutschlandsimulator — Ergebnis-Dashboard";
+    const text = "Schau dir das Ergebnis-Dashboard des Deutschlandsimulators an.";
+    if (navigator.share) {
+      navigator.share({ title, text, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
+  }
+
+  function handlePdf() {
+    window.print();
+  }
+
   return (
     <Layout>
-      <div className="p-6 max-w-[1400px] mx-auto w-full">
+      <div className="p-4 md:p-6 max-w-[1400px] mx-auto w-full print-page">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <div className="text-[#8faabb] text-sm mb-1">
-              <span>Startseite</span>
-              <span className="mx-1">›</span>
-              <span className="text-[#00c8b4]">Ergebnisse</span>
-            </div>
-            <h1 className="text-2xl font-bold" data-testid="text-dashboard-title">Ergebnis-Dashboard</h1>
+        <div className="mb-6">
+          <div className="text-[#8faabb] text-sm mb-1">
+            <span>Startseite</span>
+            <span className="mx-1">›</span>
+            <span className="text-[#00c8b4]">Ergebnisse</span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-xs text-[#8faabb]">
-              <span className="w-2 h-2 rounded-full bg-[#4caf82]" /> Hohe Evidenz
-              <span className="w-2 h-2 rounded-full bg-[#f5a623] ml-2" /> Mittel
-              <span className="w-2 h-2 rounded-full bg-[#e05c5c] ml-2" /> Unsicher
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h1 className="text-xl md:text-2xl font-bold" data-testid="text-dashboard-title">Ergebnis-Dashboard</h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-2 text-xs text-[#8faabb]">
+                <span className="w-2 h-2 rounded-full bg-[#4caf82]" /> Hohe Evidenz
+                <span className="w-2 h-2 rounded-full bg-[#f5a623] ml-1" /> Mittel
+                <span className="w-2 h-2 rounded-full bg-[#e05c5c] ml-1" /> Unsicher
+              </div>
+              <button
+                onClick={handleShare}
+                className="no-print flex items-center gap-1.5 bg-[#1a2b3c] hover:bg-[#243447] text-[#f0f4f8] py-1.5 px-3 rounded border border-[#1e3048] text-sm transition-colors"
+                data-testid="button-share"
+              >
+                {copied ? <Check size={13} className="text-[#4caf82]" /> : <Share2 size={13} />}
+                {copied ? "Kopiert!" : "Teilen"}
+              </button>
+              <button
+                onClick={handlePdf}
+                className="no-print flex items-center gap-1.5 bg-[#00c8b4] hover:bg-[#00a896] text-[#0d1b2a] font-bold py-1.5 px-3 rounded text-sm transition-colors"
+                data-testid="button-export"
+              >
+                <Download size={13} /> PDF Export
+              </button>
             </div>
-            <button
-              className="flex items-center gap-1.5 bg-[#1a2b3c] hover:bg-[#243447] text-[#f0f4f8] py-2 px-4 rounded border border-[#1e3048] text-sm transition-colors"
-              data-testid="button-share"
-            >
-              <Share2 size={13} /> Teilen
-            </button>
-            <button
-              className="flex items-center gap-1.5 bg-[#00c8b4] hover:bg-[#00a896] text-[#0d1b2a] font-bold py-2 px-4 rounded text-sm transition-colors"
-              data-testid="button-export"
-            >
-              <Download size={13} /> PDF Export
-            </button>
           </div>
         </div>
 
