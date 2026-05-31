@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
-import { Info } from "lucide-react";
+
 import { Layout } from "@/components/Layout";
 
 const stats = [
@@ -26,10 +26,7 @@ export default function Landing() {
           </p>
 
           <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4 mb-4 text-left">
-            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-[#8faabb] mb-1.5">
-              <Info size={11} className="shrink-0" />
-              Unabhängiges Privatprojekt
-            </p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">Unabhängiges Privatprojekt</p>
             <p className="text-xs text-[#8faabb] leading-relaxed">
               Der Deutschland-Simulator wird privat entwickelt und ist nicht mit Behörden, Parteien,
               Forschungseinrichtungen oder anderen offiziellen Stellen verbunden.
