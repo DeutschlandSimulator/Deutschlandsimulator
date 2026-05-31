@@ -173,6 +173,15 @@ export default function SimulatorPage() {
   const [infoKey,   setInfoKey]   = useState<string | null>(null);
   const [scenario,  setScenario]  = useState<ScenarioMode>("realistisch");
 
+  function resetAll() {
+    setBeamte(4900); setMinisterien(16); setVerteidigung(2.0); setEntwicklung(0.4);
+    setFluechtlinge(180); setFachkraefte(200); setEuZuwanderung(true);
+    setEinheitsversicherung(false); setPrivatAbschaffen(false); setBeitragssatz(14.6);
+    setBuergergeld(502); setRentenalter(67); setRentenniveau(48);
+    setEinkommensteuer(42); setUnternehmenssteuer(29.9); setVermoegenssteuer(false);
+    setErbschaftssteuer(400);
+  }
+
   // Computations
   const sm = scenarioMultipliers[scenario];
   const vals = { beamte, ministerien, verteidigung, fachkraefte, buergergeld, rentenalter, einkommensteuer, vermoegenssteuer };
@@ -315,8 +324,16 @@ export default function SimulatorPage() {
       <div className="flex flex-col md:flex-row flex-1 min-h-0">
         {/* LEFT PANEL — sliders */}
         <div className="w-full md:w-[360px] md:shrink-0 bg-[#1a2b3c] p-4 border-b md:border-b-0 md:border-r border-[#1e3048] overflow-y-auto md:h-[calc(100vh-113px)]">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-bold border-b-2 border-[#00c8b4] pb-1">Politische Parameter</h2>
+            <button
+              onClick={resetAll}
+              className="flex items-center gap-1 text-xs text-[#8faabb] hover:text-[#f5a623] transition-colors border border-[#1e3048] hover:border-[#f5a623] rounded px-2 py-1"
+              title="Alle Werte zurücksetzen"
+            >
+              <RotateCcw size={11} />
+              Zurücksetzen
+            </button>
           </div>
           <div className="text-xs text-[#8faabb] flex items-center gap-3 mb-4">
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82] inline-block" /> Hohe Evidenz</span>
