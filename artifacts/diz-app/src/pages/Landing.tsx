@@ -25,10 +25,14 @@ export default function Landing() {
             Ein Cockpit für Deutschland — transparent, datenbasiert und unabhängig.
           </p>
 
-          <div className="flex items-start md:items-center justify-center gap-2 bg-[#243447] border border-[#1e3048] rounded-full px-4 py-2 mb-8 max-w-2xl mx-auto">
-            <Info size={13} className="text-[#8faabb] shrink-0 mt-0.5 md:mt-0" />
-            <p className="text-[11px] text-[#8faabb] leading-relaxed text-left">
-              Unabhängiges Privatprojekt – Der Deutschland-Simulator wird privat entwickelt und ist nicht mit Behörden, Parteien, Forschungseinrichtungen oder anderen offiziellen Stellen verbunden.
+          <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4 mb-4 text-left">
+            <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-[#8faabb] mb-1.5">
+              <Info size={11} className="shrink-0" />
+              Unabhängiges Privatprojekt
+            </p>
+            <p className="text-xs text-[#8faabb] leading-relaxed">
+              Der Deutschland-Simulator wird privat entwickelt und ist nicht mit Behörden, Parteien,
+              Forschungseinrichtungen oder anderen offiziellen Stellen verbunden.
             </p>
           </div>
 
