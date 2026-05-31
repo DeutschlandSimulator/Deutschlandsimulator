@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Deutschland in Zahlen"
+version = "1.0.0"
+id = "artifacts/diz-app"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21861
+
+[services.development]
+run = "pnpm --filter @workspace/diz-app run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/diz-app", "run", "build" ]
+publicDir = "artifacts/diz-app/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21861"
+BASE_PATH = "/"
