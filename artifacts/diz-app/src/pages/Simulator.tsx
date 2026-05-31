@@ -17,7 +17,7 @@ import {
 import { Layout } from "@/components/Layout";
 import { InfoPanel } from "@/components/simulator/InfoPanel";
 import {
-  SLIDER_INFO, scenarioMultipliers, partyProfiles,
+  SLIDER_INFO, scenarioMultipliers,
 } from "@/components/simulator/data";
 import { EvidenzLevel, ScenarioMode } from "@/components/simulator/types";
 
@@ -97,21 +97,6 @@ function ToggleRow({ label, infoKey, value, onChange, danger, onInfo }: {
   );
 }
 
-// ─── Party match ─────────────────────────────────────────────────────────────
-function calcPartyMatch(vals: Record<string, number | boolean>, p: typeof partyProfiles[0]) {
-  const fields: [keyof typeof p, number, number][] = [
-    ["beamte", 4200, 6000], ["ministerien", 10, 25], ["verteidigung", 1.0, 3.0],
-    ["fachkraefte", 50, 500], ["buergergeld", 400, 700], ["rentenalter", 63, 70], ["einkommensteuer", 30, 55],
-  ];
-  let score = 0;
-  for (const [key, min, max] of fields) {
-    const range = max - min;
-    const diff = Math.abs(Number(vals[key as string]) - Number(p[key]));
-    score += Math.max(0, 1 - diff / range);
-  }
-  const boolMatch = vals.vermoegenssteuer === p.vermoegenssteuer ? 1 : 0;
-  return Math.round(((score + boolMatch) / (fields.length + 1)) * 100);
-}
 
 // ─── Core KPI computation (used for all 3 scenarios + current) ───────────────
 function computeKPIs(
@@ -286,11 +271,6 @@ export default function SimulatorPage() {
   const trust = calcTrust(dirtyList);
   const trustColor = trust >= 70 ? "#4caf82" : trust >= 40 ? "#f5a623" : "#e05c5c";
 
-  // Party match
-  const vals = { beamte, ministerien, verteidigung, fachkraefte, buergergeld, rentenalter, einkommensteuer, vermoegenssteuer };
-  const partyMatches = partyProfiles
-    .map((p2) => ({ ...p2, match: calcPartyMatch(vals, p2) }))
-    .sort((a, b) => b.match - a.match);
 
   // KPI helpers
   const defizitNum  = defizit;
@@ -695,26 +675,6 @@ export default function SimulatorPage() {
               </div>
             </div>
 
-            <div className="bg-[#1a2b3c] rounded border border-[#1e3048] p-5">
-              <h3 className="font-bold text-base mb-4 flex items-center gap-2">
-                <span className="text-[#00c8b4] text-lg leading-none">⊞</span>
-                Welche Partei liegt am nächsten?
-              </h3>
-              <div className="space-y-2.5">
-                {partyMatches.map((p2) => (
-                  <div key={p2.name} className="flex items-center gap-3" data-testid={`row-party-${p2.abk}`}>
-                    <span className="text-xs font-bold w-10 shrink-0" style={{ color: p2.farbe }}>{p2.abk}</span>
-                    <div className="flex-1 bg-[#0d1b2a] rounded-full h-2 border border-[#1e3048]">
-                      <div className="h-2 rounded-full transition-all duration-500" style={{ width: `${p2.match}%`, backgroundColor: p2.farbe }} />
-                    </div>
-                    <span className="text-xs font-bold text-[#f0f4f8] w-10 text-right shrink-0">{p2.match}%</span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-[10px] text-[#8faabb] mt-4 leading-relaxed">
-                Basierend auf Vergleich von 8 Hauptpolitikfeldern mit den aktuellen Parteiprogrammen (Stand: Bundestagswahl 2025).
-              </p>
-            </div>
           </div>
         </div>
       </div>

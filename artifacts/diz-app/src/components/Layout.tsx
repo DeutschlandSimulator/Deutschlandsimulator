@@ -10,8 +10,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { href: "/simulator", label: "Simulator" },
-    { href: "/dashboard", label: "Dashboard" },
-
     { href: "/annahmen", label: "Annahmen" },
   ];
 
