@@ -182,7 +182,7 @@ export default function SimulatorPage() {
     (verteidigung  - 2.0)  * 39.9  +   // NATO-Ausgaben (1% BIP = 39,9 Mrd)
     (entwicklung   - 0.4)  * 39.9  +   // Entwicklungshilfe (gleiche Skala)
     (beamte        - 4900) * 0.072  +   // Beamte (58.400 € × 23% Versorgung × 1.000)
-    (ministerien   - 16)   * 0.12   +   // Ministerien (120 Mio. € pro Ministerium)
+    (ministerien   - 16)   * 0.8    +   // Ministerien (800 Mio. € pro Ministerium inkl. Personal)
     (fluechtlinge  - 180)  * 0.018  +   // Flüchtlinge (18.000 €/Person × 1.000)
     (buergergeld   - 502)  * 0.066  +   // Bürgergeld (5,5 Mio. × 12 × 1 €)
     (rentenniveau  - 48)   * 4.0    -   // Rentenniveau (+4 Mrd. pro %-Punkt)
@@ -234,7 +234,7 @@ export default function SimulatorPage() {
     { name: "Verteidigung", einnahmen: 0,                                               ausgaben: Math.round(52  + (verteidigung - 2.0) * 39.9) },
     { name: "Bildung",      einnahmen: 0,                                               ausgaben: 21 },
     { name: "Zinsen",       einnahmen: 0,                                               ausgaben: Math.round(37  - netDelta * 0.05) },
-    { name: "Sonstiges",    einnahmen: Math.round(460 + einnahmenDelta * sm),           ausgaben: Math.round(191 + (beamte - 4900) * 0.072 + (ministerien - 16) * 0.12) },
+    { name: "Sonstiges",    einnahmen: Math.round(460 + einnahmenDelta * sm),           ausgaben: Math.round(191 + (beamte - 4900) * 0.072 + (ministerien - 16) * 0.8) },
   ];
   const dynLineData = [
     { year: "2024", statusQuo: 0.2, simulation: 0.2 },
