@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "wouter";
+import { Info } from "lucide-react";
 import { Layout } from "@/components/Layout";
 
 const stats = [
@@ -19,10 +20,18 @@ export default function Landing() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 md:mb-6 tracking-tight leading-tight">
             Deutschlandsimulator
           </h1>
-          <p className="text-base md:text-xl text-[#8faabb] mb-8 md:mb-10 leading-relaxed">
+          <p className="text-base md:text-xl text-[#8faabb] mb-5 leading-relaxed">
             Simuliere politische Entscheidungen in Echtzeit und erkenne die wirtschaftlichen Konsequenzen.
             Ein Cockpit für Deutschland — transparent, datenbasiert und unabhängig.
           </p>
+
+          <div className="flex items-start md:items-center justify-center gap-2 bg-[#243447] border border-[#1e3048] rounded-full px-4 py-2 mb-8 max-w-2xl mx-auto">
+            <Info size={13} className="text-[#8faabb] shrink-0 mt-0.5 md:mt-0" />
+            <p className="text-[11px] text-[#8faabb] leading-relaxed text-left">
+              Unabhängiges Privatprojekt – Der Deutschland-Simulator wird privat entwickelt und ist nicht mit Behörden, Parteien, Forschungseinrichtungen oder anderen offiziellen Stellen verbunden.
+            </p>
+          </div>
+
           <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4 mb-8 text-left">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">Datenbasis</p>
             <p className="text-xs text-[#8faabb] leading-relaxed mb-3">
