@@ -145,7 +145,7 @@ export default function DashboardPage() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
                 <XAxis dataKey="year" stroke="#8faabb" fontSize={12} />
                 <YAxis stroke="#8faabb" fontSize={12} tickFormatter={(v) => `${v}`} />
-                <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 12 }} formatter={(v: number) => [`${v} Mrd. €`]} />
+                <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 12 }} formatter={(v: number) => [`${v} Mrd. €`]} allowEscapeViewBox={{ x: false, y: false }} />
                 <Legend wrapperStyle={{ fontSize: "12px" }} />
                 <Area type="monotone" dataKey="ausgaben"  stroke="#e05c5c" fill="url(#ausGrad)" strokeWidth={2} name="Ausgaben"  />
                 <Area type="monotone" dataKey="einnahmen" stroke="#00c8b4" fill="url(#einGrad)" strokeWidth={2} name="Einnahmen" />
@@ -169,7 +169,7 @@ export default function DashboardPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${v} Mrd. €`]} />
+                  <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${v} Mrd. €`]} allowEscapeViewBox={{ x: false, y: false }} />
                   <Legend wrapperStyle={{ fontSize: "11px" }} />
                 </PieChart>
               </ResponsiveContainer>
@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e3048" />
                   <XAxis type="number" stroke="#8faabb" fontSize={11} tickFormatter={(v) => `${Math.abs(v)}%`} />
                   <YAxis dataKey="age" type="category" stroke="#8faabb" fontSize={11} />
-                  <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${Math.abs(v)}%`]} />
+                  <RechartsTooltip contentStyle={{ backgroundColor: "#0d1b2a", borderColor: "#1e3048", fontSize: 11 }} formatter={(v: number) => [`${Math.abs(v)}%`]} allowEscapeViewBox={{ x: false, y: false }} />
                   <Legend wrapperStyle={{ fontSize: "11px" }} />
                   <Bar dataKey="male"   fill="#4a90e2" name="Männlich" />
                   <Bar dataKey="female" fill="#00c8b4" name="Weiblich" />
