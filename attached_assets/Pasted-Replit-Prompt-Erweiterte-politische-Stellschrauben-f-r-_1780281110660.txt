@@ -1,0 +1,216 @@
+Replit Prompt: Erweiterte politische Stellschrauben für den Deutschland-Simulator
+
+Erweitere den Deutschland-Simulator um zusätzliche politische Parameter, die häufig in Wahlprogrammen vorkommen und einen wesentlichen Einfluss auf Staatshaushalt, Wirtschaft und Gesellschaft haben.
+
+Vermögenssteuer erweitern
+
+Ersetze den bisherigen Ein/Aus-Schalter durch folgende Konfigurationsmöglichkeiten:
+
+Vermögenssteuer aktivieren
+
+* Toggle: Ja / Nein
+
+Freibetrag Vermögen
+
+Slider:
+
+* 1 Mio. €
+* 2 Mio. €
+* 5 Mio. €
+* 10 Mio. €
+* 20 Mio. €
+
+Steuersatz
+
+Slider:
+
+* 0,5 %
+* 1,0 %
+* 1,5 %
+* 2,0 %
+* 3,0 %
+
+Betriebsvermögen
+
+Dropdown:
+
+* Voll steuerpflichtig
+* 50 % steuerpflichtig
+* Voll befreit
+
+Auswirkungen modellieren
+
+Berechne:
+
+* zusätzliches Steueraufkommen
+* Verwaltungsaufwand
+* mögliche Kapitalabflüsse
+* Auswirkungen auf Investitionen
+* Unsicherheitsbereich (optimistisch / realistisch / pessimistisch)
+
+Zeige für jede Annahme:
+
+* Evidenzstufe
+* Quelle
+* Begründung
+
+⸻
+
+Einkommensteuer erweitern
+
+Beginn Spitzensteuersatz
+
+Slider:
+
+* 80.000 €
+* 100.000 €
+* 150.000 €
+* 250.000 €
+
+Reichensteuer aktivieren
+
+Wenn aktiviert:
+
+Schwelle
+
+* 250.000 €
+* 500.000 €
+* 1 Mio. €
+
+Satz
+
+* 45 %
+* 50 %
+* 55 %
+* 60 %
+
+Auswirkungen auf:
+
+* Steueraufkommen
+* Arbeitsanreize
+* Abwanderungsrisiko
+
+⸻
+
+Schuldenbremse hinzufügen
+
+Neue Kategorie „Finanzen“.
+
+Optionen:
+
+* Aktuelle Schuldenbremse
+* Reformierte Schuldenbremse
+* Ausgesetzt
+* Abgeschafft
+
+Modelliere Auswirkungen auf:
+
+* Neuverschuldung
+* Staatsverschuldung
+* Investitionsspielraum
+* Zinskosten
+
+⸻
+
+Klima & Energie hinzufügen
+
+Neue Kategorie „Klima & Energie“.
+
+Parameter:
+
+CO₂-Preis
+
+0 € bis 250 € pro Tonne
+
+Windkraftausbau
+
+0 % bis 200 % des heutigen Ausbautempos
+
+Solarausbau
+
+0 % bis 200 %
+
+Atomkraft
+
+* Sofortiger Ausstieg
+* Status quo
+* Laufzeitverlängerung
+* Neubau zulassen
+
+Kohleausstieg
+
+* 2030
+* 2035
+* 2038
+* offen
+
+Berechne:
+
+* CO₂-Emissionen
+* Strompreise
+* Wirtschaftswachstum
+* Staatliche Einnahmen
+
+⸻
+
+Wohnen hinzufügen
+
+Neue Kategorie „Wohnen“.
+
+Sozialwohnungen pro Jahr
+
+0 bis 250.000
+
+Mietpreisbremse
+
+Toggle
+
+Wohngeld
+
+0 % bis +100 %
+
+Berechne:
+
+* Staatsausgaben
+* Mietniveau
+* Wohnraummangel
+
+⸻
+
+Bildung hinzufügen
+
+Neue Kategorie „Bildung“.
+
+Bildungsausgaben
+
+3 % bis 8 % des BIP
+
+Kita-Ausbau
+
+0 % bis 100 %
+
+BAföG
+
+0 % bis +100 %
+
+Langfristige Auswirkungen:
+
+* Fachkräftemangel
+* Produktivität
+* Wirtschaftswachstum
+
+Diese Effekte sollen zunächst als mittelfristige Modellannahmen mit entsprechender Kennzeichnung dargestellt werden.
+
+⸻
+
+Benutzeroberfläche
+
+* Alle neuen Parameter erhalten Evidenz-Indikatoren (grün, gelb, rot).
+* Jeder Parameter erhält einen Info-Button mit Quellen und Modellannahmen.
+* Die Auswirkungen werden sofort in den Kennzahlen aktualisiert.
+* Zeige zusätzlich eine neue Kennzahl:
+    * „Unsicherheitsgrad der Simulation“
+* Zeige transparent an, welche Ergebnisse stark modellabhängig sind.
+
+Wichtig:
+Keine Zahlen erfinden. Für jeden Parameter müssen belastbare Quellen, Studien oder offizielle Statistiken hinterlegt werden. Falls keine belastbaren Daten verfügbar sind, den Parameter als „hohe Unsicherheit“ kennzeichnen und dies für den Nutzer sichtbar machen.
