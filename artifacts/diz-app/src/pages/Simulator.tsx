@@ -154,7 +154,10 @@ function SelectRow({ label, infoKey, value, options, onChange, onInfo }: {
         </div>
         {info && <EvidenzDot level={info.evidenz} />}
       </div>
-      <select value={value} onChange={(e) => onChange(e.target.value as T)}
+      <select value={value} onChange={(e) => {
+        const opt = options.find((o) => String(o.value) === e.target.value);
+        onChange(opt ? opt.value : e.target.value);
+      }}
         className="w-full bg-[#0d1b2a] border border-[#1e3048] text-[#f0f4f8] text-xs rounded px-2 py-1.5 focus:outline-none focus:border-[#00c8b4]">
         {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
