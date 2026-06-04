@@ -2,7 +2,8 @@
 
 Ein interaktives, datenbasiertes Werkzeug zur Veranschaulichung möglicher Auswirkungen politischer Entscheidungen auf Staatshaushalt, Wirtschaft, Sozialsysteme und Gesellschaft.
 
-**Demo:** [deutschlandsimulator.replit.app](https://deutschlandsimulator.replit.app)
+**Demo:** [deutschlandsimulator.replit.app](https://deutschlandsimulator.replit.app)  
+**GitHub:** [github.com/DeutschlandSimulator](https://github.com/DeutschlandSimulator)
 
 ---
 

@@ -934,9 +934,17 @@ export default function AnnahmenPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-[10px] text-[#8faabb]/60">
-            Lizenz: Apache License 2.0 (Code) · CC BY 4.0 (Daten & Dokumentation)
-          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <a
+              href="https://github.com/DeutschlandSimulator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[10px] text-[#00c8b4] hover:text-[#00a896] transition-colors"
+            >
+              github.com/DeutschlandSimulator →
+            </a>
+            <span className="text-[10px] text-[#8faabb]/60">Apache License 2.0 (Code) · CC BY 4.0 (Daten)</span>
+          </div>
         </div>
 
         {/* KI-gestützte Entwicklung */}

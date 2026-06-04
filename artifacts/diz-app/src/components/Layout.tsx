@@ -63,20 +63,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </p>
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
           {[
-            { href: "/impressum",        label: "Impressum" },
-            { href: "/impressum",        label: "Datenschutz" },
-            { href: "/annahmen",         label: "Transparenz & Annahmen" },
-            { href: "/annahmen",         label: "Open Source" },
-            { href: "/haftungsausschluss", label: "Haftungsausschluss" },
-          ].map((l) => (
-            <Link
-              key={l.label}
-              href={l.href}
-              className="text-xs diz-text-secondary hover:text-[#00c8b4] transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
+            { href: "/impressum",           label: "Impressum",              external: false },
+            { href: "/impressum",           label: "Datenschutz",            external: false },
+            { href: "/annahmen",            label: "Transparenz & Annahmen", external: false },
+            { href: "https://github.com/DeutschlandSimulator", label: "GitHub / Open Source", external: true },
+            { href: "/haftungsausschluss",  label: "Haftungsausschluss",     external: false },
+          ].map((l) =>
+            l.external ? (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs diz-text-secondary hover:text-[#00c8b4] transition-colors"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="text-xs diz-text-secondary hover:text-[#00c8b4] transition-colors"
+              >
+                {l.label}
+              </Link>
+            )
+          )}
         </div>
         <p className="text-[10px] diz-text-secondary text-center">
           © Kian Salem · Apache License 2.0 (Code) · CC BY 4.0 (Daten)

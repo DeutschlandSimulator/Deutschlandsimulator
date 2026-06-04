@@ -83,11 +83,19 @@ export default function Landing() {
           <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
             Open Source
           </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed">
+          <p className="text-xs text-[#8faabb] leading-relaxed mb-2.5">
             Dieses Projekt ist ein unabhängiges, nicht-kommerzielles Open-Source-Projekt.
             Der Quellcode ist öffentlich einsehbar und kann von der Community geprüft,
             verbessert und weiterentwickelt werden. (Apache License 2.0 · CC BY 4.0 für Daten)
           </p>
+          <a
+            href="https://github.com/DeutschlandSimulator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
+          >
+            github.com/DeutschlandSimulator →
+          </a>
         </div>
 
         {/* ── Daten & Methodik ───────────────────────────────────── */}
