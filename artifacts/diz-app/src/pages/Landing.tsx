@@ -40,7 +40,7 @@ const TRUST_POINTS = [
 const STATS = [
   { value: "47+",     label: "Modellannahmen"      },
   { value: "32+",     label: "Datenquellen"         },
-  { value: "2025",    label: "Letzte Aktualisierung"},
+  { value: "2025",    label: "Daten-Stand"          },
   { value: "Public",  label: "Open Source"          },
 ];
 
