@@ -1,0 +1,146 @@
+Implementiere eine Community- und Mitmach-Funktion für den Deutschland-Simulator mit GitHub Discussions als zentralem Ort für Diskussionen über Modellannahmen, Datenquellen und Verbesserungsvorschläge.
+
+# Ziel
+
+Der Deutschland-Simulator soll schrittweise zu einem offenen, transparenten Community-Projekt weiterentwickelt werden, bei dem Nutzer:
+
+* Modellannahmen diskutieren können
+* Datenquellen ergänzen können
+* Fehler melden können
+* Verbesserungsvorschläge einreichen können
+* Berechnungen nachvollziehen können
+
+GitHub Discussions dient zunächst als zentrale Plattform für alle Diskussionen.
+
+# 1. Neuer Menüpunkt "Mitmachen"
+
+Füge im Hauptmenü und Footer einen neuen Menüpunkt hinzu:
+
+**Mitmachen**
+
+Neue Seite:
+
+`/mitmachen`
+
+# 2. Mitmachen-Seite erstellen
+
+Erstelle eine professionell gestaltete Seite mit folgendem Inhalt:
+
+## Deutschland gemeinsam verbessern
+
+Der Deutschland-Simulator ist ein offenes Community-Projekt.
+
+Jeder kann:
+
+* Fehler melden
+* Datenquellen ergänzen
+* Modellannahmen diskutieren
+* Verbesserungsvorschläge einreichen
+* Neue Funktionen vorschlagen
+
+Ziel ist maximale Transparenz und Nachvollziehbarkeit.
+
+## Open Source
+
+Der Quellcode ist öffentlich verfügbar und kann eingesehen sowie überprüft werden.
+
+Button:
+
+**Zum GitHub Repository**
+
+(Platzhalter-Link verwenden, falls noch nicht vorhanden)
+
+## Diskussionen
+
+Für Diskussionen zu Modellannahmen und Datenquellen nutzen wir GitHub Discussions.
+
+Button:
+
+**Zu den Diskussionen**
+
+(Link auf GitHub Discussions)
+
+## Fehler melden
+
+Fehler oder Ungenauigkeiten können öffentlich gemeldet werden.
+
+Button:
+
+**Fehler melden**
+
+(Link auf GitHub Issues)
+
+# 3. Community-Hinweis auf der Transparenzseite
+
+Ergänze auf der Transparenz-/Annahmenseite einen neuen Abschnitt:
+
+## Community & Qualitätssicherung
+
+Dieses Projekt wird öffentlich weiterentwickelt.
+
+Alle Interessierten können:
+
+* Modellannahmen hinterfragen
+* Quellen ergänzen
+* Berechnungen prüfen
+* Fehler melden
+* Verbesserungsvorschläge einreichen
+
+Diskussionen und Änderungen werden transparent dokumentiert.
+
+# 4. GitHub-Links zentral konfigurierbar machen
+
+Erstelle eine zentrale Konfiguration für:
+
+* GitHub Repository URL
+* GitHub Discussions URL
+* GitHub Issues URL
+
+Diese URLs sollen an einer Stelle gepflegt werden können und auf allen Seiten automatisch verwendet werden.
+
+# 5. Hinweise auf Annahmen-Seiten ergänzen
+
+Unter jeder Modellannahme bzw. jedem Annahmen-Block einen kleinen Hinweis ergänzen:
+
+💬 Diese Annahme diskutieren oder verbessern
+
+Beim Klick:
+
+* Öffne GitHub Discussions
+
+Falls später einzelne Diskussionen pro Annahme unterstützt werden, die Architektur bereits darauf vorbereiten.
+
+# 6. Vertrauensbildende Elemente
+
+Ergänze auf der Mitmachen-Seite einen Bereich:
+
+## Transparenzprinzip
+
+* Alle Annahmen werden dokumentiert.
+* Quellen werden offengelegt.
+* Änderungen können nachvollzogen werden.
+* Diskussionen finden öffentlich statt.
+* Fehlerkorrekturen sind ausdrücklich erwünscht.
+
+# 7. Zukunftssichere Architektur vorbereiten
+
+Die Implementierung soll so gestaltet werden, dass später problemlos folgende Funktionen ergänzt werden können:
+
+* Benutzerkonten
+* Bewertung von Vorschlägen
+* Abstimmungen über Annahmen
+* Eigene Diskussionsseiten pro Modellannahme
+* Historie von Änderungen
+* Community-Moderation
+
+Aktuell sollen jedoch ausschließlich GitHub Discussions und GitHub Issues genutzt werden.
+
+# Design-Anforderungen
+
+* Optisch passend zum bestehenden Design
+* Seriös und sachlich
+* Fokus auf Transparenz und Beteiligung
+* Keine überladene Community-Plattform
+* Klare Call-to-Actions für Mitmachen, Diskussionen und Fehlerberichte
+
+Ziel ist es, den Deutschland-Simulator sichtbar von einem Einzelprojekt zu einem offenen, transparenten und gemeinschaftlich überprüfbaren Projekt weiterzuentwickeln.

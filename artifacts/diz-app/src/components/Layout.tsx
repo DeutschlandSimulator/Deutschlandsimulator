@@ -8,8 +8,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { theme, toggle } = useTheme();
 
   const navLinks = [
-    { href: "/simulator", label: "Simulator" },
-    { href: "/annahmen", label: "Quellen & Methodik" },
+    { href: "/simulator",  label: "Simulator" },
+    { href: "/annahmen",   label: "Quellen & Methodik" },
+    { href: "/mitmachen",  label: "Mitmachen" },
   ];
 
   return (
@@ -66,6 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             { href: "/impressum",           label: "Impressum",              external: false },
             { href: "/impressum",           label: "Datenschutz",            external: false },
             { href: "/annahmen",            label: "Transparenz & Annahmen", external: false },
+            { href: "/mitmachen",           label: "Mitmachen",              external: false },
             { href: "https://github.com/DeutschlandSimulator", label: "GitHub / Open Source", external: true },
             { href: "/haftungsausschluss",  label: "Haftungsausschluss",     external: false },
           ].map((l) =>

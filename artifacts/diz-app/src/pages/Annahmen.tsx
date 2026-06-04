@@ -2,8 +2,10 @@ import { useState, useMemo } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell,
 } from "recharts";
-import { ChevronDown, ChevronUp, Search, ExternalLink, Filter } from "lucide-react";
+import { ChevronDown, ChevronUp, Search, ExternalLink, Filter, MessageCircle } from "lucide-react";
 import { Layout } from "@/components/Layout";
+import { Link } from "wouter";
+import { GITHUB } from "@/config/github";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Evidenz       = "hoch" | "mittel" | "gering";
@@ -770,6 +772,17 @@ function AnnahmeKarte({ a }: { a: Annahme }) {
             </div>
           )}
           {a.sensitivitaet && <SensitivitaetsChart data={a.sensitivitaet} />}
+
+          {/* Discuss link — architecture prepared for per-assumption discussions */}
+          <a
+            href={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(a.parameter)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[10px] text-[#8faabb] hover:text-[#00c8b4] transition-colors w-fit pt-1"
+          >
+            <MessageCircle size={11} />
+            Diese Annahme diskutieren oder verbessern
+          </a>
         </div>
       )}
     </div>
@@ -865,6 +878,39 @@ export default function AnnahmenPage() {
           <span className="flex items-center gap-1.5 text-[#4caf82]"><span className="w-2 h-2 rounded-full bg-[#4caf82]" /> 🟢 Hoch — amtliche Statistik, Bundesbehörden, OECD</span>
           <span className="flex items-center gap-1.5 text-[#f5a623]"><span className="w-2 h-2 rounded-full bg-[#f5a623]" /> 🟡 Mittel — Studien, wissenschaftliche Schätzungen</span>
           <span className="flex items-center gap-1.5 text-[#e05c5c]"><span className="w-2 h-2 rounded-full bg-[#e05c5c]" /> 🔴 Gering — Verhaltensannahmen, politische Prognosen</span>
+        </div>
+
+        {/* Community & Qualitätssicherung */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
+              Community & Qualitätssicherung
+            </p>
+            <p className="text-xs text-[#8faabb] leading-relaxed">
+              Dieses Projekt wird öffentlich weiterentwickelt. Alle Interessierten können
+              Modellannahmen hinterfragen, Quellen ergänzen, Berechnungen prüfen und Fehler melden.
+              Diskussionen und Änderungen werden transparent auf GitHub dokumentiert.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2 shrink-0">
+            <a
+              href={GITHUB.discussions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors whitespace-nowrap"
+            >
+              <MessageCircle size={12} />
+              Diskutieren
+            </a>
+            <a
+              href={GITHUB.newIssue}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8faabb] hover:text-[#f0f4f8] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-1.5 transition-colors whitespace-nowrap"
+            >
+              Fehler melden
+            </a>
+          </div>
         </div>
 
         {/* Search + Filter */}

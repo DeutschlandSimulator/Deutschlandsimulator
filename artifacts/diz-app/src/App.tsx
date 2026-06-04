@@ -9,6 +9,7 @@ import SimulatorPage from "@/pages/Simulator";
 import ImpressumPage from "@/pages/Impressum";
 import AnnahmenPage from "@/pages/Annahmen";
 import HaftungsausschlussPage from "@/pages/Haftungsausschluss";
+import MitmachenPage from "@/pages/Mitmachen";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/impressum" component={ImpressumPage} />
       <Route path="/annahmen" component={AnnahmenPage} />
       <Route path="/haftungsausschluss" component={HaftungsausschlussPage} />
+      <Route path="/mitmachen" component={MitmachenPage} />
       <Route component={NotFound} />
     </Switch>
   );
