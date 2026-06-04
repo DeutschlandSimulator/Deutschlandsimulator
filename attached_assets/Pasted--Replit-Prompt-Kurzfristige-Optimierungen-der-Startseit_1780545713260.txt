@@ -1,0 +1,96 @@
+**Replit Prompt – Kurzfristige Optimierungen der Startseite**
+
+Führe folgende kleine, risikoarme Verbesserungen auf der Startseite durch. Das bestehende Design, Dark Theme und die aktuelle Struktur sollen grundsätzlich erhalten bleiben.
+
+### 1. Vertrauensbereich visuell aufwerten
+
+Im Abschnitt „Warum diesem Projekt vertrauen?“ zusätzlich kleine Badges oder Labels einbauen:
+
+* Open Source
+* Unabhängig
+* Transparente Quellen
+* Dokumentierte Annahmen
+
+Diese sollen auf einen Blick sichtbar sein und die wichtigsten Vertrauensmerkmale hervorheben.
+
+---
+
+### 2. Abschluss-CTA am Seitenende ergänzen
+
+Direkt oberhalb des Footers einen zusätzlichen Call-to-Action-Bereich einfügen:
+
+**Bereit für Ihr eigenes Szenario?**
+
+Testen Sie politische Maßnahmen und analysieren Sie deren mögliche Auswirkungen auf Deutschland.
+
+Button:
+
+**Simulation starten**
+
+Der Bereich soll optisch zum Hero passen und einen klaren Abschluss der Seite bilden.
+
+---
+
+### 3. Beispiel-Szenario transparenter kennzeichnen
+
+Die aktuelle Formulierung unter dem Beispiel-Szenario anpassen.
+
+Statt:
+
+> Illustrative Beispielwerte • Keine realen Prognosen
+
+verwende:
+
+> Beispielansicht eines Simulationsergebnisses • Keine echten Berechnungsergebnisse
+
+Ziel ist es, Missverständnisse zu vermeiden und die Transparenz zu erhöhen.
+
+---
+
+### 4. Vertrauenswürdigkeit durch Kennzahlen stärken
+
+Im Vertrauensbereich kleine dynamische Kennzahlen ergänzen, sofern die Daten verfügbar sind:
+
+* Anzahl dokumentierter Modellannahmen
+* Anzahl verwendeter Datenquellen
+* Anzahl GitHub-Beiträge oder Mitwirkender
+* Letzte Datenaktualisierung
+
+Falls die Werte aktuell nicht verfügbar sind, die Komponenten bereits vorbereiten und mit Platzhaltern versehen.
+
+---
+
+### 5. Micro-Interactions verbessern
+
+Für alle wichtigen Buttons und Szenario-Karten:
+
+* sanfte Hover-Effekte
+* leichtes Anheben der Karte beim Hover
+* dezente Animationen (max. 150–200 ms)
+* konsistentes Fokus-Styling für Tastatur-Navigation
+
+Modern, aber zurückhaltend.
+
+---
+
+### 6. Mobile Optimierung prüfen
+
+Insbesondere kontrollieren:
+
+* Hero-Headline auf kleinen Displays
+* Szenario-Karten in 1-Spalten-Ansicht
+* ausreichende Button-Größe für Touch-Bedienung
+* keine horizontalen Scrollbalken
+
+---
+
+### 7. Performance
+
+* unnötige Animationen vermeiden
+* Lighthouse Performance und Accessibility prüfen
+* CLS (Layout Shift) minimieren
+* Ziel: Lighthouse Score > 90 für Performance und Accessibility
+
+### Wichtig
+
+Keine grundlegenden Designänderungen vornehmen. Fokus liegt auf schneller Umsetzbarkeit, höherem Vertrauen, besserer Conversion und einer professionelleren Anmutung der bestehenden Startseite.
