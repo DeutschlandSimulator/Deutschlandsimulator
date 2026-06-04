@@ -1,0 +1,72 @@
+Dann würde ich den Prompt deutlich ergebnisorientierter formulieren und Replit die Architektur überlassen:
+
+---
+
+# Replit Prompt
+
+Implementiere ein einfaches Community-Validierungssystem für die Annahmen des Deutschlandsimulators.
+
+## Ziel
+
+Besucher sollen erkennen können, welche Annahmen ausschließlich auf KI-Recherche basieren und welche bereits von der Community überprüft wurden.
+
+Da Replit Auth bereits eingerichtet ist, dürfen nur eingeloggte Nutzer an der Validierung teilnehmen.
+
+## Funktionen
+
+### Annahmen validieren
+
+Bei jeder Annahme soll ein eingeloggter Nutzer:
+
+* die Quelle öffnen können
+* die Annahme als überprüft markieren können
+* eine bereits abgegebene Bestätigung wieder zurückziehen können
+
+Die Anwendung soll verhindern, dass ein Nutzer dieselbe Annahme mehrfach bestätigt.
+
+---
+
+### Fehler melden
+
+Nutzer sollen mögliche Fehler oder veraltete Daten melden können.
+
+Beim Melden eines Fehlers soll eine kurze Begründung eingegeben werden können.
+
+---
+
+### Transparenz
+
+Bei jeder Annahme sollen sichtbar sein:
+
+* Anzahl der Nutzer, die die Annahme überprüft haben
+* Anzahl der gemeldeten Fehler
+* aktueller Validierungsstatus
+
+Beispielsweise:
+
+* 🟡 KI recherchiert
+* 🟢 Community überprüft
+
+Die Kriterien für diese Status dürfen sinnvoll gewählt werden.
+
+---
+
+### Hinweis für Nutzer
+
+Ergänze einen Transparenzhinweis:
+
+> Community-Validierungen bedeuten lediglich, dass Nutzer die zugrunde liegenden Quellen geprüft haben. Sie stellen keine Garantie für die Richtigkeit der Daten dar.
+
+---
+
+### Administrationssicht
+
+Erstelle eine einfache Übersicht, auf der sichtbar wird:
+
+* welche Annahmen noch nicht validiert wurden
+* welche Annahmen besonders viele Fehlermeldungen haben
+* welche Annahmen zuletzt validiert wurden
+
+Die technische Umsetzung, Datenstruktur, Datenbanktabellen, API-Endpunkte und UI-Komponenten sollen nach Best Practices gewählt werden.
+
+Die Lösung soll möglichst einfach, wartbar und skalierbar sein und sich nahtlos in die bestehende Anwendung integrieren.
