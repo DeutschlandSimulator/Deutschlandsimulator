@@ -78,6 +78,18 @@ export default function Landing() {
           </p>
         </div>
 
+        {/* ── Open Source ────────────────────────────────────────── */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
+            Open Source
+          </p>
+          <p className="text-xs text-[#8faabb] leading-relaxed">
+            Dieses Projekt ist ein unabhängiges, nicht-kommerzielles Open-Source-Projekt.
+            Der Quellcode ist öffentlich einsehbar und kann von der Community geprüft,
+            verbessert und weiterentwickelt werden. (Apache License 2.0 · CC BY 4.0 für Daten)
+          </p>
+        </div>
+
         {/* ── Daten & Methodik ───────────────────────────────────── */}
         <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">

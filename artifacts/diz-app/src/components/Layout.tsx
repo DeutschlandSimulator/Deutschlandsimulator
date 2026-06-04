@@ -54,17 +54,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      <footer className="diz-border-t px-6 py-4 space-y-2">
+      <footer className="diz-border-t px-6 py-5 space-y-3">
         <p className="text-xs diz-text-secondary text-center leading-relaxed max-w-3xl mx-auto">
           <span className="text-[#f5a623] font-semibold">Hinweis: </span>
           Dieses Projekt dient der Veranschaulichung möglicher Auswirkungen politischer Entscheidungen.
           Die Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und können fehlerhaft oder
           unvollständig sein. Bitte prüfen Sie wichtige Informationen anhand der angegebenen Quellen.
         </p>
-        <p className="text-center">
-          <Link href="/impressum" className="text-xs diz-text-secondary hover:text-[#00c8b4] transition-colors">
-            Impressum
-          </Link>
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
+          {[
+            { href: "/impressum",        label: "Impressum" },
+            { href: "/impressum",        label: "Datenschutz" },
+            { href: "/annahmen",         label: "Transparenz & Annahmen" },
+            { href: "/annahmen",         label: "Open Source" },
+            { href: "/haftungsausschluss", label: "Haftungsausschluss" },
+          ].map((l) => (
+            <Link
+              key={l.label}
+              href={l.href}
+              className="text-xs diz-text-secondary hover:text-[#00c8b4] transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+        <p className="text-[10px] diz-text-secondary/60 text-center">
+          Apache License 2.0 · CC BY 4.0 · Kian Salem
         </p>
       </footer>
     </div>

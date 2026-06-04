@@ -1,0 +1,146 @@
+Füge dem Projekt eine professionelle Open-Source-Lizenzierung, Transparenzdokumentation und Hinweise zur KI-gestützten Entwicklung hinzu.
+
+# 1. Lizenzierung
+
+## Code
+
+Erstelle eine `LICENSE`-Datei mit der vollständigen Apache License 2.0.
+
+Copyright:
+Kian Salem
+
+## Daten & Dokumentation
+
+Erstelle eine Datei `DATA_LICENSE.md` mit folgendem Inhalt:
+
+* Datensätze, Modellannahmen, Texte und Dokumentation stehen unter CC BY 4.0.
+* Nutzung, Veränderung und Weiterverbreitung sind erlaubt.
+* Die Quelle muss genannt werden.
+* Verlinke auf die offizielle CC BY 4.0 Lizenz.
+
+# 2. Open-Source-Hinweis auf der Startseite
+
+Füge auf der Startseite sowie im Footer einen dezenten Hinweis ein:
+
+> Dieses Projekt ist ein unabhängiges, nicht-kommerzielles Open-Source-Projekt. Der Quellcode ist öffentlich einsehbar und kann von der Community geprüft, verbessert und weiterentwickelt werden.
+
+Falls bereits ein Transparenz- oder Hinweisbereich existiert, integriere den Text dort.
+
+# 3. Disclaimer
+
+Erstelle eine Datei `DISCLAIMER.md` mit folgendem Inhalt:
+
+## Haftungsausschluss
+
+* Dieses Projekt dient ausschließlich der Veranschaulichung möglicher Auswirkungen politischer Entscheidungen.
+* Die dargestellten Ergebnisse basieren auf öffentlich verfügbaren Daten, Modellannahmen und Berechnungen.
+* Trotz sorgfältiger Recherche können Fehler, Ungenauigkeiten oder veraltete Daten enthalten sein.
+* Die Ergebnisse stellen keine Prognosen, Finanzberatung, Steuerberatung, Rechtsberatung oder Wahlempfehlung dar.
+* Es wird keine Gewähr für Richtigkeit, Vollständigkeit oder Aktualität übernommen.
+
+## Politische Neutralität
+
+* Das Projekt wird privat betrieben.
+* Es besteht keine Verbindung zu politischen Parteien, Behörden oder Interessenverbänden.
+* Die dargestellten Positionen beruhen auf öffentlich verfügbaren Informationen und können unvollständig oder missverständlich sein.
+
+# 4. Hinweis zur KI-gestützten Entwicklung (Vibe Coding)
+
+Erstelle eine Datei `AI_DISCLOSURE.md` und ergänze die Transparenzseite um folgenden Abschnitt:
+
+## Entwicklung mit KI-Unterstützung
+
+Dieses Projekt wurde überwiegend mittels KI-gestützter Softwareentwicklung ("Vibe Coding") erstellt.
+
+Bei diesem Entwicklungsansatz werden große Teile von Code, Struktur, Texten und Funktionen mithilfe generativer KI erzeugt und anschließend überprüft, angepasst und erweitert.
+
+Trotz sorgfältiger Kontrolle können Fehler in:
+
+* Berechnungen
+* Modellannahmen
+* Datenquellen
+* Programmcode
+* Benutzeroberflächen
+* Interpretationen politischer Maßnahmen
+
+enthalten sein.
+
+Alle Ergebnisse sollten daher kritisch betrachtet und bei wichtigen Fragestellungen anhand der angegebenen Originalquellen überprüft werden.
+
+## Community-Prinzip
+
+Da das Projekt Open Source ist, können Berechnungen, Datenquellen und Annahmen öffentlich geprüft, diskutiert und verbessert werden.
+
+# 5. GitHub-Integration vorbereiten
+
+Erweitere die README.md um folgende Abschnitte:
+
+## Open Source
+
+Dieses Projekt steht unter der Apache License 2.0.
+
+Beiträge aus der Community sind willkommen.
+
+Bitte beachte:
+
+* Änderungen an Berechnungsmodellen sollten nachvollziehbar dokumentiert werden.
+* Datenquellen müssen angegeben werden.
+* Modellannahmen sollten transparent begründet werden.
+* Politische Bewertungen müssen auf nachvollziehbaren Quellen beruhen.
+
+## Entwicklungsansatz
+
+Dieses Projekt wurde als Open-Source-Privatprojekt mit starker Unterstützung durch generative KI entwickelt.
+
+Der Fokus liegt auf:
+
+* Transparenz
+* Nachvollziehbarkeit
+* schneller Ideenvalidierung
+* öffentlicher Überprüfbarkeit
+
+Fehler, unvollständige Implementierungen oder fehlerhafte Modellannahmen sind möglich.
+
+Pull Requests, Fehlerberichte und fachliche Korrekturen sind ausdrücklich erwünscht.
+
+# 6. Transparenzseite erweitern
+
+Ergänze die bestehende Transparenz-/Annahmenseite um zwei neue Bereiche:
+
+## Open Source & Nachvollziehbarkeit
+
+* Der Quellcode ist öffentlich einsehbar.
+* Berechnungen können überprüft werden.
+* Datenquellen werden dokumentiert.
+* Verbesserungsvorschläge und Fehlerberichte sind ausdrücklich erwünscht.
+* Änderungen können öffentlich nachvollzogen werden.
+
+## KI-gestützte Entwicklung
+
+* Das Projekt wurde mit Unterstützung generativer KI entwickelt.
+* Alle Inhalte werden nach Möglichkeit geprüft.
+* Dennoch können Fehler oder Ungenauigkeiten vorhanden sein.
+* Die Community wird ausdrücklich eingeladen, Berechnungen, Quellen und Annahmen zu überprüfen.
+
+# 7. Rechtliche Hinweise sichtbar machen
+
+Ergänze im Footer zusätzliche Links auf:
+
+* Impressum
+* Datenschutz
+* Transparenz & Annahmen
+* Open Source
+* Haftungsausschluss
+
+Die Darstellung soll seriös, sachlich und vertrauenswürdig wirken.
+
+Ziel ist maximale Transparenz hinsichtlich:
+
+* Datenquellen
+* Modellannahmen
+* Open Source
+* KI-Nutzung
+* politischer Neutralität
+* Haftungsausschlüssen
+
+ohne die Benutzeroberfläche unnötig zu überladen.

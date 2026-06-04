@@ -915,6 +915,56 @@ export default function AnnahmenPage() {
           )}
         </div>
 
+        {/* Open Source & Nachvollziehbarkeit */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-3">
+            Open Source & Nachvollziehbarkeit
+          </p>
+          <ul className="space-y-2 text-xs text-[#8faabb] leading-relaxed list-none">
+            {[
+              "Der Quellcode ist öffentlich einsehbar und kann von der Community überprüft werden.",
+              "Berechnungen und Modellannahmen sind im Code dokumentiert und nachvollziehbar.",
+              "Datenquellen werden für jede Annahme explizit angegeben.",
+              "Verbesserungsvorschläge und Fehlerberichte sind ausdrücklich erwünscht.",
+              "Änderungen am Modell können öffentlich nachvollzogen werden.",
+            ].map((item) => (
+              <li key={item} className="flex gap-2">
+                <span className="text-[#00c8b4] shrink-0">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-[10px] text-[#8faabb]/60">
+            Lizenz: Apache License 2.0 (Code) · CC BY 4.0 (Daten & Dokumentation)
+          </p>
+        </div>
+
+        {/* KI-gestützte Entwicklung */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-3">
+            KI-gestützte Entwicklung
+          </p>
+          <p className="text-xs text-[#8faabb] leading-relaxed mb-3">
+            Dieses Projekt wurde mit Unterstützung generativer KI entwickelt ("Vibe Coding").
+            Große Teile von Code, Struktur und Texten wurden KI-gestützt erzeugt und anschließend geprüft.
+          </p>
+          <ul className="space-y-2 text-xs text-[#8faabb] leading-relaxed list-none mb-3">
+            {[
+              "Alle Inhalte werden nach Möglichkeit manuell überprüft.",
+              "Dennoch können Fehler oder Ungenauigkeiten in Berechnungen, Quellen und Annahmen vorhanden sein.",
+              "Die Community wird eingeladen, Berechnungen, Quellen und Annahmen aktiv zu überprüfen.",
+            ].map((item) => (
+              <li key={item} className="flex gap-2">
+                <span className="text-[#00c8b4] shrink-0">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-[10px] text-[#8faabb]/60">
+            Vollständige Offenlegung: AI_DISCLOSURE.md im Projektrepository
+          </p>
+        </div>
+
         {/* Footer note */}
         <div className="bg-[#1a2b3c] border border-[#e05c5c]/20 rounded p-4 text-xs text-[#8faabb] leading-relaxed">
           <span className="text-[#e05c5c] font-semibold">Modellgrenzen: </span>
