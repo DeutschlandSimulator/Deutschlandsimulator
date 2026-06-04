@@ -16,6 +16,7 @@ const SZENARIEN = [
   { emoji: "👴", label: "Renteneintrittsalter erhöhen"  },
   { emoji: "💶", label: "Bürgergeld reformieren"       },
   { emoji: "🛡️", label: "Verteidigungsausgaben erhöhen" },
+  { emoji: "🌱", label: "CO₂-Steuer erhöhen"           },
 ];
 
 // ─── Trust points ─────────────────────────────────────────────────────────────
@@ -122,7 +123,7 @@ export default function Landing() {
                 className="flex items-center gap-3 bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/50 hover:bg-[#1e3448] rounded-lg px-4 py-3 text-sm text-[#f0f4f8] transition-colors group"
               >
                 <span className="text-xl shrink-0">{s.emoji}</span>
-                <span className="font-medium leading-snug flex-1">{s.label}</span>
+                <span className="font-medium leading-snug flex-1 min-w-0">{s.label}</span>
                 <ChevronRight size={14} className="text-[#8faabb] group-hover:text-[#00c8b4] shrink-0 transition-colors" />
               </Link>
             ))}
