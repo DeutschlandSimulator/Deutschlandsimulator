@@ -56,7 +56,7 @@ export const ANNAHMEN: Annahme[] = [
   },
   {
     id: "basis-defizit",
-    parameter: "Haushaltsdefizit (Baseline)",
+    parameter: "Finanzierungssaldo des Bundeshaushalts",
     wert: "−34,2 Mrd. €",
     kategorie: "Basiswerte",
     quelle: "Bundesministerium der Finanzen",
@@ -66,7 +66,7 @@ export const ANNAHMEN: Annahme[] = [
     datenherkunft: "Bundeshaushalt Soll/Ist-Vergleich",
     evidenz: "hoch",
     geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
-    erklaerung: "Ausgangswert des Simulators. Alle Schieberegler messen Abweichungen von diesem Baseline-Wert. Positive Abweichungen (Überschuss) werden grün dargestellt, negative (Defizit) rot.",
+    erklaerung: "Finanzierungssaldo des Bundeshaushalts im Basisjahr 2024. Der Wert beschreibt die Differenz zwischen den Einnahmen und Ausgaben des Bundes und dient als Ausgangspunkt für die Simulation finanzpolitischer Maßnahmen. Positive Abweichungen (Überschuss) werden grün dargestellt, negative (Defizit) rot.",
     unsicherheiten: "Unterjährige Steuereinnahmen und Konjunkturschwankungen können den Ist-Wert erheblich abweichen lassen.",
     sensitivitaet: [
       { wert: "Status quo", ergebnis: -34.2, einheit: "Mrd. €" },
