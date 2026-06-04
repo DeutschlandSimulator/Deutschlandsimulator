@@ -1,5 +1,12 @@
+import { Link } from "wouter";
+import { ExternalLink } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { GITHUB } from "@/config/github";
+import { ANNAHMEN } from "@/pages/Annahmen";
+
+// ─── Derived lists ─────────────────────────────────────────────────────────────
+const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierung === "nicht");
+const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierung === "teilweise");
 
 interface ActionCardProps {
   icon: string;
@@ -29,6 +36,50 @@ function ActionCard({ icon, title, description, buttonLabel, href }: ActionCardP
   );
 }
 
+// ─── Unverified source row ─────────────────────────────────────────────────────
+function QuellenZeile({ parameter, quelle, quellUrl, kategorie, evidenz, unsicherheiten }: {
+  parameter: string; quelle: string; quellUrl?: string; kategorie: string;
+  evidenz: string; unsicherheiten?: string;
+}) {
+  const evidenzColor = evidenz === "hoch" ? "#4caf82" : evidenz === "mittel" ? "#f5a623" : "#e05c5c";
+  const evidenzLabel = evidenz === "hoch" ? "🟢 Hoch" : evidenz === "mittel" ? "🟡 Mittel" : "🔴 Gering";
+  return (
+    <div className="bg-[#0d1b2a] border border-[#1e3048] rounded px-3 py-2.5">
+      <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+        <div className="flex-1 min-w-0">
+          <span className="text-[9px] text-[#8faabb] uppercase tracking-wider">{kategorie}</span>
+          <p className="text-xs font-semibold text-[#f0f4f8] leading-snug">{parameter}</p>
+        </div>
+        <span className="text-[9px] font-semibold shrink-0" style={{ color: evidenzColor }}>
+          {evidenzLabel}
+        </span>
+      </div>
+      <div className="flex items-center gap-1.5 text-[10px] text-[#8faabb]">
+        <span className="text-[#8faabb]/50">Quelle:</span>
+        {quellUrl ? (
+          <a href={quellUrl} target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-0.5 hover:text-[#00c8b4] transition-colors">
+            {quelle} <ExternalLink size={9} />
+          </a>
+        ) : <span>{quelle}</span>}
+      </div>
+      {unsicherheiten && (
+        <p className="text-[9px] text-[#f5a623]/70 mt-1 leading-snug">{unsicherheiten}</p>
+      )}
+      <div className="mt-2">
+        <a
+          href={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(parameter)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[9px] font-semibold text-[#00c8b4] hover:text-[#00a896] transition-colors"
+        >
+          Auf GitHub diskutieren →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Mitmachen() {
   return (
     <Layout>
@@ -48,6 +99,74 @@ export default function Mitmachen() {
             und gemeinsame Weiterentwicklung.
           </p>
         </div>
+
+        {/* ── Noch nicht bestätigte Quellen ──────────────────────── */}
+        <section className="bg-[#1a2b3c] border border-[#e05c5c]/30 rounded-lg px-5 py-5">
+          <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#e05c5c] mb-1">
+                Hilfe benötigt · Noch nicht bestätigt
+              </p>
+              <p className="text-xs text-[#8faabb] leading-relaxed">
+                Diese Annahmen wurden noch nicht unabhängig überprüft. Kenntnisse in diesen
+                Bereichen sind besonders wertvoll — jede Prüfung hilft.
+              </p>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold bg-[#e05c5c]/10 text-[#e05c5c] border border-[#e05c5c]/20 rounded-full px-2.5 py-0.5">
+                ❌ {NICHT_VERIFIZIERT.length} nicht verifiziert
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold bg-[#f5a623]/10 text-[#f5a623] border border-[#f5a623]/20 rounded-full px-2.5 py-0.5">
+                ⚠️ {TEILWEISE.length} teilweise
+              </span>
+            </div>
+          </div>
+
+          {/* Nicht verifiziert */}
+          {NICHT_VERIFIZIERT.length > 0 && (
+            <div className="mb-4">
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-[#e05c5c]/80 mb-2">
+                Nicht verifiziert — Überprüfung dringend erwünscht
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {NICHT_VERIFIZIERT.map((a) => (
+                  <QuellenZeile key={a.id} {...a} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Teilweise verifiziert */}
+          {TEILWEISE.length > 0 && (
+            <div>
+              <p className="text-[9px] font-semibold uppercase tracking-widest text-[#f5a623]/80 mb-2">
+                Teilweise verifiziert — Detailprüfung hilfreich
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {TEILWEISE.map((a) => (
+                  <QuellenZeile key={a.id} {...a} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-4 pt-4 border-t border-[#1e3048] flex flex-wrap gap-2">
+            <Link
+              href="/annahmen"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
+            >
+              Alle Annahmen ansehen →
+            </Link>
+            <a
+              href={GITHUB.discussions}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8faabb] hover:text-[#f0f4f8] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-1.5 transition-colors"
+            >
+              GitHub Diskussionen →
+            </a>
+          </div>
+        </section>
 
         {/* ── Was du tun kannst ───────────────────────────────────── */}
         <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
@@ -115,35 +234,6 @@ export default function Mitmachen() {
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* ── Community & Qualitätssicherung ─────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-3">
-            Community & Qualitätssicherung
-          </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed mb-4">
-            Dieses Projekt wird öffentlich weiterentwickelt. Diskussionen und Änderungen
-            werden transparent dokumentiert.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <a
-              href={GITHUB.discussions}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
-            >
-              Diskussionen →
-            </a>
-            <a
-              href={GITHUB.issues}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-[#8faabb] hover:text-[#f0f4f8] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-1.5 transition-colors"
-            >
-              Issues & Fehlerberichte →
-            </a>
-          </div>
         </div>
 
         {/* ── Hinweis KI & Open Source ───────────────────────────── */}

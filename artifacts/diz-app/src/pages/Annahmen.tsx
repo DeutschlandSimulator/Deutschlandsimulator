@@ -36,7 +36,7 @@ interface Annahme {
 }
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const ANNAHMEN: Annahme[] = [
+export const ANNAHMEN: Annahme[] = [
   {
     id: "basis-bip",
     parameter: "BIP Deutschland",
