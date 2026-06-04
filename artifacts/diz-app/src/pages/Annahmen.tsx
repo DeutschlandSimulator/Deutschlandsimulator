@@ -78,7 +78,7 @@ export const ANNAHMEN: Annahme[] = [
   {
     id: "basis-steuer",
     parameter: "Steueraufkommen (Baseline)",
-    wert: "916 Mrd. €",
+    wert: "948 Mrd. €",
     kategorie: "Basiswerte",
     quelle: "Statistisches Bundesamt",
     quellUrl: "https://destatis.de",
@@ -318,7 +318,7 @@ export const ANNAHMEN: Annahme[] = [
     datenherkunft: "Steuerschätzerkreis / Stabilitätsprogramm",
     evidenz: "mittel",
     geprueftVon: "ki", verifizierungsgrad: "teilweise",
-    erklaerung: "Wachstumsbedingte Steuermehrereinnahmen entstehen durch höhere Unternehmensgewinne, Lohnsteigerungen und Mehrwertsteuereinnahmen. Grobe Schätzung: 1% BIP-Wachstum generiert ~2% Steuermehreinnahmen. Bei 916 Mrd. Baseline ≈ 18–22 Mrd. €.",
+    erklaerung: "Wachstumsbedingte Steuermehrereinnahmen entstehen durch höhere Unternehmensgewinne, Lohnsteigerungen und Mehrwertsteuereinnahmen. Grobe Schätzung: 1% BIP-Wachstum generiert ~2% Steuermehreinnahmen. Bei 948 Mrd. Baseline ≈ 19–22 Mrd. €.",
     unsicherheiten: "Multiplikator variiert mit Konjunkturphase und Steuerstruktur.",
   },
   {

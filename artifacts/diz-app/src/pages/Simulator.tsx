@@ -320,7 +320,7 @@ function computeKPIs(
 
   // ── Chain ──────────────────────────────────────────────────
   const chainSteuer  = (wachstum - 0.8) * 20 - (alq - 5.7) * 15;
-  const steuer       = 916 + einnahmenDelta * smVal + chainSteuer;
+  const steuer       = 948 + einnahmenDelta * smVal + chainSteuer;
   const rentenKosten = 362 + (rentenniveau - 48) * 4 - (rentenalter - 67) * 18.5 * RENTE_RISK;
   const fachluecke   = Math.max(0, 890 - (fachkraefte - 200) * 1.5 + (euZuwanderung ? 0 : 180) + bildFachluecke);
 
@@ -839,7 +839,7 @@ export default function SimulatorPage() {
               </div>
               <div className="bg-[#1a2b3c] p-3 rounded border border-[#1e3048]" data-testid="card-kpi-steueraufkommen">
                 <div className="text-[#8faabb] text-xs mb-1">Steueraufkommen</div>
-                <div className="text-lg font-bold mb-2" style={{ color: steuer >= 916 ? "#4caf82" : "#e05c5c" }}>{steuer.toFixed(0)} Mrd.</div>
+                <div className="text-lg font-bold mb-2" style={{ color: steuer >= 948 ? "#4caf82" : "#e05c5c" }}>{steuer.toFixed(0)} Mrd.</div>
                 <div className="space-y-0.5">
                   <div className="flex justify-between text-[10px]"><span className="text-[#4caf82]">Opt.</span><span className="text-[#4caf82]">{kpiOpt.steuer.toFixed(0)} Mrd.</span></div>
                   <div className="flex justify-between text-[10px]"><span className="text-[#00c8b4]">Real.</span><span className="text-[#00c8b4]">{kpiReal.steuer.toFixed(0)} Mrd.</span></div>
@@ -1093,7 +1093,7 @@ export default function SimulatorPage() {
             <div className="space-y-2 mb-4">
               {[
                 { label: "Haushaltsdefizit",    val: `${fmtDef(defizit)} Mrd.`,                                                           pos: defizit >= 0 },
-                { label: "Steueraufkommen",     val: `${steuer.toFixed(0)} Mrd.`,                                                          pos: steuer >= 916 },
+                { label: "Steueraufkommen",     val: `${steuer.toFixed(0)} Mrd.`,                                                          pos: steuer >= 948 },
                 { label: "Wirtschaftswachstum", val: fmtW(wachstum),                                                                       pos: wachstum >= 0.8 },
                 { label: "CO₂-Emissionen",      val: `${co2Emissionen.toFixed(0)} Mt`,                                                    pos: co2Emissionen < 670 },
                 { label: "Mietniveau",          val: `Index ${mietindex.toFixed(0)}`,                                                      pos: mietindex < 100 },

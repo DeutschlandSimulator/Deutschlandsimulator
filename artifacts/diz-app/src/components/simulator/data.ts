@@ -400,7 +400,7 @@ export const areaData = [
   { year: "2021", einnahmen: 780, ausgaben: 860 },
   { year: "2022", einnahmen: 820, ausgaben: 840 },
   { year: "2023", einnahmen: 890, ausgaben: 910 },
-  { year: "2024", einnahmen: 916, ausgaben: 950 },
+  { year: "2024", einnahmen: 948, ausgaben: 950 },
   { year: "2025", einnahmen: 930, ausgaben: 960 },
   { year: "2026", einnahmen: 950, ausgaben: 980 },
   { year: "2027", einnahmen: 970, ausgaben: 990 },
@@ -431,7 +431,7 @@ export const ageData = [
 export const kpis: KPIMeta[] = [
   { label: "Haushaltsdefizit",    value: "-34.2 Mrd.",  color: "#e05c5c", sparkPoints: "0,10 10,12 20,5 30,15 40,8 50,18",  sparkColor: "#e05c5c", source: "Bundesministerium der Finanzen",     updated: "Mär 2024", confidence: "hoch"   },
   { label: "Staatsverschuldung",  value: "2.445 Mrd.",  color: "#f0f4f8", sparkPoints: "0,15 10,14 20,12 30,10 40,8 50,6",   sparkColor: "#8faabb", source: "Deutsche Bundesbank",             updated: "Feb 2024", confidence: "hoch"   },
-  { label: "Steueraufkommen",     value: "916 Mrd.",    color: "#4caf82", sparkPoints: "0,15 10,12 20,16 30,8 40,5 50,2",    sparkColor: "#4caf82", source: "Statistisches Bundesamt",         updated: "Jan 2024", confidence: "hoch"   },
+  { label: "Steueraufkommen",     value: "948 Mrd.",    color: "#4caf82", sparkPoints: "0,15 10,12 20,16 30,8 40,5 50,2",    sparkColor: "#4caf82", source: "Statistisches Bundesamt",         updated: "Jan 2024", confidence: "hoch"   },
   { label: "Gesundheitskosten",   value: "468 Mrd.",    color: "#f0f4f8", sparkPoints: "0,12 10,11 20,13 30,10 40,9 50,11",  sparkColor: "#8faabb", source: "Bundesministerium für Gesundheit", updated: "Feb 2024", confidence: "mittel" },
   { label: "Rentenkosten",        value: "362 Mrd.",    color: "#f0f4f8", sparkPoints: "0,15 10,13 20,11 30,10 40,9 50,8",   sparkColor: "#8faabb", source: "Deutsche Rentenversicherung",     updated: "Jan 2024", confidence: "hoch"   },
   { label: "Arbeitslosenquote",   value: "5.7%",        color: "#e05c5c", sparkPoints: "0,5 10,8 20,6 30,10 40,12 50,14",    sparkColor: "#e05c5c", source: "Bundesagentur für Arbeit",         updated: "Mär 2024", confidence: "hoch"   },
