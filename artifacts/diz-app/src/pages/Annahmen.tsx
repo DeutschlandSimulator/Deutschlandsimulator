@@ -7,6 +7,7 @@ import { Layout } from "@/components/Layout";
 import { Link } from "wouter";
 import { GITHUB } from "@/config/github";
 import { ValidationWidget, type AssumptionStats } from "@/components/ValidationWidget";
+import { SLIDER_INFO } from "@/components/simulator/data";
 
 const API = import.meta.env.BASE_URL.replace(/\/$/, "");
 
@@ -711,6 +712,42 @@ function SensitivitaetsChart({ data }: { data: Sensitivitaet[] }) {
   );
 }
 
+// ─── Merged source list ───────────────────────────────────────────────────────
+type MergedSource = { name: string; url: string; aktualisiert?: string };
+
+function buildAllSources(): MergedSource[] {
+  const map = new Map<string, MergedSource>();
+
+  // SLIDER_INFO has the richest structure: [{name, url, aktualisiert}]
+  for (const info of Object.values(SLIDER_INFO)) {
+    for (const q of info.quellen) {
+      if (q.url && !map.has(q.url)) map.set(q.url, q);
+    }
+  }
+
+  // ANNAHMEN fill any gaps not already covered
+  for (const a of ANNAHMEN) {
+    if (!a.quellUrl || map.has(a.quellUrl)) continue;
+    if (a.quelle === "Modellannahme") continue;
+    map.set(a.quellUrl, { name: a.quelle, url: a.quellUrl });
+  }
+
+  return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, "de"));
+}
+
+const ALL_SOURCES = buildAllSources();
+
+function getQuelleKategorie(url: string): string {
+  const u = url.toLowerCase();
+  if (/fraunhofer|umweltbundesamt|expertenrat-klima|energy-charts|bundesnetzagentur/.test(u))
+    return "Energie & Umwelt";
+  if (/oecd|nato\.int|imf\.org|iaea|eurostat|ec\.europa|sipri/.test(u))
+    return "Internationale Organisationen";
+  if (/destatis|iab\.de|iwkoeln|diw\.de|sachverstaendigenrat|iza\.org|iwh-halle|pestel|studentenwerke|bundesbank/.test(u))
+    return "Forschungsinstitute & Wirtschaft";
+  return "Bundesbehörden & Ministerien";
+}
+
 // ─── Annahme Card ─────────────────────────────────────────────────────────────
 function AnnahmeKarte({
   a,
@@ -1004,6 +1041,46 @@ export default function AnnahmenPage() {
             ))
           )}
         </div>
+
+        {/* ── Alle Datenquellen ────────────────────────────────────────────── */}
+        <section>
+          <h2 className="text-xs font-bold uppercase tracking-widest text-[#8faabb] mb-3">
+            Alle Datenquellen ({ALL_SOURCES.length})
+          </h2>
+          {(["Bundesbehörden & Ministerien", "Forschungsinstitute & Wirtschaft", "Internationale Organisationen", "Energie & Umwelt"] as const).map((kat) => {
+            const group = ALL_SOURCES.filter((s) => getQuelleKategorie(s.url) === kat);
+            if (!group.length) return null;
+            return (
+              <div key={kat} className="mb-4">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4]/70 mb-2">{kat}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  {group.map((s) => (
+                    <a
+                      key={s.url}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-3 bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-2 transition-colors group"
+                    >
+                      <span className="text-xs text-[#f0f4f8] group-hover:text-[#00c8b4] transition-colors leading-snug min-w-0 flex-1">
+                        {s.name}
+                      </span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {s.aktualisiert && (
+                          <span className="text-[9px] text-[#8faabb]/60 whitespace-nowrap">{s.aktualisiert}</span>
+                        )}
+                        <ExternalLink size={10} className="text-[#8faabb] group-hover:text-[#00c8b4] transition-colors" />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+          <p className="text-[10px] text-[#8faabb]/60 mt-1">
+            Quellen aus Modellannahmen und Simulator-Parametern zusammengeführt · Duplikate bereinigt
+          </p>
+        </section>
 
         {/* Open Source & Nachvollziehbarkeit */}
         <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
