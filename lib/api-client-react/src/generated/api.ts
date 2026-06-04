@@ -20,6 +20,7 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AdminOverviewEnvelope,
   AuthUserEnvelope,
   BeginBrowserLoginParams,
   ErrorEnvelope,
@@ -27,7 +28,10 @@ import type {
   HealthStatus,
   LogoutSuccess,
   MobileTokenExchangeRequest,
-  MobileTokenExchangeSuccess
+  MobileTokenExchangeSuccess,
+  ReportErrorBody,
+  ValidationActionResult,
+  ValidationStatsEnvelope
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -51,7 +55,6 @@ export const getHealthCheckUrl = () => {
 }
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const healthCheck = async ( options?: RequestInit): Promise<HealthStatus> => {
@@ -582,4 +585,370 @@ export const useLogoutMobileSession = <TError = ErrorType<unknown>,
       > => {
       return useMutation(getLogoutMobileSessionMutationOptions(options));
     }
+
+export const getGetValidationStatsUrl = () => {
+
+
+
+
+  return `/api/validations/stats`
+}
+
+/**
+ * @summary Get validation stats for all assumptions
+ */
+export const getValidationStats = async ( options?: RequestInit): Promise<ValidationStatsEnvelope> => {
+
+  return customFetch<ValidationStatsEnvelope>(getGetValidationStatsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetValidationStatsQueryKey = () => {
+    return [
+    `/api/validations/stats`
+    ] as const;
+    }
+
+
+export const getGetValidationStatsQueryOptions = <TData = Awaited<ReturnType<typeof getValidationStats>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getValidationStats>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetValidationStatsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getValidationStats>>> = ({ signal }) => getValidationStats({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getValidationStats>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetValidationStatsQueryResult = NonNullable<Awaited<ReturnType<typeof getValidationStats>>>
+export type GetValidationStatsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get validation stats for all assumptions
+ */
+
+export function useGetValidationStats<TData = Awaited<ReturnType<typeof getValidationStats>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getValidationStats>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetValidationStatsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getValidateAssumptionUrl = (assumptionId: string,) => {
+
+
+
+
+  return `/api/validations/${assumptionId}`
+}
+
+/**
+ * @summary Mark an assumption as validated
+ */
+export const validateAssumption = async (assumptionId: string, options?: RequestInit): Promise<ValidationActionResult> => {
+
+  return customFetch<ValidationActionResult>(getValidateAssumptionUrl(assumptionId),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+export const getValidateAssumptionMutationOptions = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof validateAssumption>>, TError,{assumptionId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof validateAssumption>>, TError,{assumptionId: string}, TContext> => {
+
+const mutationKey = ['validateAssumption'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof validateAssumption>>, {assumptionId: string}> = (props) => {
+          const {assumptionId} = props ?? {};
+
+          return  validateAssumption(assumptionId,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ValidateAssumptionMutationResult = NonNullable<Awaited<ReturnType<typeof validateAssumption>>>
+
+    export type ValidateAssumptionMutationError = ErrorType<ErrorEnvelope>
+
+    /**
+ * @summary Mark an assumption as validated
+ */
+export const useValidateAssumption = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof validateAssumption>>, TError,{assumptionId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof validateAssumption>>,
+        TError,
+        {assumptionId: string},
+        TContext
+      > => {
+      return useMutation(getValidateAssumptionMutationOptions(options));
+    }
+
+export const getUnvalidateAssumptionUrl = (assumptionId: string,) => {
+
+
+
+
+  return `/api/validations/${assumptionId}`
+}
+
+/**
+ * @summary Remove a validation
+ */
+export const unvalidateAssumption = async (assumptionId: string, options?: RequestInit): Promise<ValidationActionResult> => {
+
+  return customFetch<ValidationActionResult>(getUnvalidateAssumptionUrl(assumptionId),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+export const getUnvalidateAssumptionMutationOptions = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unvalidateAssumption>>, TError,{assumptionId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof unvalidateAssumption>>, TError,{assumptionId: string}, TContext> => {
+
+const mutationKey = ['unvalidateAssumption'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unvalidateAssumption>>, {assumptionId: string}> = (props) => {
+          const {assumptionId} = props ?? {};
+
+          return  unvalidateAssumption(assumptionId,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UnvalidateAssumptionMutationResult = NonNullable<Awaited<ReturnType<typeof unvalidateAssumption>>>
+
+    export type UnvalidateAssumptionMutationError = ErrorType<ErrorEnvelope>
+
+    /**
+ * @summary Remove a validation
+ */
+export const useUnvalidateAssumption = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unvalidateAssumption>>, TError,{assumptionId: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof unvalidateAssumption>>,
+        TError,
+        {assumptionId: string},
+        TContext
+      > => {
+      return useMutation(getUnvalidateAssumptionMutationOptions(options));
+    }
+
+export const getReportAssumptionErrorUrl = (assumptionId: string,) => {
+
+
+
+
+  return `/api/reports/${assumptionId}`
+}
+
+/**
+ * @summary Report an error or outdated data for an assumption
+ */
+export const reportAssumptionError = async (assumptionId: string,
+    reportErrorBody: ReportErrorBody, options?: RequestInit): Promise<ValidationActionResult> => {
+
+  return customFetch<ValidationActionResult>(getReportAssumptionErrorUrl(assumptionId),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      reportErrorBody,)
+  }
+);}
+
+
+
+
+export const getReportAssumptionErrorMutationOptions = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportAssumptionError>>, TError,{assumptionId: string;data: BodyType<ReportErrorBody>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof reportAssumptionError>>, TError,{assumptionId: string;data: BodyType<ReportErrorBody>}, TContext> => {
+
+const mutationKey = ['reportAssumptionError'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof reportAssumptionError>>, {assumptionId: string;data: BodyType<ReportErrorBody>}> = (props) => {
+          const {assumptionId,data} = props ?? {};
+
+          return  reportAssumptionError(assumptionId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ReportAssumptionErrorMutationResult = NonNullable<Awaited<ReturnType<typeof reportAssumptionError>>>
+    export type ReportAssumptionErrorMutationBody = BodyType<ReportErrorBody>
+    export type ReportAssumptionErrorMutationError = ErrorType<ErrorEnvelope>
+
+    /**
+ * @summary Report an error or outdated data for an assumption
+ */
+export const useReportAssumptionError = <TError = ErrorType<ErrorEnvelope>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reportAssumptionError>>, TError,{assumptionId: string;data: BodyType<ReportErrorBody>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof reportAssumptionError>>,
+        TError,
+        {assumptionId: string;data: BodyType<ReportErrorBody>},
+        TContext
+      > => {
+      return useMutation(getReportAssumptionErrorMutationOptions(options));
+    }
+
+export const getGetAdminOverviewUrl = () => {
+
+
+
+
+  return `/api/admin/overview`
+}
+
+/**
+ * @summary Admin overview of all assumptions with validation state
+ */
+export const getAdminOverview = async ( options?: RequestInit): Promise<AdminOverviewEnvelope> => {
+
+  return customFetch<AdminOverviewEnvelope>(getGetAdminOverviewUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetAdminOverviewQueryKey = () => {
+    return [
+    `/api/admin/overview`
+    ] as const;
+    }
+
+
+export const getGetAdminOverviewQueryOptions = <TData = Awaited<ReturnType<typeof getAdminOverview>>, TError = ErrorType<ErrorEnvelope>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAdminOverview>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAdminOverviewQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAdminOverview>>> = ({ signal }) => getAdminOverview({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAdminOverview>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetAdminOverviewQueryResult = NonNullable<Awaited<ReturnType<typeof getAdminOverview>>>
+export type GetAdminOverviewQueryError = ErrorType<ErrorEnvelope>
+
+
+/**
+ * @summary Admin overview of all assumptions with validation state
+ */
+
+export function useGetAdminOverview<TData = Awaited<ReturnType<typeof getAdminOverview>>, TError = ErrorType<ErrorEnvelope>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getAdminOverview>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetAdminOverviewQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
 

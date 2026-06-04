@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell,
 } from "recharts";
@@ -6,6 +6,9 @@ import { ChevronDown, ChevronUp, Search, ExternalLink, Filter, MessageCircle } f
 import { Layout } from "@/components/Layout";
 import { Link } from "wouter";
 import { GITHUB } from "@/config/github";
+import { ValidationWidget, type AssumptionStats } from "@/components/ValidationWidget";
+
+const API = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Evidenz       = "hoch" | "mittel" | "gering";
@@ -709,7 +712,15 @@ function SensitivitaetsChart({ data }: { data: Sensitivitaet[] }) {
 }
 
 // ─── Annahme Card ─────────────────────────────────────────────────────────────
-function AnnahmeKarte({ a }: { a: Annahme }) {
+function AnnahmeKarte({
+  a,
+  stats,
+  onStatsChange,
+}: {
+  a: Annahme;
+  stats: AssumptionStats | undefined;
+  onStatsChange: (updated: AssumptionStats) => void;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -773,7 +784,7 @@ function AnnahmeKarte({ a }: { a: Annahme }) {
           )}
           {a.sensitivitaet && <SensitivitaetsChart data={a.sensitivitaet} />}
 
-          {/* Discuss link — architecture prepared for per-assumption discussions */}
+          {/* Discuss link */}
           <a
             href={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(a.parameter)}`}
             target="_blank"
@@ -781,8 +792,15 @@ function AnnahmeKarte({ a }: { a: Annahme }) {
             className="flex items-center gap-1.5 text-[10px] text-[#8faabb] hover:text-[#00c8b4] transition-colors w-fit pt-1"
           >
             <MessageCircle size={11} />
-            Diese Annahme diskutieren oder verbessern
+            Diese Annahme auf GitHub diskutieren
           </a>
+
+          {/* Community validation widget */}
+          <ValidationWidget
+            assumptionId={a.id}
+            stats={stats}
+            onStatsChange={onStatsChange}
+          />
         </div>
       )}
     </div>
@@ -795,6 +813,25 @@ export default function AnnahmenPage() {
   const [filterEvidenz, setFilterEvidenz] = useState<Evidenz | "alle">("alle");
   const [filterVerif,   setFilterVerif]   = useState<Verifizierung | "alle">("alle");
   const [filterKat,     setFilterKat]     = useState<Kategorie | "alle">("alle");
+
+  // Community validation stats
+  const [statsMap, setStatsMap] = useState<Map<string, AssumptionStats>>(new Map());
+
+  useEffect(() => {
+    fetch(`${API}/api/validations/stats`, { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data?.stats) return;
+        const m = new Map<string, AssumptionStats>();
+        for (const s of data.stats as AssumptionStats[]) m.set(s.assumptionId, s);
+        setStatsMap(m);
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleStatsChange = useCallback((updated: AssumptionStats) => {
+    setStatsMap((prev) => new Map(prev).set(updated.assumptionId, updated));
+  }, []);
 
   const kategorien = [...new Set(ANNAHMEN.map((a) => a.kategorie))] as Kategorie[];
 
@@ -957,7 +994,14 @@ export default function AnnahmenPage() {
           {gefiltert.length === 0 ? (
             <div className="text-center py-12 text-[#8faabb]">Keine Annahmen gefunden.</div>
           ) : (
-            gefiltert.map((a) => <AnnahmeKarte key={a.id} a={a} />)
+            gefiltert.map((a) => (
+              <AnnahmeKarte
+                key={a.id}
+                a={a}
+                stats={statsMap.get(a.id)}
+                onStatsChange={handleStatsChange}
+              />
+            ))
           )}
         </div>
 

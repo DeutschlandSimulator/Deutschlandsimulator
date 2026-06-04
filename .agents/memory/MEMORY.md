@@ -1,0 +1,3 @@
+- [Auth + Validation Architecture](auth-validation-arch.md) — Replit Auth wired; community validation system with DB, API, and ValidationWidget built.
+- [Zod in api-server](zod-api-server.md) — zod is NOT installed in api-server; use plain JS validation or import from @workspace/api-zod instead.
+- [replit-auth-web vite types](replit-auth-web-vite.md) — lib needs vite as devDependency for import.meta.env types in tsconfig.

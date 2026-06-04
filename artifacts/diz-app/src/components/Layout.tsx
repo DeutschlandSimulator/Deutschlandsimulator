@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "wouter";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, LogIn, LogOut, User } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useAuth } from "@workspace/replit-auth-web";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const { theme, toggle } = useTheme();
+  const { isAuthenticated, isLoading: authLoading, login, logout, user } = useAuth();
 
   const navLinks = [
     { href: "/simulator",  label: "Simulator",          cta: false },
@@ -44,6 +46,36 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 {l.label}
               </Link>
             ))}
+
+            {/* Auth button */}
+            {!authLoading && (
+              isAuthenticated ? (
+                <div className="flex items-center gap-1.5 ml-1 shrink-0">
+                  {user?.profileImageUrl ? (
+                    <img src={user.profileImageUrl} alt="" className="w-6 h-6 rounded-full border border-[#1e3048]" />
+                  ) : (
+                    <User size={14} className="text-[#8faabb]" />
+                  )}
+                  <button
+                    onClick={logout}
+                    title="Ausloggen"
+                    className="flex items-center gap-1 text-[10px] text-[#8faabb] hover:text-[#f0f4f8] transition-colors"
+                  >
+                    <LogOut size={12} />
+                    <span className="hidden sm:inline">Ausloggen</span>
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={login}
+                  title="Einloggen"
+                  className="ml-1 flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded border border-[#1e3048] text-[#8faabb] hover:border-[#00c8b4]/60 hover:text-[#00c8b4] transition-colors shrink-0"
+                >
+                  <LogIn size={12} />
+                  <span className="hidden sm:inline">Einloggen</span>
+                </button>
+              )
+            )}
 
             <button
               onClick={toggle}

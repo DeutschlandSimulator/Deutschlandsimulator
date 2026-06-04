@@ -6,6 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type BeginBrowserLoginParams = {
-returnTo?: string;
-};
+export interface ReportErrorBody {
+  /**
+     * @minLength 1
+     * @maxLength 1000
+     */
+  reason: string;
+}

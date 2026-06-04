@@ -1,0 +1,116 @@
+**Replit Prompt**
+
+Optimiere die Startseite des Deutschlandsimulators mit dem Ziel, Besucher schneller in die Simulation zu führen, die Kernidee verständlicher zu machen und gleichzeitig Vertrauen aufzubauen.
+
+### 1. Hero-Bereich überarbeiten
+
+Ersetze die aktuelle Überschrift und Einleitung durch eine nutzenorientierte Variante.
+
+Vorschlag:
+
+**Was würde passieren, wenn politische Entscheidungen anders getroffen würden?**
+
+Testen Sie selbst, wie sich Änderungen bei Steuern, Sozialleistungen, Staatsausgaben oder anderen politischen Maßnahmen auf Staatshaushalt, Wirtschaft und Gesellschaft auswirken könnten.
+
+Darunter weiterhin die beiden Buttons:
+
+* Simulation starten (Primary)
+* Methodik ansehen (Secondary)
+
+Der Fokus soll klar auf dem Starten der Simulation liegen.
+
+---
+
+### 2. Beispiel-Szenario direkt auf der Startseite ergänzen
+
+Unter dem Hero-Bereich einen neuen Abschnitt einfügen:
+
+**Beispiel einer Simulation**
+
+Zeige eine kompakte Beispielkarte mit fiktiven Werten, z. B.:
+
+* Einkommensteuer senken
+* Staatseinnahmen: −18 Mrd. €
+* Wirtschaftswachstum: +0,4 %
+* Staatsverschuldung: +0,3 %
+
+Zusätzlich ein Button:
+
+**„Jetzt eigene Szenarien testen“**
+
+Ziel: Besucher sollen sofort verstehen, welche Art von Ergebnissen der Simulator liefert.
+
+---
+
+### 3. Vertrauens- und Transparenzbereich zusammenfassen
+
+Die aktuell getrennten Bereiche:
+
+* Unabhängiges Privatprojekt
+* Open Source
+* Daten & Methodik
+* Transparenz
+
+zu einem einzigen Abschnitt zusammenführen:
+
+## Warum diesem Projekt vertrauen?
+
+Mit folgenden Punkten:
+
+✓ Unabhängiges Privatprojekt
+
+✓ Keine Verbindung zu Parteien, Behörden oder Interessengruppen
+
+✓ Open Source und öffentlich einsehbarer Quellcode
+
+✓ Quellen und Modellannahmen dokumentiert
+
+✓ Community kann Fehler melden und Verbesserungen vorschlagen
+
+Links zu GitHub und Methodik weiterhin sichtbar platzieren.
+
+---
+
+### 4. Beliebte Szenarien ergänzen
+
+Unter dem Beispiel-Szenario einen Abschnitt:
+
+## Beliebte Szenarien
+
+Als klickbare Karten:
+
+* Mehrwertsteuer senken
+* Vermögenssteuer einführen
+* Renteneintrittsalter erhöhen
+* Bürgergeld reformieren
+* Verteidigungsausgaben erhöhen
+
+Beim Anklicken sollen die entsprechenden Parameter automatisch in die Simulation übernommen werden.
+
+Falls die technische Umsetzung noch nicht existiert, zunächst nur als UI-Komponente vorbereiten.
+
+---
+
+### 5. Footer entschlacken
+
+Den sehr langen Hinweistext im Footer deutlich kürzen.
+
+Stattdessen:
+
+> Dieses Projekt dient der Veranschaulichung möglicher Auswirkungen politischer Entscheidungen. Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und stellen keine Prognosen dar.
+
+Alle ausführlichen Erläuterungen verbleiben auf der Transparenz-/Methodik-Seite.
+
+---
+
+### 6. Allgemeines Ziel
+
+Die Startseite soll:
+
+* weniger wie eine Dokumentationsseite wirken
+* schneller zum eigentlichen Produkt führen
+* die Funktionsweise innerhalb weniger Sekunden verständlich machen
+* Vertrauen durch Transparenz schaffen
+* moderne SaaS-/Open-Source-Projekt-Standards erfüllen
+
+Bitte vorhandenes Dark-Theme, Farbkonzept und Designsystem beibehalten und die neuen Bereiche optisch konsistent integrieren.

@@ -51,15 +51,65 @@ export interface ErrorEnvelope {
   error: string;
 }
 
+export type AssumptionStatsStatus = typeof AssumptionStatsStatus[keyof typeof AssumptionStatsStatus];
+
+
+export const AssumptionStatsStatus = {
+  ki_recherchiert: 'ki_recherchiert',
+  community_geprueft: 'community_geprueft',
+} as const;
+
+export interface AssumptionStats {
+  assumptionId: string;
+  validationCount: number;
+  errorCount: number;
+  status: AssumptionStatsStatus;
+  myValidation: boolean;
+}
+
+export interface ValidationStatsEnvelope {
+  stats: AssumptionStats[];
+}
+
+export interface ValidationActionResult {
+  ok: boolean;
+}
+
+export interface ReportErrorBody {
+  /**
+     * @minLength 1
+     * @maxLength 1000
+     */
+  reason: string;
+}
+
+export type AdminAssumptionRowStatus = typeof AdminAssumptionRowStatus[keyof typeof AdminAssumptionRowStatus];
+
+
+export const AdminAssumptionRowStatus = {
+  ki_recherchiert: 'ki_recherchiert',
+  community_geprueft: 'community_geprueft',
+} as const;
+
+export interface AdminAssumptionRow {
+  assumptionId: string;
+  validationCount: number;
+  errorCount: number;
+  /** @nullable */
+  lastValidatedAt: string | null;
+  status: AdminAssumptionRowStatus;
+}
+
+export interface AdminOverviewEnvelope {
+  rows: AdminAssumptionRow[];
+}
+
 /**
  * Opaque session token — `Bearer <sid>`.
  */
 export type AuthorizationSessionHeaderParameter = string;
 
 export type BeginBrowserLoginParams = {
-/**
- * Relative path to redirect to after login (must start with `/`). Defaults to `/`.
- */
 returnTo?: string;
 };
 

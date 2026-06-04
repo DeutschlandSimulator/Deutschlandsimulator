@@ -9,7 +9,6 @@ import * as zod from 'zod';
 
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
@@ -39,7 +38,7 @@ export const GetCurrentAuthUserResponse = zod.object({
  * @summary Start the browser OIDC login flow
  */
 export const BeginBrowserLoginQueryParams = zod.object({
-  "returnTo": zod.coerce.string().optional().describe('Relative path to redirect to after login (must start with `\/`). Defaults to `\/`.')
+  "returnTo": zod.coerce.string().optional()
 })
 
 
@@ -93,6 +92,98 @@ export const LogoutMobileSessionHeader = zod.object({
 
 export const LogoutMobileSessionResponse = zod.object({
   "success": zod.boolean()
+})
+
+
+/**
+ * @summary Get validation stats for all assumptions
+ */
+export const GetValidationStatsHeader = zod.object({
+  "Authorization": zod.string().optional().describe('Opaque session token — `Bearer <sid>`.')
+})
+
+export const GetValidationStatsResponse = zod.object({
+  "stats": zod.array(zod.object({
+  "assumptionId": zod.string(),
+  "validationCount": zod.number(),
+  "errorCount": zod.number(),
+  "status": zod.enum(['ki_recherchiert', 'community_geprueft']),
+  "myValidation": zod.boolean()
+}))
+})
+
+
+/**
+ * @summary Mark an assumption as validated
+ */
+export const ValidateAssumptionParams = zod.object({
+  "assumptionId": zod.coerce.string()
+})
+
+export const ValidateAssumptionHeader = zod.object({
+  "Authorization": zod.string().optional().describe('Opaque session token — `Bearer <sid>`.')
+})
+
+export const ValidateAssumptionResponse = zod.object({
+  "ok": zod.boolean()
+})
+
+
+/**
+ * @summary Remove a validation
+ */
+export const UnvalidateAssumptionParams = zod.object({
+  "assumptionId": zod.coerce.string()
+})
+
+export const UnvalidateAssumptionHeader = zod.object({
+  "Authorization": zod.string().optional().describe('Opaque session token — `Bearer <sid>`.')
+})
+
+export const UnvalidateAssumptionResponse = zod.object({
+  "ok": zod.boolean()
+})
+
+
+/**
+ * @summary Report an error or outdated data for an assumption
+ */
+export const ReportAssumptionErrorParams = zod.object({
+  "assumptionId": zod.coerce.string()
+})
+
+export const ReportAssumptionErrorHeader = zod.object({
+  "Authorization": zod.string().optional().describe('Opaque session token — `Bearer <sid>`.')
+})
+
+export const reportAssumptionErrorBodyReasonMax = 1000;
+
+
+
+export const ReportAssumptionErrorBody = zod.object({
+  "reason": zod.string().min(1).max(reportAssumptionErrorBodyReasonMax)
+})
+
+export const ReportAssumptionErrorResponse = zod.object({
+  "ok": zod.boolean()
+})
+
+
+/**
+ * @summary Admin overview of all assumptions with validation state
+ */
+export const GetAdminOverviewHeader = zod.object({
+  "Authorization": zod.string().optional().describe('Opaque session token — `Bearer <sid>`.')
+})
+
+export const GetAdminOverviewResponse = zod.object({
+  "rows": zod.array(zod.object({
+  "assumptionId": zod.string(),
+  "validationCount": zod.number(),
+  "errorCount": zod.number(),
+  "lastValidatedAt": zod.coerce.date().nullable(),
+  "status": zod.enum(['ki_recherchiert', 'community_geprueft'])
+}))
 })
 
 

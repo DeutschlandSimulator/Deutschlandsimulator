@@ -6,6 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './adminAssumptionRow';
+export * from './adminAssumptionRowStatus';
+export * from './adminOverviewEnvelope';
+export * from './assumptionStats';
+export * from './assumptionStatsStatus';
 export * from './authorizationSessionHeaderParameter';
 export * from './authUser';
 export * from './authUserEnvelope';
@@ -16,3 +21,6 @@ export * from './healthStatus';
 export * from './logoutSuccess';
 export * from './mobileTokenExchangeRequest';
 export * from './mobileTokenExchangeSuccess';
+export * from './reportErrorBody';
+export * from './validationActionResult';
+export * from './validationStatsEnvelope';

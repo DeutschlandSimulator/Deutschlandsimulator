@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -12,13 +11,14 @@ tags:
     description: Health operations
   - name: Auth
     description: Browser and mobile authentication endpoints.
+  - name: Validations
+    description: Community validation of assumptions.
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -50,7 +50,6 @@ paths:
         - name: returnTo
           in: query
           required: false
-          description: Relative path to redirect to after login (must start with `/`). Defaults to `/`.
           schema:
             type: string
       responses:
@@ -80,7 +79,7 @@ paths:
             format: uri
       responses:
         '302':
-          description: Redirect to the `returnTo` path on success (defaults to `/`) or `/api/login` on failure.
+          description: Redirect to success or login on failure.
   /logout:
     get:
       tags: [Auth]
@@ -91,7 +90,7 @@ paths:
         - $ref: '#/components/parameters/SessionCookie'
       responses:
         '302':
-          description: Redirect to the OIDC provider logout URL.
+          description: Redirect to OIDC provider logout URL.
   /mobile-auth/token-exchange:
     post:
       tags: [Auth]
@@ -142,6 +141,131 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogoutSuccess'
+  /validations/stats:
+    get:
+      tags: [Validations]
+      operationId: getValidationStats
+      summary: Get validation stats for all assumptions
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationSessionHeader'
+        - $ref: '#/components/parameters/SessionCookie'
+      responses:
+        '200':
+          description: Stats for all assumptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationStatsEnvelope'
+  /validations/{assumptionId}:
+    post:
+      tags: [Validations]
+      operationId: validateAssumption
+      summary: Mark an assumption as validated
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationSessionHeader'
+        - $ref: '#/components/parameters/SessionCookie'
+        - name: assumptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Validation recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationActionResult'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+        '409':
+          description: Already validated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+    delete:
+      tags: [Validations]
+      operationId: unvalidateAssumption
+      summary: Remove a validation
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationSessionHeader'
+        - $ref: '#/components/parameters/SessionCookie'
+        - name: assumptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Validation removed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationActionResult'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+  /reports/{assumptionId}:
+    post:
+      tags: [Validations]
+      operationId: reportAssumptionError
+      summary: Report an error or outdated data for an assumption
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationSessionHeader'
+        - $ref: '#/components/parameters/SessionCookie'
+        - name: assumptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportErrorBody'
+      responses:
+        '200':
+          description: Report recorded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationActionResult'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+  /admin/overview:
+    get:
+      tags: [Validations]
+      operationId: getAdminOverview
+      summary: Admin overview of all assumptions with validation state
+      parameters:
+        - $ref: '#/components/parameters/AuthorizationSessionHeader'
+        - $ref: '#/components/parameters/SessionCookie'
+      responses:
+        '200':
+          description: Admin overview.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminOverviewEnvelope'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
 components:
   parameters:
     AuthorizationSessionHeader:
@@ -228,3 +352,64 @@ components:
       properties:
         error:
           type: string
+    AssumptionStats:
+      type: object
+      required: [assumptionId, validationCount, errorCount, status, myValidation]
+      properties:
+        assumptionId:
+          type: string
+        validationCount:
+          type: integer
+        errorCount:
+          type: integer
+        status:
+          type: string
+          enum: [ki_recherchiert, community_geprueft]
+        myValidation:
+          type: boolean
+    ValidationStatsEnvelope:
+      type: object
+      required: [stats]
+      properties:
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssumptionStats'
+    ValidationActionResult:
+      type: object
+      required: [ok]
+      properties:
+        ok:
+          type: boolean
+    ReportErrorBody:
+      type: object
+      required: [reason]
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 1000
+    AdminAssumptionRow:
+      type: object
+      required: [assumptionId, validationCount, errorCount, lastValidatedAt, status]
+      properties:
+        assumptionId:
+          type: string
+        validationCount:
+          type: integer
+        errorCount:
+          type: integer
+        lastValidatedAt:
+          type: [string, 'null']
+          format: date-time
+        status:
+          type: string
+          enum: [ki_recherchiert, community_geprueft]
+    AdminOverviewEnvelope:
+      type: object
+      required: [rows]
+      properties:
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminAssumptionRow'
