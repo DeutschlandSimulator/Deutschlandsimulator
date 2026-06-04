@@ -5,10 +5,10 @@ import { GITHUB } from "@/config/github";
 import { ANNAHMEN } from "@/pages/Annahmen";
 
 // ─── Derived lists ─────────────────────────────────────────────────────────────
-const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierung === "nicht");
-const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierung === "teilweise");
-const KI_GEPRUEFT       = ANNAHMEN.filter((a) => a.verifizierung === "ki");
-const MENSCH_GEPRUEFT   = ANNAHMEN.filter((a) => a.verifizierung === "mensch");
+const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht");
+const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise");
+const KI_GEPRUEFT       = ANNAHMEN.filter((a) => a.geprueftVon === "ki");
+const MENSCH_GEPRUEFT   = ANNAHMEN.filter((a) => a.geprueftVon === "mensch");
 
 interface ActionCardProps {
   icon: string;

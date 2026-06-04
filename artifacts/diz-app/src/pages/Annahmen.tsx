@@ -12,8 +12,9 @@ import { SLIDER_INFO } from "@/components/simulator/data";
 const API = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-type Evidenz       = "hoch" | "mittel" | "gering";
-type Verifizierung = "mensch" | "ki" | "teilweise" | "nicht";
+type Evidenz           = "hoch" | "mittel" | "gering";
+type GeprueftVon       = "mensch" | "ki" | "keine";
+type Verifizierungsgrad = "vollstaendig" | "teilweise" | "nicht";
 type Kategorie     = "Basiswerte" | "Beamte" | "Ministerien" | "Verteidigung" | "Migration" | "Gesundheit" | "Soziales" | "Steuern" | "Finanzen" | "Klima & Energie" | "Wohnen" | "Bildung" | "Wachstum" | "Sonstiges";
 
 interface Sensitivitaet { wert: string; ergebnis: number; einheit: string; }
@@ -29,7 +30,8 @@ interface Annahme {
   letzteUeberpruefung: string;
   datenherkunft: string;
   evidenz: Evidenz;
-  verifizierung: Verifizierung;
+  geprueftVon: GeprueftVon;
+  verifizierungsgrad: Verifizierungsgrad;
   erklaerung: string;
   unsicherheiten?: string;
   sensitivitaet?: Sensitivitaet[];
@@ -48,7 +50,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Offizielle Volkswirtschaftliche Gesamtrechnung",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Das BIP ist die Summe aller in Deutschland erbrachten Wirtschaftsleistungen in einem Jahr. Es dient als Skalierungsbasis für alle prozentualen Ausgabenpositionen (z.B. Verteidigung 2% BIP = 79,8 Mrd. €). Der Wert basiert auf der amtlichen Erstschätzung für 2024.",
     unsicherheiten: "Revisionen des Statistischen Bundesamts können den Wert um ±0,2–0,5% verschieben.",
   },
@@ -63,7 +65,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Bundeshaushalt Soll/Ist-Vergleich",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Ausgangswert des Simulators. Alle Schieberegler messen Abweichungen von diesem Baseline-Wert. Positive Abweichungen (Überschuss) werden grün dargestellt, negative (Defizit) rot.",
     unsicherheiten: "Unterjährige Steuereinnahmen und Konjunkturschwankungen können den Ist-Wert erheblich abweichen lassen.",
     sensitivitaet: [
@@ -84,7 +86,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Steuerstatistik, monatliche Kassenergebnisse",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Gesamtsteueraufkommen von Bund, Ländern und Gemeinden. Wird als Baseline für alle Einnahmenberechnungen genutzt. Änderungen durch Steuersatzanpassungen werden additiv hinzugerechnet.",
   },
   {
@@ -98,7 +100,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Personalstandstatistik des öffentlichen Dienstes",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Durchschnittliches Bruttogehalt über alle Laufbahngruppen (einfach bis höherer Dienst) auf Bundes-, Landes- und Kommunalebene. Versorgungsrückstellungen in Höhe von 23% des Bruttogehalts sind separat berücksichtigt.",
     unsicherheiten: "Regionale Unterschiede (Bayern vs. ostdeutsche Länder) können ±15% abweichen.",
     sensitivitaet: [
@@ -118,7 +120,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Berichte zur Personalentwicklung im öffentlichen Dienst",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Beamte genießen verfassungsrechtlich garantierten Kündigungsschutz (Art. 33 GG). Einsparungen entstehen daher fast ausschließlich durch natürliche Fluktuation (Pensionierungen, freiwillige Abgänge). Das Modell vereinfacht den Zeitpfad: Jahr 1 = 10%, Jahr 5 = 50%, Jahr 10 = 100%. Im Simulator wird ein Ø-Faktor von 30% für den Nahzeitraum angewandt.",
     unsicherheiten: "Der tatsächliche Zeitpfad hängt stark von der Altersstruktur des jeweiligen Dienstherrn ab.",
   },
@@ -133,7 +135,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "NATO-Berechnungsmethode, standardisiert",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Direkt abgeleitet aus BIP-Baseline (3.990 Mrd. × 1%). Die NATO verwendet eine standardisierte Berechnungsmethode, die nur bestimmte Ausgabenkategorien einschließt.",
     sensitivitaet: [
       { wert: "1,0% BIP", ergebnis: -39.9, einheit: "Mrd. vs. 2%" },
@@ -152,7 +154,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Metaanalyse militärischer Ausgaben und BIP-Wachstum",
     evidenz: "gering",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Kurzfristig wirken Verteidigungsausgaben als Nachfrageimpuls (Multiplikator ~1,0–1,5). Langfristig verdrängen sie zivile Investitionen (Crowding-out). Der Nettoeffekt ist stark kontextabhängig. Das Modell differenziert nach Szenario: optimistisch nimmt kurzfristigen Nachfrageeffekt an, pessimistisch langfristige Produktivitätseffekte.",
     unsicherheiten: "Empirische Literatur zeigt sehr heterogene Ergebnisse je nach Land und Zeitraum (Hicks, 2022; IMF WP 2023).",
   },
@@ -167,7 +169,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "BAMF-Jahresbericht / IAB-Forschungsbericht",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Durchschnittliche Kosten je aufgenommener Person für Unterbringung (~6.000 €), Sozialleistungen (~8.000 €) und Verwaltung (~4.000 €). Langfristig (5–10 Jahre) entstehen Rückflüsse durch 60% Erwerbsquote und Steuer-/Sozialbeiträge (~9.200 €/Jahr). Das Modell berücksichtigt nur Kurzfristkosten.",
     unsicherheiten: "Kosten variieren stark je nach Herkunftsland, Bildungsstand und Integrationsmaßnahmen (±40%).",
     sensitivitaet: [
@@ -188,7 +190,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "OECD Migration Outlook / IAB-Kurzbericht",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Ø-Bruttolohn qualifizierter Zuwanderer: 52.000 €/Jahr. Steuer + Sozialbeiträge: ~14.500 €/Jahr (Bruttowert). Integrationsfaktor: Jahr 1 = 60%, Jahr 2 = 80%, Jahr 3 = 100% → Ø 80% = 11.600 €. BIP-Effekt: +0,0008% pro 1.000 Fachkräfte.",
     unsicherheiten: "Sofortige Vollbeschäftigung nicht realistisch. Tatsächliche Erwerbsquote im ersten Jahr liegt oft bei 50–70%.",
     sensitivitaet: [
@@ -209,7 +211,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Statistik Grundsicherung für Arbeitsuchende",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Modell hält Empfängeranzahl konstant. Änderungen des Regelsatzes beeinflussen die Gesamtkosten linear (5,5 Mio. × 12 Monate × Δ€). IAB schätzt Arbeitsangebotseffekt bei −0,3% Beschäftigung pro 10% Erhöhung.",
     unsicherheiten: "Empfängeranzahl ist konjunkturabhängig. Bei Rezession kann sie auf 6–7 Mio. steigen.",
     sensitivitaet: [
@@ -230,7 +232,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Rentenversicherungsbericht / Sachverständigenrat",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Brutto-Einsparung: 18,5 Mrd. € pro Jahr Anhebung (weniger Rentner). Risikofaktor 18%: Höheres Rentenalter führt zu mehr Erwerbsminderungsrenten, krankheitsbedingten Ausfällen und Frühverrentungen in körperlich belastenden Berufen. Nettoeffekt: 18,5 × 0,82 = 15,2 Mrd. €.",
     unsicherheiten: "Risikofaktor stark branchenabhängig. In Bau/Pflege können bis zu 40% der Beschäftigten das höhere Rentenalter nicht erreichen.",
     sensitivitaet: [
@@ -250,7 +252,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Lohn- und Einkommensteuerstatistik, Aufkommensschätzung",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Schätzung basiert auf der Einkommensverteilung der Steuerpflichtigen ab dem Spitzensteuersatz-Grenzwert (66.761 €). Elastizität des steuerpflichtigen Einkommens: −0,2 (Laffer-Effekt). Ab 50% Spitzensatz wird Verhaltensanpassung (Kapitalverlagerung, Leistungsreduktion) stärker gewichtet.",
     unsicherheiten: "Laffer-Kurve ist empirisch umstritten. Internationale Studien zeigen Elastizitäten von −0,1 bis −0,5.",
     sensitivitaet: [
@@ -270,7 +272,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Forschungsberichte Vermögensbesteuerung Deutschland",
     evidenz: "gering",
-    verifizierung: "nicht",
+    geprueftVon: "keine", verifizierungsgrad: "nicht",
     erklaerung: "Die Vermögenssteuer wurde 1997 ausgesetzt. Schätzungen für eine Wiedereinführung variieren stark je nach Steuersatz, Freibeträgen und angenommener Kapitalflucht. Optimistisch: geringe Kapitalflucht (+15 Mrd.). Realistisch: moderate Verhaltensanpassung (+8 Mrd.). Pessimistisch: erhebliche Kapitalverlagerung ins Ausland (+4 Mrd.).",
     unsicherheiten: "Sehr hohe Unsicherheit. Keine aktuellen empirischen Daten verfügbar. Verfassungsrechtliche Fragen ungeklärt.",
   },
@@ -285,7 +287,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Körperschaftsteuerstatistik",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Kombinierter Effekt aus Körperschaftsteuer und Gewerbesteuer. Wachstumseffekt: −0,015% BIP pro Prozentpunkt höhere Steuer (Investitionshemmnis). Niedrigere Unternehmenssteuern können durch Investitionsanreize langfristig höhere Steuereinnahmen generieren.",
     unsicherheiten: "Verhaltensanpassungen von Unternehmen (Gewinnverlagerung, Investitionsstandort) stark unsicher.",
   },
@@ -300,7 +302,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Jahresgutachten 2023/24",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Konsens-Prognose für strukturelles Wachstum. Alle Schiebregler berechnen Abweichungen von diesem Wert. Negative Wachstumsraten sind möglich (keine Untergrenze im Modell). Ketteneffekte: Höheres Wachstum generiert +20 Mrd. € Steuereinnahmen pro Prozentpunkt.",
     unsicherheiten: "Wachstumsprognosen haben eine durchschnittliche Prognosefehler von ±1,5pp auf Jahressicht.",
   },
@@ -315,7 +317,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Steuerschätzerkreis / Stabilitätsprogramm",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Wachstumsbedingte Steuermehrereinnahmen entstehen durch höhere Unternehmensgewinne, Lohnsteigerungen und Mehrwertsteuereinnahmen. Grobe Schätzung: 1% BIP-Wachstum generiert ~2% Steuermehreinnahmen. Bei 916 Mrd. Baseline ≈ 18–22 Mrd. €.",
     unsicherheiten: "Multiplikator variiert mit Konjunkturphase und Steuerstruktur.",
   },
@@ -329,7 +331,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Eigene Modellentscheidung",
     evidenz: "gering",
-    verifizierung: "nicht",
+    geprueftVon: "keine", verifizierungsgrad: "nicht",
     erklaerung: "Vereinfachte Skalierung aller Fiskal- und Wachstumseffekte. Bildet unterschiedliche Rahmenbedingungen ab (günstige vs. ungünstige gesamtwirtschaftliche Lage, politische Umsetzungserfolge). Kein empirisch belegtes Modell — reine Illustrationshilfe.",
     unsicherheiten: "Reale Effekte sind nicht linear skalierbar. Einige Maßnahmen wirken in Rezessionen stärker, andere schwächer.",
   },
@@ -346,7 +348,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Einkommensteuergesetz § 32a",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Das Modell simuliert eine Anhebung der Eintrittsschwelle des Spitzensteuersatzes (42 %) auf 80k, 100k, 150k oder 250k €. Pro 10.000 € Anhebung sinken die Einnahmen um ca. 3,6 Mrd. € (Schätzung basierend auf der Einkommensverteilung laut Lohn- und Einkommensteuerstatistik). Gegenläufig: schwaches Entlastungs-Wachstumseffekt (+0,02% BIP).",
     unsicherheiten: "Verhaltenseffekte (Mehrarbeit, Aufstieg in höhere Qualifikation) sind positiv, empirisch aber schwer zu isolieren.",
     sensitivitaet: [
@@ -367,7 +369,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "IZA Discussion Paper – Spitzeneinkommensteuer und Standortwahl",
     evidenz: "gering",
-    verifizierung: "nicht",
+    geprueftVon: "keine", verifizierungsgrad: "nicht",
     erklaerung: "Das Potenzial für eine neue Steuerklasse über dem aktuellen Spitzensatz (45 %) hängt stark von der angenommenen Steuerbasis und der Emigrationselastizität ab. IZA schätzt das Bruttopotenzial auf 3–5 Mrd. € bei einer 250k-Schwelle. Das Modell dämpft ab 55 % mit −0,4 Mrd. pro Prozentpunkt. Frankreichs 'supertaxe' (75 %) erzielte nur Bruchteile der erwarteten Einnahmen und wurde nach zwei Jahren abgeschafft.",
     unsicherheiten: "Sehr hohe Unsicherheit. Kapitalumwidmung, Steuervermeidung und Emigrationsrisiko sind empirisch nicht gut erfasst.",
     sensitivitaet: [
@@ -388,7 +390,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "DIW-Wochenbericht 2023 – Vermögensbesteuerung",
     evidenz: "gering",
-    verifizierung: "nicht",
+    geprueftVon: "keine", verifizierungsgrad: "nicht",
     erklaerung: "Ein höherer Freibetrag schützt Mittelstand und KMU, reduziert aber die Steuerbasis erheblich. Das Modell gewichtet die Steuerbasis nach Freibetrag: 1 Mio. = Faktor 1,0; 2 Mio. = 0,75; 5 Mio. = 0,5; 10 Mio. = 0,3; 20 Mio. = 0,15. Diese Faktoren spiegeln die Konzentration des Nettovermögens (SOEP-Daten) wider.",
     unsicherheiten: "Vermögensdaten in Deutschland sind unvollständig (SOEP erfasst Superreiche systematisch unter). Tatsächliche Steuerbasis unklar.",
   },
@@ -403,7 +405,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Internationale Erfahrungen mit Vermögensteuern (Frankreich, Norwegen, Schweiz)",
     evidenz: "gering",
-    verifizierung: "nicht",
+    geprueftVon: "keine", verifizierungsgrad: "nicht",
     erklaerung: "Das Modell schätzt das Basispotenzial bei 1% Satz / 1 Mio. Freibetrag auf ca. 10 Mrd. € (pessimistisch) bis 20 Mrd. € (optimistisch). Verhaltensanpassung steigt überproportional mit dem Satz: optimistisch −20% ab 2 %, pessimistisch −50% ab 1,5 %. Kapitalflucht und Vermeidung sind international gut dokumentiert (Zucman 2019; Jakobsen et al. 2020).",
     unsicherheiten: "Laffer-Kurve bei Vermögensteuern liegt schätzungsweise zwischen 1 und 2 % — je nach Offenheitsgrad der Volkswirtschaft.",
   },
@@ -420,7 +422,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Jahresgutachten 2023/24 – Fiskalregeln im Vergleich",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Die Schuldenbremse (Art. 109 GG) begrenzt die Nettoneuverschuldung des Bundes auf 0,35% BIP (~14 Mrd. €/J.). Modus 'Reformiert' modelliert eine Klimainvestitionsausnahme (+25 Mrd.). 'Ausgesetzt' bildet das Notstandsrecht ab (z.B. Pandemie). 'Abgeschafft' entspricht dem Wegfall des verfassungsrechtlichen Verbots. Wachstumseffekte: Reformiert +0,05%, Ausgesetzt +0,1%, Abgeschafft +0,15% BIP (kurzfristig, keynesianischer Multiplikator ~1,5 für Investitionen).",
     unsicherheiten: "Langfristige Schuldenstandsdynamik ist entscheidend. Eine dauerhaft höhere Neuverschuldung erhöht den Schuldenstand und künftige Zinslasten — nicht im Modell abgebildet.",
     sensitivitaet: [
@@ -443,7 +445,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "ETS-Spotpreise (EEX), UBA-Emissionsbericht 2024",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Der CO₂-Preis wirkt über zwei Kanäle: (1) Steuereinnahmen = Preis × Emissionen × 0,18 (nur ETS + nBEHS-Anteil). (2) Emissionsreduktion: −1 Mt pro +1 €/t (empirische Schätzung aus McKinsey Abatement Cost Curve). Strompreiseffekt: +0,1 ct/kWh pro +10 €/t CO₂ (Erzeugungskosten fossiler Kraftwerke). Grenzkosten-Beziehung basiert auf Merit-Order-Modell.",
     unsicherheiten: "CO₂-Preissignal wirkt verzögert (Investitionszyklen 3–10 Jahre). Verhaltensanpassung und Energieeffizienz nicht vollständig modelliert.",
     sensitivitaet: [
@@ -464,7 +466,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Monitoring Versorgungssicherheit / Bundesnetzagentur 2024",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Jeder Prozentpunkt mehr Windausbau über Baseline reduziert CO₂-Emissionen um 0,6 Mt und Strompreis um 0,05 ct/kWh (Verdrängung teurer Gaskraftwerke). Solar: 0,3 Mt / 0,03 ct/kWh pro Prozentpunkt. Strompreiseffekte: Erneuerbare senken den Merit-Order-Preis bei ausreichender Kapazität, erhöhen ihn aber bei notwendiger Netzinfrastruktur und Backup-Kapazitäten. Nettowirkung im Modell auf Haushaltstrompreise.",
     unsicherheiten: "Ausbaupfad hängt stark von Planungs- und Genehmigungsverfahren ab. Tatsächliche Netzintegration kann zusätzliche Kosten erzeugen.",
   },
@@ -479,7 +481,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Stresstest Versorgungssicherheit 2022–2023, IAEA Energy Reports",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Deutschland schaltete im April 2023 die letzten drei Kernkraftwerke (Isar 2, Neckarwestheim 2, Emsland) ab. Modell-Modus 'Weiterbetrieb' schätzt: ~50 TWh Emissionsfreier Strom → −5 Mt CO₂ vs. Gaskompensation, Strompreiseffekt −1,5 ct/kWh. 'Neubau (2040+)' hat identischen Effekt, aber 0 Beitrag im aktuellen Zeitfenster — nur als langfristiger Signal-Indikator. Rückbaukosten der abgeschalteten AKW sind nicht im Modell.",
     unsicherheiten: "Laufzeitverlängerung technisch und rechtlich hochkomplex. Neubau in Deutschland nicht vor 2040 realistisch.",
   },
@@ -494,7 +496,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "UBA Emissionsinventar 2024 / Kohlekompromiss 2019",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Kohle machte 2023 noch ca. 25% der deutschen Stromerzeugung aus (~170 Mt CO₂). 'Beschleunigt 2028': −15 Mt CO₂, −0,5 ct/kWh Strompreiseffekt (mehr Erdgas als Brücke). 'Gesetzlicher Plan 2030': Baseline. 'Verzögert 2035': +15 Mt CO₂, +0 ct/kWh kurzfristig. 'Kohle beibehalten': +30 Mt CO₂ vs. 2030-Ziel. Strompreiseffekte spiegeln Erzeugungskostendifferenz Kohle vs. Gas/EE wider.",
     unsicherheiten: "Geschwindigkeit des Erneuerbare-Ausbaus bestimmt, wie viel Gas als Brücke nötig ist — hohe Unsicherheit.",
     sensitivitaet: [
@@ -517,7 +519,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "IW-Studie Wohnungsmarkt Deutschland / Pestel-Institut Jan 2024",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Das kumulierte Wohnraumdefizit entsteht aus der Differenz zwischen Neubaubedarf (~400k WE/J.) und tatsächlichen Fertigstellungen (~250k WE/J. in 2023). Sozialwohnungen reduzieren das Defizit direkt. Mietpreisbremse und Wohngeld wirken nachfrageseitig, helfen aber nicht beim Defizitabbau. Das Modell unterstellt: 1 neue Sozialwohnung = 1 WE Defizitreduktion über 5 Jahre (Planungs-/Bauzeit).",
     unsicherheiten: "Regionale Verteilung stark unterschiedlich (Berlin, München, Hamburg vs. ländliche Regionen). Schätzungen variieren je Institut um ±150k WE.",
   },
@@ -532,7 +534,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Wohnraumförderungsbericht 2023",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Der Bund stellt Bundesmittel für den sozialen Wohnungsbau zur Verfügung; Länder und Kommunen finanzieren ergänzend. Die Gesamtbaukosten liegen bei ca. 3.000–4.500 €/m² (GdW 2023). Der Bundeszuschuss in Höhe von ~250k € pro WE ist eine Modellschätzung. Bei 50k WE/J.: 12,5 Mrd. €; bei 100k: 25 Mrd. €; bei 250k: 62,5 Mrd. € Bundesanteil.",
     unsicherheiten: "Tatsächlicher Förderbedarf hängt vom Förderprogramm ab (KfW-Darlehen vs. Direktzuschuss). Kostensteigerungen im Bau (Material, Energie) seit 2021 erheblich.",
     sensitivitaet: [
@@ -553,7 +555,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "DIW-Evaluierung Mietpreisbremse 2022 / Pestel-Institut 2023",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Die bestehende Mietpreisbremse (§ 556d BGB) begrenzt Wiedervermietungsmieten auf max. 110% der ortsüblichen Vergleichsmiete. Evaluierungen zeigen mäßige Wirksamkeit (+30% Mietabsenkung in betroffenen Inseraten vs. unreguliert). Das Modell simuliert Schärfung/Ausweitung der Bremse mit 3 Intensitätsstufen und einer Mietindex-Verbesserung von bis zu −8 Punkten (Index 100 = Status quo).",
     unsicherheiten: "Angebotseffekte (weniger Vermietungsangebot, mehr Eigentümerwechsel) könnten die Nachfrageseitenentlastung konterkarieren.",
   },
@@ -568,7 +570,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Wohngeldstatistik Destatis / BMWSB Jahresbericht",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Das Wohngeld-Plus hat den Empfängerkreis von ~600k auf ~1,9 Mio. ausgeweitet und die Ausgaben verdreifacht. Im Modell bedeutet +50% Wohngeld: +2,75 Mrd. €/J. Haushaltskosten; +100%: +5,5 Mrd. €. Mietniveaueffekt: gering (−1 Indexpunkt), da nachfrageseitig und kein Angebotsprogramm.",
     unsicherheiten: "Wohngeldbedarf ist konjunkturabhängig. Steigende Mieten erhöhen automatisch die Ausgaben ohne Gesetzesänderung.",
   },
@@ -585,7 +587,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "OECD Education at a Glance 2023",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Bildungsausgaben umfassen alle öffentlichen Ausgaben für Kita, Schule, Berufsausbildung und Hochschule. Jeder Prozentpunkt BIP entspricht ca. 39,9 Mrd. €. Langfristiger Wachstumseffekt: +0,05% BIP-Wachstum pro +1% BIP Bildungsinvestition (5–10 Jahres-Lag, OECD-Metaanalyse). Fachkräftelückeneffekt: −50k Stellen pro +0,1% BIP (10-Jahres-Horizont).",
     unsicherheiten: "Langfristeffekte haben sehr hohe Unsicherheit (5–10 Jahre Verzögerung). Ausgabenhöhe allein sagt wenig ohne Qualitätsindikator aus.",
     sensitivitaet: [
@@ -606,7 +608,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "KiTa-Radar 2023 / Bertelsmann-Stiftung Ländermonitor",
     evidenz: "mittel",
-    verifizierung: "teilweise",
+    geprueftVon: "ki", verifizierungsgrad: "teilweise",
     erklaerung: "Fehlende Kita-Plätze hemmen Frauenerwerbsbeteiligung und sind damit ein Fachkräfteproblem. Das Modell schätzt: +100% Kita-Ausbau = +20 Mrd. Kosten/J., −50k Fachkräftelücke (mehr Mütter in Erwerbsarbeit → mehr Steuereinnahmen). Positive Gegenrechnung: +10 Mrd. Steuer- und Beitragsmehreinnahmen bei Vollbeschäftigung der freigespielten Arbeitskräfte (langfristig).",
     unsicherheiten: "Fachkräftemangel bei Erzieherinnen selbst limitiert den Ausbau. Kosten stark regional unterschiedlich.",
   },
@@ -621,7 +623,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "BMBF BAföG-Statistik / Studierendenwerke",
     evidenz: "hoch",
-    verifizierung: "ki",
+    geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
     erklaerung: "Das BAföG (Bundesausbildungsförderungsgesetz) bezuschusst Studium und Berufsausbildung für einkommensschwache Familien. 2023 erhielten ca. 650.000 Personen Förderung (historisch niedrig). Das Modell simuliert eine Ausweitung der Anspruchsberechtigung (+50/+100%). Langfristeffekt: geringfügige Fachkräftelückenreduktion (−20k Stellen bei +100%). Fiskalischer Nettoeffekt: negativ kurzfristig, positiv langfristig (höhere Abschlussquoten, höhere Steuereinnahmen).",
     unsicherheiten: "BAföG-Effekte wirken mit 5–10 Jahren Verzögerung. Studienabschlussquoten und Arbeitsmarkterfolge kaum direkt steuerbar.",
   },
@@ -642,17 +644,30 @@ const EvidenzBadge = ({ level }: { level: Evidenz }) => {
   );
 };
 
-const VerifizierungBadge = ({ status }: { status: Verifizierung }) => {
-  const map: Record<Verifizierung, { icon: string; label: string; cls: string }> = {
-    mensch:    { icon: "👤", label: "Menschlich geprüft",   cls: "text-[#4caf82] bg-[#4caf82]/10 border-[#4caf82]/30" },
-    ki:        { icon: "🤖", label: "KI-recherchiert",      cls: "text-[#60a5fa] bg-[#60a5fa]/10 border-[#60a5fa]/30" },
-    teilweise: { icon: "⚠️", label: "Teilweise verifiziert", cls: "text-[#f5a623] bg-[#f5a623]/10 border-[#f5a623]/30" },
-    nicht:     { icon: "❌", label: "Nicht verifiziert",     cls: "text-[#e05c5c] bg-[#e05c5c]/10 border-[#e05c5c]/30" },
+const VerifizierungBadge = ({ geprueftVon, verifizierungsgrad }: { geprueftVon: GeprueftVon; verifizierungsgrad: Verifizierungsgrad }) => {
+  const vonMap: Record<GeprueftVon, { icon: string; label: string; color: string }> = {
+    mensch: { icon: "👤", label: "Mensch", color: "#4caf82" },
+    ki:     { icon: "🤖", label: "KI",    color: "#60a5fa" },
+    keine:  { icon: "—",  label: "—",     color: "#8faabb" },
   };
-  const { icon, label, cls } = map[status];
+  const gradMap: Record<Verifizierungsgrad, { icon: string; label: string }> = {
+    vollstaendig: { icon: "✅", label: "vollständig" },
+    teilweise:    { icon: "⚠️", label: "teilweise"   },
+    nicht:        { icon: "❌", label: "nicht"        },
+  };
+  if (geprueftVon === "keine") {
+    return (
+      <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded border text-[#e05c5c] bg-[#e05c5c]/10 border-[#e05c5c]/30">
+        ❌ Ungeprüft
+      </span>
+    );
+  }
+  const von  = vonMap[geprueftVon];
+  const grad = gradMap[verifizierungsgrad];
   return (
-    <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${cls}`}>
-      {icon} {label}
+    <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded border"
+      style={{ color: von.color, backgroundColor: `${von.color}1a`, borderColor: `${von.color}50` }}>
+      {von.icon} {von.label} · {grad.icon}
     </span>
   );
 };
@@ -772,7 +787,7 @@ function AnnahmeKarte({
           </div>
           <div className="flex flex-wrap gap-1.5 shrink-0">
             <EvidenzBadge level={a.evidenz} />
-            <VerifizierungBadge status={a.verifizierung} />
+            <VerifizierungBadge geprueftVon={a.geprueftVon} verifizierungsgrad={a.verifizierungsgrad} />
           </div>
         </div>
 
@@ -849,7 +864,8 @@ function AnnahmeKarte({
 export default function AnnahmenPage() {
   const [search,        setSearch]        = useState("");
   const [filterEvidenz, setFilterEvidenz] = useState<Evidenz | "alle">("alle");
-  const [filterVerif,   setFilterVerif]   = useState<Verifizierung | "alle">("alle");
+  const [filterVon,     setFilterVon]     = useState<GeprueftVon | "alle">("alle");
+  const [filterGrad,    setFilterGrad]    = useState<Verifizierungsgrad | "alle">("alle");
   const [filterKat,     setFilterKat]     = useState<Kategorie | "alle">("alle");
 
   // Community validation stats
@@ -876,20 +892,22 @@ export default function AnnahmenPage() {
   const gefiltert = useMemo(() => {
     const q = search.toLowerCase();
     return ANNAHMEN.filter((a) => {
-      if (filterEvidenz !== "alle" && a.evidenz      !== filterEvidenz) return false;
-      if (filterVerif   !== "alle" && a.verifizierung !== filterVerif)  return false;
-      if (filterKat     !== "alle" && a.kategorie     !== filterKat)    return false;
+      if (filterEvidenz !== "alle" && a.evidenz           !== filterEvidenz) return false;
+      if (filterVon     !== "alle" && a.geprueftVon       !== filterVon)     return false;
+      if (filterGrad    !== "alle" && a.verifizierungsgrad !== filterGrad)   return false;
+      if (filterKat     !== "alle" && a.kategorie         !== filterKat)     return false;
       if (q && !`${a.parameter} ${a.quelle} ${a.erklaerung} ${a.kategorie} ${a.wert}`.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [search, filterEvidenz, filterVerif, filterKat]);
+  }, [search, filterEvidenz, filterVon, filterGrad, filterKat]);
 
   // Stats
   const total      = ANNAHMEN.length;
-  const human      = ANNAHMEN.filter((a) => a.verifizierung === "mensch").length;
-  const ki         = ANNAHMEN.filter((a) => a.verifizierung === "ki").length;
-  const partial    = ANNAHMEN.filter((a) => a.verifizierung === "teilweise").length;
-  const none       = ANNAHMEN.filter((a) => a.verifizierung === "nicht").length;
+  const human      = ANNAHMEN.filter((a) => a.geprueftVon === "mensch").length;
+  const ki         = ANNAHMEN.filter((a) => a.geprueftVon === "ki").length;
+  const vollst     = ANNAHMEN.filter((a) => a.verifizierungsgrad === "vollstaendig").length;
+  const partial    = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise").length;
+  const none       = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht").length;
   const sources    = [...new Set(ANNAHMEN.map((a) => a.quelle))].length;
   const avgTrust   = Math.round(
     (ANNAHMEN.filter((a) => a.evidenz === "hoch").length * 100 +
@@ -919,35 +937,60 @@ export default function AnnahmenPage() {
         </div>
 
         {/* Transparency Dashboard */}
-        <section>
-          <h2 className="text-xs font-bold uppercase tracking-widest text-[#8faabb] mb-3">Datenqualität</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            {[
-              { label: "Annahmen gesamt",          val: total,                                col: "#f0f4f8" },
-              { label: "👤 Menschlich geprüft",    val: human,                                col: "#4caf82" },
-              { label: "🤖 KI-recherchiert",       val: ki,                                   col: "#60a5fa" },
-              { label: "⚠️ Teilweise",             val: partial,                              col: "#f5a623" },
-              { label: "❌ Nicht verifiziert",     val: none,                                 col: "#e05c5c" },
-            ].map((s) => (
-              <div key={s.label} className="bg-[#1a2b3c] rounded border border-[#1e3048] p-3 text-center">
-                <div className="text-xl font-bold mb-1" style={{ color: s.col }}>{s.val}</div>
-                <div className="text-[10px] text-[#8faabb]">{s.label}</div>
-              </div>
-            ))}
+        <section className="space-y-3">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-[#8faabb]">Datenqualität</h2>
+
+          {/* Dimension 1: Wer hat geprüft? */}
+          <div>
+            <p className="text-[10px] text-[#8faabb] mb-1.5 uppercase tracking-wider font-semibold">Wer hat geprüft?</p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { label: "👤 Menschlich geprüft", val: human, col: "#4caf82", sub: "Unabhängige Verifikation" },
+                { label: "🤖 KI-recherchiert",    val: ki,    col: "#60a5fa", sub: "Von KI eingetragen"       },
+                { label: "— Ungeprüft",            val: none,  col: "#e05c5c", sub: "Kein Prüfer angegeben"   },
+              ].map((s) => (
+                <div key={s.label} className="bg-[#1a2b3c] rounded border border-[#1e3048] p-3 text-center">
+                  <div className="text-xl font-bold mb-0.5" style={{ color: s.col }}>{s.val}</div>
+                  <div className="text-[10px] font-semibold text-[#f0f4f8]">{s.label}</div>
+                  <div className="text-[9px] text-[#8faabb]">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-2 flex rounded-full overflow-hidden h-1.5">
+              <div className="bg-[#4caf82]" style={{ width: `${human/total*100}%` }} title={`Menschlich: ${human}`} />
+              <div className="bg-[#60a5fa]" style={{ width: `${ki/total*100}%` }}    title={`KI: ${ki}`} />
+              <div className="bg-[#e05c5c]" style={{ width: `${none/total*100}%` }}  title={`Ungeprüft: ${none}`} />
+            </div>
           </div>
-          {/* Verification bar */}
-          <div className="mt-3 flex rounded-full overflow-hidden h-2">
-            <div className="bg-[#4caf82] transition-all" style={{ width: `${human/total*100}%` }}   title={`Menschlich geprüft: ${human}`} />
-            <div className="bg-[#60a5fa] transition-all" style={{ width: `${ki/total*100}%` }}      title={`KI-recherchiert: ${ki}`} />
-            <div className="bg-[#f5a623] transition-all" style={{ width: `${partial/total*100}%` }} title={`Teilweise: ${partial}`} />
-            <div className="bg-[#e05c5c] transition-all" style={{ width: `${none/total*100}%` }}    title={`Nicht: ${none}`} />
-          </div>
-          <div className="flex flex-wrap gap-4 mt-1.5 text-[10px] text-[#8faabb]">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82]" />👤 Menschlich ({human})</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#60a5fa]" />🤖 KI-recherchiert ({ki})</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f5a623]" />⚠️ Teilweise ({partial})</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#e05c5c]" />❌ Nicht ({none})</span>
-            <span className="ml-auto">{sources} verschiedene Quellen</span>
+
+          {/* Dimension 2: Wie vollständig? */}
+          <div>
+            <p className="text-[10px] text-[#8faabb] mb-1.5 uppercase tracking-wider font-semibold">Wie vollständig verifiziert?</p>
+            <div className="grid grid-cols-4 gap-3">
+              {[
+                { label: "Gesamt",          val: total,  col: "#f0f4f8", sub: "Alle Annahmen"      },
+                { label: "✅ Vollständig",  val: vollst, col: "#4caf82", sub: "Quelle bestätigt"   },
+                { label: "⚠️ Teilweise",   val: partial, col: "#f5a623", sub: "Teilweise belegt"   },
+                { label: "❌ Nicht",        val: none,   col: "#e05c5c", sub: "Keine Quelle"        },
+              ].map((s) => (
+                <div key={s.label} className="bg-[#1a2b3c] rounded border border-[#1e3048] p-3 text-center">
+                  <div className="text-xl font-bold mb-0.5" style={{ color: s.col }}>{s.val}</div>
+                  <div className="text-[10px] font-semibold text-[#f0f4f8]">{s.label}</div>
+                  <div className="text-[9px] text-[#8faabb]">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-2 flex rounded-full overflow-hidden h-1.5">
+              <div className="bg-[#4caf82]" style={{ width: `${vollst/total*100}%` }}  title={`Vollständig: ${vollst}`} />
+              <div className="bg-[#f5a623]" style={{ width: `${partial/total*100}%` }} title={`Teilweise: ${partial}`} />
+              <div className="bg-[#e05c5c]" style={{ width: `${none/total*100}%` }}    title={`Nicht: ${none}`} />
+            </div>
+            <div className="flex gap-4 mt-1 text-[10px] text-[#8faabb]">
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82]" />✅ Vollständig ({vollst})</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f5a623]" />⚠️ Teilweise ({partial})</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#e05c5c]" />❌ Nicht ({none})</span>
+              <span className="ml-auto">{sources} verschiedene Quellen</span>
+            </div>
           </div>
         </section>
 
@@ -1014,10 +1057,17 @@ export default function AnnahmenPage() {
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
-            {(["alle", "mensch", "ki", "teilweise", "nicht"] as const).map((v) => (
-              <button key={v} onClick={() => setFilterVerif(v)}
-                className={`px-2 py-0.5 rounded border transition-colors ${filterVerif === v ? "border-[#00c8b4] text-[#00c8b4] bg-[#00c8b4]/10" : "border-[#1e3048] text-[#8faabb] hover:text-[#f0f4f8]"}`}>
-                {v === "alle" ? "Alle Status" : v === "mensch" ? "👤 Menschlich" : v === "ki" ? "🤖 KI" : v === "teilweise" ? "⚠️ Teilweise" : "❌ Nicht verifiziert"}
+            {(["alle", "mensch", "ki", "keine"] as const).map((v) => (
+              <button key={v} onClick={() => setFilterVon(v as GeprueftVon | "alle")}
+                className={`px-2 py-0.5 rounded border transition-colors ${filterVon === v ? "border-[#00c8b4] text-[#00c8b4] bg-[#00c8b4]/10" : "border-[#1e3048] text-[#8faabb] hover:text-[#f0f4f8]"}`}>
+                {v === "alle" ? "Alle Prüfer" : v === "mensch" ? "👤 Mensch" : v === "ki" ? "🤖 KI" : "— Ungeprüft"}
+              </button>
+            ))}
+            <span className="text-[#1e3048]">|</span>
+            {(["alle", "vollstaendig", "teilweise", "nicht"] as const).map((v) => (
+              <button key={v} onClick={() => setFilterGrad(v as Verifizierungsgrad | "alle")}
+                className={`px-2 py-0.5 rounded border transition-colors ${filterGrad === v ? "border-[#00c8b4] text-[#00c8b4] bg-[#00c8b4]/10" : "border-[#1e3048] text-[#8faabb] hover:text-[#f0f4f8]"}`}>
+                {v === "alle" ? "Alle Grade" : v === "vollstaendig" ? "✅ Vollständig" : v === "teilweise" ? "⚠️ Teilweise" : "❌ Nicht"}
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
