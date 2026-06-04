@@ -8,9 +8,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { theme, toggle } = useTheme();
 
   const navLinks = [
-    { href: "/simulator",  label: "Simulator" },
-    { href: "/annahmen",   label: "Quellen & Methodik" },
-    { href: "/mitmachen",  label: "Mitmachen" },
+    { href: "/simulator",  label: "Simulator",          cta: false },
+    { href: "/annahmen",   label: "Quellen & Methodik",  cta: false },
+    { href: "/mitmachen",  label: "Mitmachen",           cta: true  },
   ];
 
   return (
@@ -27,11 +27,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`text-xs sm:text-sm font-medium px-2 sm:px-0 py-1 transition-colors rounded sm:rounded-none
-                  ${location === l.href
-                    ? "text-[#f0f4f8] font-semibold"
-                    : "text-[#8faabb] hover:text-[#f0f4f8]"
-                  }`}
+                className={
+                  l.cta
+                    ? `text-xs sm:text-sm font-semibold px-3 py-1 rounded border transition-colors
+                       ${location === l.href
+                         ? "bg-[#00c8b4] text-[#0d1b2a] border-[#00c8b4]"
+                         : "border-[#00c8b4] text-[#00c8b4] hover:bg-[#00c8b4] hover:text-[#0d1b2a]"
+                       }`
+                    : `text-xs sm:text-sm font-medium px-2 sm:px-0 py-1 transition-colors rounded sm:rounded-none
+                       ${location === l.href
+                         ? "text-[#f0f4f8] font-semibold"
+                         : "text-[#8faabb] hover:text-[#f0f4f8]"
+                       }`
+                }
               >
                 {l.label}
               </Link>
