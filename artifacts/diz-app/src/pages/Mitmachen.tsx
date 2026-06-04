@@ -5,10 +5,11 @@ import { GITHUB } from "@/config/github";
 import { ANNAHMEN } from "@/pages/Annahmen";
 
 // ─── Derived lists ─────────────────────────────────────────────────────────────
-const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht");
-const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise");
-const KI_GEPRUEFT       = ANNAHMEN.filter((a) => a.geprueftVon === "ki");
 const MENSCH_GEPRUEFT   = ANNAHMEN.filter((a) => a.geprueftVon === "mensch");
+const KI_GEPRUEFT       = ANNAHMEN.filter((a) => a.geprueftVon === "ki");
+const VOLLSTAENDIG      = ANNAHMEN.filter((a) => a.verifizierungsgrad === "vollstaendig");
+const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise");
+const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht");
 
 interface ActionCardProps {
   icon: string;
@@ -111,19 +112,16 @@ export default function Mitmachen() {
             Jede Annahme trägt einen Prüfstatus. <span className="text-[#4caf82] font-semibold">Menschlich geprüft</span> bedeutet unabhängige Verifikation durch Fachleute oder die Community.{" "}
             <span className="text-[#60a5fa] font-semibold">KI-recherchiert</span> bedeutet, die Quelle wurde von der KI gefunden und eingetragen — aber noch von keinem Menschen bestätigt.
           </p>
-          {/* Status bar */}
-          <div className="flex rounded-full overflow-hidden h-2.5 mb-2">
-            <div className="bg-[#4caf82] transition-all" style={{ width: `${MENSCH_GEPRUEFT.length / ANNAHMEN.length * 100}%` }} title="Menschlich geprüft" />
-            <div className="bg-[#60a5fa] transition-all" style={{ width: `${KI_GEPRUEFT.length / ANNAHMEN.length * 100}%` }} title="KI-recherchiert" />
-            <div className="bg-[#f5a623] transition-all" style={{ width: `${TEILWEISE.length / ANNAHMEN.length * 100}%` }} title="Teilweise" />
-            <div className="bg-[#e05c5c] transition-all" style={{ width: `${NICHT_VERIFIZIERT.length / ANNAHMEN.length * 100}%` }} title="Nicht verifiziert" />
+          {/* Dimension 1: Wer? */}
+          <p className="text-[9px] font-semibold uppercase tracking-widest text-[#8faabb] mb-1">Wer hat geprüft?</p>
+          <div className="flex rounded-full overflow-hidden h-2 mb-2">
+            <div className="bg-[#4caf82]" style={{ width: `${MENSCH_GEPRUEFT.length / ANNAHMEN.length * 100}%` }} title="Menschlich" />
+            <div className="bg-[#60a5fa]" style={{ width: `${KI_GEPRUEFT.length / ANNAHMEN.length * 100}%` }}    title="KI" />
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+          <div className="grid grid-cols-2 gap-2 mb-4">
             {[
-              { icon: "👤", label: "Menschlich geprüft", count: MENSCH_GEPRUEFT.length,   col: "#4caf82", bg: "bg-[#4caf82]/10 border-[#4caf82]/20" },
-              { icon: "🤖", label: "KI-recherchiert",    count: KI_GEPRUEFT.length,        col: "#60a5fa", bg: "bg-[#60a5fa]/10 border-[#60a5fa]/20" },
-              { icon: "⚠️", label: "Teilweise",          count: TEILWEISE.length,          col: "#f5a623", bg: "bg-[#f5a623]/10 border-[#f5a623]/20" },
-              { icon: "❌", label: "Nicht verifiziert",  count: NICHT_VERIFIZIERT.length,  col: "#e05c5c", bg: "bg-[#e05c5c]/10 border-[#e05c5c]/20" },
+              { icon: "👤", label: "Menschlich geprüft", count: MENSCH_GEPRUEFT.length, col: "#4caf82", bg: "bg-[#4caf82]/10 border-[#4caf82]/20" },
+              { icon: "🤖", label: "KI-recherchiert",    count: KI_GEPRUEFT.length,     col: "#60a5fa", bg: "bg-[#60a5fa]/10 border-[#60a5fa]/20" },
             ].map((s) => (
               <div key={s.label} className={`rounded border ${s.bg} px-3 py-2 text-center`}>
                 <div className="text-lg font-bold" style={{ color: s.col }}>{s.count}</div>
@@ -131,8 +129,29 @@ export default function Mitmachen() {
               </div>
             ))}
           </div>
+
+          {/* Dimension 2: Wie vollständig? */}
+          <p className="text-[9px] font-semibold uppercase tracking-widest text-[#8faabb] mb-1">Wie vollständig?</p>
+          <div className="flex rounded-full overflow-hidden h-2 mb-2">
+            <div className="bg-[#4caf82]" style={{ width: `${VOLLSTAENDIG.length / ANNAHMEN.length * 100}%` }}      title="Vollständig" />
+            <div className="bg-[#f5a623]" style={{ width: `${TEILWEISE.length / ANNAHMEN.length * 100}%` }}         title="Teilweise" />
+            <div className="bg-[#e05c5c]" style={{ width: `${NICHT_VERIFIZIERT.length / ANNAHMEN.length * 100}%` }} title="Nicht" />
+          </div>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            {[
+              { icon: "✅", label: "Vollständig",       count: VOLLSTAENDIG.length,      col: "#4caf82", bg: "bg-[#4caf82]/10 border-[#4caf82]/20" },
+              { icon: "⚠️", label: "Teilweise belegt",  count: TEILWEISE.length,         col: "#f5a623", bg: "bg-[#f5a623]/10 border-[#f5a623]/20" },
+              { icon: "❌", label: "Keine Quelle",      count: NICHT_VERIFIZIERT.length, col: "#e05c5c", bg: "bg-[#e05c5c]/10 border-[#e05c5c]/20" },
+            ].map((s) => (
+              <div key={s.label} className={`rounded border ${s.bg} px-3 py-2 text-center`}>
+                <div className="text-lg font-bold" style={{ color: s.col }}>{s.count}</div>
+                <div className="text-[9px] text-[#8faabb] leading-tight">{s.icon} {s.label}</div>
+              </div>
+            ))}
+          </div>
+
           <p className="text-[10px] text-[#f5a623] bg-[#f5a623]/5 border border-[#f5a623]/20 rounded px-3 py-2">
-            <span className="font-semibold">Hinweis:</span> Aktuell gibt es {MENSCH_GEPRUEFT.length === 0 ? "noch keine" : MENSCH_GEPRUEFT.length} menschlich verifizierten Annahmen. Alle {KI_GEPRUEFT.length} KI-recherchierten Einträge warten auf unabhängige Bestätigung.
+            <span className="font-semibold">Hinweis:</span> Aktuell gibt es {MENSCH_GEPRUEFT.length === 0 ? "noch keine" : MENSCH_GEPRUEFT.length} menschlich verifizierten Annahmen. Alle {KI_GEPRUEFT.length} Einträge wurden von der KI recherchiert und warten auf unabhängige Bestätigung.
           </p>
         </section>
 

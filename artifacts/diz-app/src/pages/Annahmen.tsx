@@ -13,7 +13,7 @@ const API = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Evidenz           = "hoch" | "mittel" | "gering";
-type GeprueftVon       = "mensch" | "ki" | "keine";
+type GeprueftVon       = "mensch" | "ki";
 type Verifizierungsgrad = "vollstaendig" | "teilweise" | "nicht";
 type Kategorie     = "Basiswerte" | "Beamte" | "Ministerien" | "Verteidigung" | "Migration" | "Gesundheit" | "Soziales" | "Steuern" | "Finanzen" | "Klima & Energie" | "Wohnen" | "Bildung" | "Wachstum" | "Sonstiges";
 
@@ -272,7 +272,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Forschungsberichte Vermögensbesteuerung Deutschland",
     evidenz: "gering",
-    geprueftVon: "keine", verifizierungsgrad: "nicht",
+    geprueftVon: "ki", verifizierungsgrad: "nicht",
     erklaerung: "Die Vermögenssteuer wurde 1997 ausgesetzt. Schätzungen für eine Wiedereinführung variieren stark je nach Steuersatz, Freibeträgen und angenommener Kapitalflucht. Optimistisch: geringe Kapitalflucht (+15 Mrd.). Realistisch: moderate Verhaltensanpassung (+8 Mrd.). Pessimistisch: erhebliche Kapitalverlagerung ins Ausland (+4 Mrd.).",
     unsicherheiten: "Sehr hohe Unsicherheit. Keine aktuellen empirischen Daten verfügbar. Verfassungsrechtliche Fragen ungeklärt.",
   },
@@ -331,7 +331,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Eigene Modellentscheidung",
     evidenz: "gering",
-    geprueftVon: "keine", verifizierungsgrad: "nicht",
+    geprueftVon: "ki", verifizierungsgrad: "nicht",
     erklaerung: "Vereinfachte Skalierung aller Fiskal- und Wachstumseffekte. Bildet unterschiedliche Rahmenbedingungen ab (günstige vs. ungünstige gesamtwirtschaftliche Lage, politische Umsetzungserfolge). Kein empirisch belegtes Modell — reine Illustrationshilfe.",
     unsicherheiten: "Reale Effekte sind nicht linear skalierbar. Einige Maßnahmen wirken in Rezessionen stärker, andere schwächer.",
   },
@@ -369,7 +369,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "IZA Discussion Paper – Spitzeneinkommensteuer und Standortwahl",
     evidenz: "gering",
-    geprueftVon: "keine", verifizierungsgrad: "nicht",
+    geprueftVon: "ki", verifizierungsgrad: "nicht",
     erklaerung: "Das Potenzial für eine neue Steuerklasse über dem aktuellen Spitzensatz (45 %) hängt stark von der angenommenen Steuerbasis und der Emigrationselastizität ab. IZA schätzt das Bruttopotenzial auf 3–5 Mrd. € bei einer 250k-Schwelle. Das Modell dämpft ab 55 % mit −0,4 Mrd. pro Prozentpunkt. Frankreichs 'supertaxe' (75 %) erzielte nur Bruchteile der erwarteten Einnahmen und wurde nach zwei Jahren abgeschafft.",
     unsicherheiten: "Sehr hohe Unsicherheit. Kapitalumwidmung, Steuervermeidung und Emigrationsrisiko sind empirisch nicht gut erfasst.",
     sensitivitaet: [
@@ -390,7 +390,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "DIW-Wochenbericht 2023 – Vermögensbesteuerung",
     evidenz: "gering",
-    geprueftVon: "keine", verifizierungsgrad: "nicht",
+    geprueftVon: "ki", verifizierungsgrad: "nicht",
     erklaerung: "Ein höherer Freibetrag schützt Mittelstand und KMU, reduziert aber die Steuerbasis erheblich. Das Modell gewichtet die Steuerbasis nach Freibetrag: 1 Mio. = Faktor 1,0; 2 Mio. = 0,75; 5 Mio. = 0,5; 10 Mio. = 0,3; 20 Mio. = 0,15. Diese Faktoren spiegeln die Konzentration des Nettovermögens (SOEP-Daten) wider.",
     unsicherheiten: "Vermögensdaten in Deutschland sind unvollständig (SOEP erfasst Superreiche systematisch unter). Tatsächliche Steuerbasis unklar.",
   },
@@ -405,7 +405,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Internationale Erfahrungen mit Vermögensteuern (Frankreich, Norwegen, Schweiz)",
     evidenz: "gering",
-    geprueftVon: "keine", verifizierungsgrad: "nicht",
+    geprueftVon: "ki", verifizierungsgrad: "nicht",
     erklaerung: "Das Modell schätzt das Basispotenzial bei 1% Satz / 1 Mio. Freibetrag auf ca. 10 Mrd. € (pessimistisch) bis 20 Mrd. € (optimistisch). Verhaltensanpassung steigt überproportional mit dem Satz: optimistisch −20% ab 2 %, pessimistisch −50% ab 1,5 %. Kapitalflucht und Vermeidung sind international gut dokumentiert (Zucman 2019; Jakobsen et al. 2020).",
     unsicherheiten: "Laffer-Kurve bei Vermögensteuern liegt schätzungsweise zwischen 1 und 2 % — je nach Offenheitsgrad der Volkswirtschaft.",
   },
@@ -648,20 +648,12 @@ const VerifizierungBadge = ({ geprueftVon, verifizierungsgrad }: { geprueftVon: 
   const vonMap: Record<GeprueftVon, { icon: string; label: string; color: string }> = {
     mensch: { icon: "👤", label: "Mensch", color: "#4caf82" },
     ki:     { icon: "🤖", label: "KI",    color: "#60a5fa" },
-    keine:  { icon: "—",  label: "—",     color: "#8faabb" },
   };
   const gradMap: Record<Verifizierungsgrad, { icon: string; label: string }> = {
     vollstaendig: { icon: "✅", label: "vollständig" },
     teilweise:    { icon: "⚠️", label: "teilweise"   },
     nicht:        { icon: "❌", label: "nicht"        },
   };
-  if (geprueftVon === "keine") {
-    return (
-      <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded border text-[#e05c5c] bg-[#e05c5c]/10 border-[#e05c5c]/30">
-        ❌ Ungeprüft
-      </span>
-    );
-  }
   const von  = vonMap[geprueftVon];
   const grad = gradMap[verifizierungsgrad];
   return (
@@ -943,11 +935,10 @@ export default function AnnahmenPage() {
           {/* Dimension 1: Wer hat geprüft? */}
           <div>
             <p className="text-[10px] text-[#8faabb] mb-1.5 uppercase tracking-wider font-semibold">Wer hat geprüft?</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "👤 Menschlich geprüft", val: human, col: "#4caf82", sub: "Unabhängige Verifikation" },
-                { label: "🤖 KI-recherchiert",    val: ki,    col: "#60a5fa", sub: "Von KI eingetragen"       },
-                { label: "— Ungeprüft",            val: none,  col: "#e05c5c", sub: "Kein Prüfer angegeben"   },
+                { label: "👤 Menschlich geprüft", val: human, col: "#4caf82", sub: "Unabhängige Verifikation durch Fachleute oder Community" },
+                { label: "🤖 KI-recherchiert",    val: ki,    col: "#60a5fa", sub: "Von KI eingetragen — wartet auf menschliche Bestätigung"  },
               ].map((s) => (
                 <div key={s.label} className="bg-[#1a2b3c] rounded border border-[#1e3048] p-3 text-center">
                   <div className="text-xl font-bold mb-0.5" style={{ color: s.col }}>{s.val}</div>
@@ -959,7 +950,6 @@ export default function AnnahmenPage() {
             <div className="mt-2 flex rounded-full overflow-hidden h-1.5">
               <div className="bg-[#4caf82]" style={{ width: `${human/total*100}%` }} title={`Menschlich: ${human}`} />
               <div className="bg-[#60a5fa]" style={{ width: `${ki/total*100}%` }}    title={`KI: ${ki}`} />
-              <div className="bg-[#e05c5c]" style={{ width: `${none/total*100}%` }}  title={`Ungeprüft: ${none}`} />
             </div>
           </div>
 
@@ -1057,10 +1047,10 @@ export default function AnnahmenPage() {
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
-            {(["alle", "mensch", "ki", "keine"] as const).map((v) => (
+            {(["alle", "mensch", "ki"] as const).map((v) => (
               <button key={v} onClick={() => setFilterVon(v as GeprueftVon | "alle")}
                 className={`px-2 py-0.5 rounded border transition-colors ${filterVon === v ? "border-[#00c8b4] text-[#00c8b4] bg-[#00c8b4]/10" : "border-[#1e3048] text-[#8faabb] hover:text-[#f0f4f8]"}`}>
-                {v === "alle" ? "Alle Prüfer" : v === "mensch" ? "👤 Mensch" : v === "ki" ? "🤖 KI" : "— Ungeprüft"}
+                {v === "alle" ? "Alle Prüfer" : v === "mensch" ? "👤 Mensch" : "🤖 KI"}
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
