@@ -96,11 +96,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
 
       <footer className="diz-border-t px-6 py-5 space-y-3">
-        <p className="text-xs diz-text-secondary text-center leading-relaxed max-w-3xl mx-auto">
-          <span className="text-[#f5a623] font-semibold">Hinweis: </span>
+        <p className="text-xs diz-text-secondary text-center leading-relaxed max-w-2xl mx-auto">
           Dieses Projekt dient der Veranschaulichung möglicher Auswirkungen politischer Entscheidungen.
-          Die Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und können fehlerhaft oder
-          unvollständig sein. Bitte prüfen Sie wichtige Informationen anhand der angegebenen Quellen.
+          Ergebnisse basieren auf Daten, Annahmen und Modellrechnungen und stellen keine Prognosen dar.
         </p>
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
           {[

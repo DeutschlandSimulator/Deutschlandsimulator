@@ -1,131 +1,170 @@
 import { Link } from "wouter";
 import { Layout } from "@/components/Layout";
+import { ChevronRight, TrendingDown, TrendingUp, Minus } from "lucide-react";
 
-const featureCards = [
-  {
-    icon: "💰",
-    title: "Staatshaushalt",
-    text: "Verändere Ausgaben, Steuern und Förderungen und analysiere die Auswirkungen auf die öffentlichen Finanzen.",
-  },
-  {
-    icon: "👥",
-    title: "Gesellschaft",
-    text: "Untersuche mögliche Effekte auf Bevölkerung, Arbeitsmarkt und soziale Sicherungssysteme.",
-  },
-  {
-    icon: "📈",
-    title: "Wirtschaft",
-    text: "Simuliere Auswirkungen auf Wachstum, Wettbewerbsfähigkeit und Staatsverschuldung.",
-  },
+// ─── Example simulation card data ────────────────────────────────────────────
+const exampleResults = [
+  { label: "Staatseinnahmen",   value: "−18 Mrd. €",  dir: "down" },
+  { label: "Wirtschaftswachstum", value: "+0,4 %",   dir: "up"   },
+  { label: "Staatsverschuldung",  value: "+0,3 %",   dir: "down" },
+];
+
+// ─── Popular scenarios ────────────────────────────────────────────────────────
+const SZENARIEN = [
+  { emoji: "🛒", label: "Mehrwertsteuer senken"        },
+  { emoji: "💎", label: "Vermögenssteuer einführen"    },
+  { emoji: "👴", label: "Renteneintrittsalter erhöhen"  },
+  { emoji: "💶", label: "Bürgergeld reformieren"       },
+  { emoji: "🛡️", label: "Verteidigungsausgaben erhöhen" },
+];
+
+// ─── Trust points ─────────────────────────────────────────────────────────────
+const TRUST_POINTS = [
+  "Unabhängiges Privatprojekt",
+  "Keine Verbindung zu Parteien, Behörden oder Interessengruppen",
+  "Open Source — öffentlich einsehbarer Quellcode",
+  "Quellen und Modellannahmen vollständig dokumentiert",
+  "Community kann Fehler melden und Verbesserungen vorschlagen",
 ];
 
 export default function Landing() {
   return (
     <Layout>
-      <div className="flex-1 max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14 w-full flex flex-col gap-6">
+      <div className="flex-1 max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14 w-full flex flex-col gap-10">
 
-        {/* ── Hero ───────────────────────────────────────────────── */}
-        <div className="text-center mt-4 md:mt-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight leading-tight">
-            DeutschlandSimulator
+        {/* ── Hero ─────────────────────────────────────────────────────────── */}
+        <div className="text-center mt-2 md:mt-6">
+          <div className="inline-block text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] border border-[#00c8b4]/30 rounded-full px-3 py-1 mb-5">
+            Politische Simulation · Deutschland
+          </div>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight leading-tight text-[#f0f4f8]">
+            Was würde passieren, wenn politische Entscheidungen anders getroffen würden?
           </h1>
-          <p className="text-base md:text-lg text-[#8faabb] mb-2 leading-relaxed">
-            Simuliere politische Entscheidungen und entdecke ihre möglichen Auswirkungen auf
-            Staatshaushalt, Wirtschaft, Sozialsysteme und Gesellschaft.
-          </p>
-          <p className="text-sm text-[#8faabb]/70 mb-7">
-            Ein datenbasiertes und transparentes Werkzeug zur Veranschaulichung politischer Szenarien.
+          <p className="text-sm md:text-base text-[#8faabb] mb-8 leading-relaxed max-w-2xl mx-auto">
+            Testen Sie selbst, wie sich Änderungen bei Steuern, Sozialleistungen, Staatsausgaben oder anderen
+            politischen Maßnahmen auf Staatshaushalt, Wirtschaft und Gesellschaft auswirken könnten.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/simulator"
-              className="w-full sm:w-auto inline-block bg-[#00c8b4] hover:bg-[#00a896] text-[#0d1b2a] font-bold py-3 px-8 rounded text-base transition-transform hover:-translate-y-0.5 shadow-lg shadow-[#00c8b4]/20"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#00c8b4] hover:bg-[#00a896] text-[#0d1b2a] font-bold py-3 px-8 rounded text-base transition-transform hover:-translate-y-0.5 shadow-lg shadow-[#00c8b4]/20"
               data-testid="button-start-sim"
             >
               Simulation starten
+              <ChevronRight size={16} />
             </Link>
             <Link
               href="/annahmen"
-              className="w-full sm:w-auto inline-block border border-[#1e3048] hover:border-[#00c8b4]/60 text-[#8faabb] hover:text-[#f0f4f8] font-semibold py-3 px-8 rounded text-base transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-[#1e3048] hover:border-[#00c8b4]/60 text-[#8faabb] hover:text-[#f0f4f8] font-semibold py-3 px-8 rounded text-base transition-colors"
             >
               Methodik ansehen
             </Link>
           </div>
         </div>
 
-        {/* ── Feature Cards ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {featureCards.map((c) => (
-            <div
-              key={c.title}
-              className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg p-5 hover:border-[#00c8b4]/40 transition-colors"
-            >
-              <div className="text-2xl mb-2">{c.icon}</div>
-              <h3 className="font-bold text-sm mb-1">{c.title}</h3>
-              <p className="text-xs text-[#8faabb] leading-relaxed">{c.text}</p>
+        {/* ── Example simulation ───────────────────────────────────────────── */}
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#8faabb] mb-3">
+            Beispiel einer Simulation
+          </p>
+          <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg p-5">
+            {/* Scenario input */}
+            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-[#1e3048]">
+              <div className="w-8 h-8 rounded bg-[#0d1b2a] border border-[#1e3048] flex items-center justify-center text-lg shrink-0">
+                📉
+              </div>
+              <div>
+                <p className="text-xs text-[#8faabb] mb-0.5">Parameter</p>
+                <p className="text-sm font-semibold text-[#f0f4f8]">Einkommensteuer senken (−3 Prozentpunkte)</p>
+              </div>
             </div>
-          ))}
+            {/* Results */}
+            <div className="grid grid-cols-3 gap-3">
+              {exampleResults.map((r) => (
+                <div key={r.label} className="bg-[#0d1b2a] rounded p-3 border border-[#1e3048]">
+                  <div className="flex items-center gap-1 mb-1">
+                    {r.dir === "up"
+                      ? <TrendingUp size={11} className="text-[#4caf82]" />
+                      : r.dir === "down"
+                      ? <TrendingDown size={11} className="text-[#e05c5c]" />
+                      : <Minus size={11} className="text-[#8faabb]" />}
+                    <span className="text-[9px] text-[#8faabb] uppercase tracking-wider truncate">{r.label}</span>
+                  </div>
+                  <div className={`text-sm font-bold tabular-nums ${r.dir === "up" ? "text-[#4caf82]" : r.dir === "down" ? "text-[#e05c5c]" : "text-[#f0f4f8]"}`}>
+                    {r.value}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-[10px] text-[#8faabb]/60 mt-3">
+              Illustrative Beispielwerte · Keine realen Prognosen
+            </p>
+          </div>
+          <div className="mt-3 flex justify-center">
+            <Link
+              href="/simulator"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded-lg px-5 py-2.5 transition-colors"
+            >
+              Jetzt eigene Szenarien testen
+              <ChevronRight size={14} />
+            </Link>
+          </div>
         </div>
 
-        {/* ── Unabhängiges Privatprojekt ─────────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
-            Unabhängiges Privatprojekt
-          </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed">
-            Der DeutschlandSimulator ist ein privates, unabhängiges Projekt und steht in keiner
-            Verbindung zu Parteien, Behörden oder Interessengruppen.
+        {/* ── Popular scenarios ────────────────────────────────────────────── */}
+        <div>
+          <h2 className="text-base font-bold text-[#f0f4f8] mb-3">Beliebte Szenarien</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+            {SZENARIEN.map((s) => (
+              <Link
+                key={s.label}
+                href="/simulator"
+                className="flex items-center gap-3 bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/50 hover:bg-[#1e3448] rounded-lg px-4 py-3 text-sm text-[#f0f4f8] transition-colors group"
+              >
+                <span className="text-xl shrink-0">{s.emoji}</span>
+                <span className="font-medium leading-snug flex-1">{s.label}</span>
+                <ChevronRight size={14} className="text-[#8faabb] group-hover:text-[#00c8b4] shrink-0 transition-colors" />
+              </Link>
+            ))}
+          </div>
+          <p className="text-[10px] text-[#8faabb]/60 mt-2 text-center">
+            Szenarien-Presets in Entwicklung — öffnet derzeit den Simulator
           </p>
         </div>
 
-        {/* ── Open Source ────────────────────────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
-            Open Source
-          </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed mb-2.5">
-            Dieses Projekt ist ein unabhängiges, nicht-kommerzielles Open-Source-Projekt.
-            Der Quellcode ist öffentlich einsehbar und kann von der Community geprüft,
-            verbessert und weiterentwickelt werden. (Apache License 2.0 · CC BY 4.0 für Daten)
-          </p>
-          <a
-            href="https://github.com/DeutschlandSimulator"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
-          >
-            github.com/DeutschlandSimulator →
-          </a>
-        </div>
-
-        {/* ── Daten & Methodik ───────────────────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
-            Daten &amp; Methodik
-          </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed mb-3">
-            Die Simulation basiert auf öffentlich zugänglichen Datenquellen, wissenschaftlichen
-            Veröffentlichungen und modellbasierten Annahmen. Ergebnisse dienen der Veranschaulichung
-            möglicher Entwicklungen und stellen keine Prognosen dar.
-          </p>
-          <Link
-            href="/annahmen"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
-          >
-            Quellen &amp; Methodik →
-          </Link>
-        </div>
-
-        {/* ── Transparenz ────────────────────────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#00c8b4] mb-1.5">
-            Transparenz
-          </p>
-          <p className="text-xs text-[#8faabb] leading-relaxed">
-            Politische und wirtschaftliche Zusammenhänge sind komplex. Die dargestellten Ergebnisse
-            beruhen auf Annahmen und vereinfachten Modellen. Trotz sorgfältiger Recherche können
-            Fehler, Ungenauigkeiten oder unvollständige Daten enthalten sein.
-          </p>
+        {/* ── Trust section ────────────────────────────────────────────────── */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
+          <h2 className="text-base font-bold text-[#f0f4f8] mb-4">Warum diesem Projekt vertrauen?</h2>
+          <ul className="space-y-2.5 mb-5">
+            {TRUST_POINTS.map((p) => (
+              <li key={p} className="flex items-start gap-2.5 text-sm text-[#8faabb]">
+                <span className="text-[#4caf82] font-bold mt-px shrink-0">✓</span>
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-wrap gap-2 border-t border-[#1e3048] pt-4">
+            <a
+              href="https://github.com/DeutschlandSimulator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded px-3 py-1.5 transition-colors"
+            >
+              GitHub →
+            </a>
+            <Link
+              href="/annahmen"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8faabb] hover:text-[#f0f4f8] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-1.5 transition-colors"
+            >
+              Quellen &amp; Methodik →
+            </Link>
+            <Link
+              href="/mitmachen"
+              className="inline-flex items-center gap-1.5 text-xs text-[#8faabb] hover:text-[#f0f4f8] border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-3 py-1.5 transition-colors"
+            >
+              Mitmachen →
+            </Link>
+          </div>
         </div>
 
       </div>
