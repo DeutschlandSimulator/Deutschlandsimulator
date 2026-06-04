@@ -78,8 +78,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </div>
-        <p className="text-[10px] diz-text-secondary/60 text-center">
-          Apache License 2.0 · CC BY 4.0 · Kian Salem
+        <p className="text-[10px] diz-text-secondary text-center">
+          © Kian Salem · Apache License 2.0 (Code) · CC BY 4.0 (Daten)
         </p>
       </footer>
     </div>
