@@ -13,7 +13,7 @@ const API = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Evidenz       = "hoch" | "mittel" | "gering";
-type Verifizierung = "verifiziert" | "teilweise" | "nicht";
+type Verifizierung = "mensch" | "ki" | "teilweise" | "nicht";
 type Kategorie     = "Basiswerte" | "Beamte" | "Ministerien" | "Verteidigung" | "Migration" | "Gesundheit" | "Soziales" | "Steuern" | "Finanzen" | "Klima & Energie" | "Wohnen" | "Bildung" | "Wachstum" | "Sonstiges";
 
 interface Sensitivitaet { wert: string; ergebnis: number; einheit: string; }
@@ -48,7 +48,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Offizielle Volkswirtschaftliche Gesamtrechnung",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Das BIP ist die Summe aller in Deutschland erbrachten Wirtschaftsleistungen in einem Jahr. Es dient als Skalierungsbasis für alle prozentualen Ausgabenpositionen (z.B. Verteidigung 2% BIP = 79,8 Mrd. €). Der Wert basiert auf der amtlichen Erstschätzung für 2024.",
     unsicherheiten: "Revisionen des Statistischen Bundesamts können den Wert um ±0,2–0,5% verschieben.",
   },
@@ -63,7 +63,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Bundeshaushalt Soll/Ist-Vergleich",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Ausgangswert des Simulators. Alle Schieberegler messen Abweichungen von diesem Baseline-Wert. Positive Abweichungen (Überschuss) werden grün dargestellt, negative (Defizit) rot.",
     unsicherheiten: "Unterjährige Steuereinnahmen und Konjunkturschwankungen können den Ist-Wert erheblich abweichen lassen.",
     sensitivitaet: [
@@ -84,7 +84,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Steuerstatistik, monatliche Kassenergebnisse",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Gesamtsteueraufkommen von Bund, Ländern und Gemeinden. Wird als Baseline für alle Einnahmenberechnungen genutzt. Änderungen durch Steuersatzanpassungen werden additiv hinzugerechnet.",
   },
   {
@@ -98,7 +98,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Personalstandstatistik des öffentlichen Dienstes",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Durchschnittliches Bruttogehalt über alle Laufbahngruppen (einfach bis höherer Dienst) auf Bundes-, Landes- und Kommunalebene. Versorgungsrückstellungen in Höhe von 23% des Bruttogehalts sind separat berücksichtigt.",
     unsicherheiten: "Regionale Unterschiede (Bayern vs. ostdeutsche Länder) können ±15% abweichen.",
     sensitivitaet: [
@@ -133,7 +133,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "NATO-Berechnungsmethode, standardisiert",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Direkt abgeleitet aus BIP-Baseline (3.990 Mrd. × 1%). Die NATO verwendet eine standardisierte Berechnungsmethode, die nur bestimmte Ausgabenkategorien einschließt.",
     sensitivitaet: [
       { wert: "1,0% BIP", ergebnis: -39.9, einheit: "Mrd. vs. 2%" },
@@ -209,7 +209,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "31.05.2026",
     datenherkunft: "Statistik Grundsicherung für Arbeitsuchende",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Modell hält Empfängeranzahl konstant. Änderungen des Regelsatzes beeinflussen die Gesamtkosten linear (5,5 Mio. × 12 Monate × Δ€). IAB schätzt Arbeitsangebotseffekt bei −0,3% Beschäftigung pro 10% Erhöhung.",
     unsicherheiten: "Empfängeranzahl ist konjunkturabhängig. Bei Rezession kann sie auf 6–7 Mio. steigen.",
     sensitivitaet: [
@@ -346,7 +346,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Einkommensteuergesetz § 32a",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Das Modell simuliert eine Anhebung der Eintrittsschwelle des Spitzensteuersatzes (42 %) auf 80k, 100k, 150k oder 250k €. Pro 10.000 € Anhebung sinken die Einnahmen um ca. 3,6 Mrd. € (Schätzung basierend auf der Einkommensverteilung laut Lohn- und Einkommensteuerstatistik). Gegenläufig: schwaches Entlastungs-Wachstumseffekt (+0,02% BIP).",
     unsicherheiten: "Verhaltenseffekte (Mehrarbeit, Aufstieg in höhere Qualifikation) sind positiv, empirisch aber schwer zu isolieren.",
     sensitivitaet: [
@@ -443,7 +443,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "ETS-Spotpreise (EEX), UBA-Emissionsbericht 2024",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Der CO₂-Preis wirkt über zwei Kanäle: (1) Steuereinnahmen = Preis × Emissionen × 0,18 (nur ETS + nBEHS-Anteil). (2) Emissionsreduktion: −1 Mt pro +1 €/t (empirische Schätzung aus McKinsey Abatement Cost Curve). Strompreiseffekt: +0,1 ct/kWh pro +10 €/t CO₂ (Erzeugungskosten fossiler Kraftwerke). Grenzkosten-Beziehung basiert auf Merit-Order-Modell.",
     unsicherheiten: "CO₂-Preissignal wirkt verzögert (Investitionszyklen 3–10 Jahre). Verhaltensanpassung und Energieeffizienz nicht vollständig modelliert.",
     sensitivitaet: [
@@ -494,7 +494,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "UBA Emissionsinventar 2024 / Kohlekompromiss 2019",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Kohle machte 2023 noch ca. 25% der deutschen Stromerzeugung aus (~170 Mt CO₂). 'Beschleunigt 2028': −15 Mt CO₂, −0,5 ct/kWh Strompreiseffekt (mehr Erdgas als Brücke). 'Gesetzlicher Plan 2030': Baseline. 'Verzögert 2035': +15 Mt CO₂, +0 ct/kWh kurzfristig. 'Kohle beibehalten': +30 Mt CO₂ vs. 2030-Ziel. Strompreiseffekte spiegeln Erzeugungskostendifferenz Kohle vs. Gas/EE wider.",
     unsicherheiten: "Geschwindigkeit des Erneuerbare-Ausbaus bestimmt, wie viel Gas als Brücke nötig ist — hohe Unsicherheit.",
     sensitivitaet: [
@@ -568,7 +568,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "Wohngeldstatistik Destatis / BMWSB Jahresbericht",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Das Wohngeld-Plus hat den Empfängerkreis von ~600k auf ~1,9 Mio. ausgeweitet und die Ausgaben verdreifacht. Im Modell bedeutet +50% Wohngeld: +2,75 Mrd. €/J. Haushaltskosten; +100%: +5,5 Mrd. €. Mietniveaueffekt: gering (−1 Indexpunkt), da nachfrageseitig und kein Angebotsprogramm.",
     unsicherheiten: "Wohngeldbedarf ist konjunkturabhängig. Steigende Mieten erhöhen automatisch die Ausgaben ohne Gesetzesänderung.",
   },
@@ -585,7 +585,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "OECD Education at a Glance 2023",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Bildungsausgaben umfassen alle öffentlichen Ausgaben für Kita, Schule, Berufsausbildung und Hochschule. Jeder Prozentpunkt BIP entspricht ca. 39,9 Mrd. €. Langfristiger Wachstumseffekt: +0,05% BIP-Wachstum pro +1% BIP Bildungsinvestition (5–10 Jahres-Lag, OECD-Metaanalyse). Fachkräftelückeneffekt: −50k Stellen pro +0,1% BIP (10-Jahres-Horizont).",
     unsicherheiten: "Langfristeffekte haben sehr hohe Unsicherheit (5–10 Jahre Verzögerung). Ausgabenhöhe allein sagt wenig ohne Qualitätsindikator aus.",
     sensitivitaet: [
@@ -621,7 +621,7 @@ export const ANNAHMEN: Annahme[] = [
     letzteUeberpruefung: "01.06.2026",
     datenherkunft: "BMBF BAföG-Statistik / Studierendenwerke",
     evidenz: "hoch",
-    verifizierung: "verifiziert",
+    verifizierung: "ki",
     erklaerung: "Das BAföG (Bundesausbildungsförderungsgesetz) bezuschusst Studium und Berufsausbildung für einkommensschwache Familien. 2023 erhielten ca. 650.000 Personen Förderung (historisch niedrig). Das Modell simuliert eine Ausweitung der Anspruchsberechtigung (+50/+100%). Langfristeffekt: geringfügige Fachkräftelückenreduktion (−20k Stellen bei +100%). Fiskalischer Nettoeffekt: negativ kurzfristig, positiv langfristig (höhere Abschlussquoten, höhere Steuereinnahmen).",
     unsicherheiten: "BAföG-Effekte wirken mit 5–10 Jahren Verzögerung. Studienabschlussquoten und Arbeitsmarkterfolge kaum direkt steuerbar.",
   },
@@ -643,10 +643,11 @@ const EvidenzBadge = ({ level }: { level: Evidenz }) => {
 };
 
 const VerifizierungBadge = ({ status }: { status: Verifizierung }) => {
-  const map = {
-    verifiziert: { icon: "✅", label: "Verifiziert",          cls: "text-[#4caf82] bg-[#4caf82]/10 border-[#4caf82]/30" },
-    teilweise:   { icon: "⚠️", label: "Teilweise verifiziert", cls: "text-[#f5a623] bg-[#f5a623]/10 border-[#f5a623]/30" },
-    nicht:       { icon: "❌", label: "Nicht verifiziert",     cls: "text-[#e05c5c] bg-[#e05c5c]/10 border-[#e05c5c]/30" },
+  const map: Record<Verifizierung, { icon: string; label: string; cls: string }> = {
+    mensch:    { icon: "👤", label: "Menschlich geprüft",   cls: "text-[#4caf82] bg-[#4caf82]/10 border-[#4caf82]/30" },
+    ki:        { icon: "🤖", label: "KI-recherchiert",      cls: "text-[#60a5fa] bg-[#60a5fa]/10 border-[#60a5fa]/30" },
+    teilweise: { icon: "⚠️", label: "Teilweise verifiziert", cls: "text-[#f5a623] bg-[#f5a623]/10 border-[#f5a623]/30" },
+    nicht:     { icon: "❌", label: "Nicht verifiziert",     cls: "text-[#e05c5c] bg-[#e05c5c]/10 border-[#e05c5c]/30" },
   };
   const { icon, label, cls } = map[status];
   return (
@@ -885,7 +886,8 @@ export default function AnnahmenPage() {
 
   // Stats
   const total      = ANNAHMEN.length;
-  const verified   = ANNAHMEN.filter((a) => a.verifizierung === "verifiziert").length;
+  const human      = ANNAHMEN.filter((a) => a.verifizierung === "mensch").length;
+  const ki         = ANNAHMEN.filter((a) => a.verifizierung === "ki").length;
   const partial    = ANNAHMEN.filter((a) => a.verifizierung === "teilweise").length;
   const none       = ANNAHMEN.filter((a) => a.verifizierung === "nicht").length;
   const sources    = [...new Set(ANNAHMEN.map((a) => a.quelle))].length;
@@ -921,11 +923,11 @@ export default function AnnahmenPage() {
           <h2 className="text-xs font-bold uppercase tracking-widest text-[#8faabb] mb-3">Datenqualität</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
-              { label: "Annahmen gesamt",         val: total,           col: "#f0f4f8" },
-              { label: "Verifiziert",              val: `${Math.round(verified/total*100)}%`, col: "#4caf82" },
-              { label: "Teilweise verifiziert",    val: `${Math.round(partial/total*100)}%`,  col: "#f5a623" },
-              { label: "Nicht verifiziert",        val: `${Math.round(none/total*100)}%`,     col: "#e05c5c" },
-              { label: "Ø Vertrauensniveau",       val: `${avgTrust}%`, col: avgTrust >= 60 ? "#4caf82" : avgTrust >= 40 ? "#f5a623" : "#e05c5c" },
+              { label: "Annahmen gesamt",          val: total,                                col: "#f0f4f8" },
+              { label: "👤 Menschlich geprüft",    val: human,                                col: "#4caf82" },
+              { label: "🤖 KI-recherchiert",       val: ki,                                   col: "#60a5fa" },
+              { label: "⚠️ Teilweise",             val: partial,                              col: "#f5a623" },
+              { label: "❌ Nicht verifiziert",     val: none,                                 col: "#e05c5c" },
             ].map((s) => (
               <div key={s.label} className="bg-[#1a2b3c] rounded border border-[#1e3048] p-3 text-center">
                 <div className="text-xl font-bold mb-1" style={{ color: s.col }}>{s.val}</div>
@@ -935,14 +937,16 @@ export default function AnnahmenPage() {
           </div>
           {/* Verification bar */}
           <div className="mt-3 flex rounded-full overflow-hidden h-2">
-            <div className="bg-[#4caf82] transition-all" style={{ width: `${verified/total*100}%` }} title={`Verifiziert: ${verified}`} />
+            <div className="bg-[#4caf82] transition-all" style={{ width: `${human/total*100}%` }}   title={`Menschlich geprüft: ${human}`} />
+            <div className="bg-[#60a5fa] transition-all" style={{ width: `${ki/total*100}%` }}      title={`KI-recherchiert: ${ki}`} />
             <div className="bg-[#f5a623] transition-all" style={{ width: `${partial/total*100}%` }} title={`Teilweise: ${partial}`} />
-            <div className="bg-[#e05c5c] transition-all" style={{ width: `${none/total*100}%` }} title={`Nicht: ${none}`} />
+            <div className="bg-[#e05c5c] transition-all" style={{ width: `${none/total*100}%` }}    title={`Nicht: ${none}`} />
           </div>
-          <div className="flex gap-4 mt-1.5 text-[10px] text-[#8faabb]">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82]" />Verifiziert ({verified})</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f5a623]" />Teilweise ({partial})</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#e05c5c]" />Nicht ({none})</span>
+          <div className="flex flex-wrap gap-4 mt-1.5 text-[10px] text-[#8faabb]">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#4caf82]" />👤 Menschlich ({human})</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#60a5fa]" />🤖 KI-recherchiert ({ki})</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f5a623]" />⚠️ Teilweise ({partial})</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#e05c5c]" />❌ Nicht ({none})</span>
             <span className="ml-auto">{sources} verschiedene Quellen</span>
           </div>
         </section>
@@ -1010,10 +1014,10 @@ export default function AnnahmenPage() {
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
-            {(["alle", "verifiziert", "teilweise", "nicht"] as const).map((v) => (
+            {(["alle", "mensch", "ki", "teilweise", "nicht"] as const).map((v) => (
               <button key={v} onClick={() => setFilterVerif(v)}
                 className={`px-2 py-0.5 rounded border transition-colors ${filterVerif === v ? "border-[#00c8b4] text-[#00c8b4] bg-[#00c8b4]/10" : "border-[#1e3048] text-[#8faabb] hover:text-[#f0f4f8]"}`}>
-                {v === "alle" ? "Alle Status" : v === "verifiziert" ? "✅ Verifiziert" : v === "teilweise" ? "⚠️ Teilweise" : "❌ Nicht verifiziert"}
+                {v === "alle" ? "Alle Status" : v === "mensch" ? "👤 Menschlich" : v === "ki" ? "🤖 KI" : v === "teilweise" ? "⚠️ Teilweise" : "❌ Nicht verifiziert"}
               </button>
             ))}
             <span className="text-[#1e3048]">|</span>
