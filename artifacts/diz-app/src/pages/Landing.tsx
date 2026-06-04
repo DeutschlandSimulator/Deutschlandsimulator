@@ -36,13 +36,6 @@ const TRUST_POINTS = [
   "Community kann Fehler melden und Verbesserungen vorschlagen",
 ];
 
-// ─── Stats (placeholder values, replace when live data is available) ──────────
-const STATS = [
-  { value: "47+",     label: "Modellannahmen"      },
-  { value: "32+",     label: "Datenquellen"         },
-  { value: "2025",    label: "Daten-Stand"          },
-  { value: "Public",  label: "Open Source"          },
-];
 
 // ─── Badge component ──────────────────────────────────────────────────────────
 function TrustBadge({ label, color }: { label: string; color: string }) {
@@ -182,21 +175,6 @@ export default function Landing() {
               </li>
             ))}
           </ul>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5 border border-[#1e3048] rounded-lg overflow-hidden">
-            {STATS.map((s, i) => (
-              <div
-                key={s.label}
-                className={`px-3 py-3 text-center ${i < STATS.length - 1 ? "border-r border-[#1e3048]" : ""} bg-[#0d1b2a]/40`}
-              >
-                <div className="text-lg font-extrabold text-[#00c8b4] tabular-nums leading-none mb-1">
-                  {s.value}
-                </div>
-                <div className="text-[9px] text-[#8faabb] uppercase tracking-wider">{s.label}</div>
-              </div>
-            ))}
-          </div>
 
           {/* Links */}
           <div className="flex flex-wrap gap-2 border-t border-[#1e3048] pt-4">
