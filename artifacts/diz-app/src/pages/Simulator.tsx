@@ -251,7 +251,7 @@ function computeKPIs(
   const wohnraumdef  = Math.max(0, 700 - sozialwohnungen * 1.5 + (mietpreisbremse ? 20 : 0));
 
   // ── Bildung ────────────────────────────────────────────────
-  const bildAusg        = (bildungsausgaben - 4.3) * 39.9;
+  const bildAusg        = (bildungsausgaben - 4.3) * 43.06;
   const kitaAusg        = kitaAusbau * 0.13;
   const bafoegAusg      = bafoeg * 0.03;
   const bildGrowthEff   = (bildungsausgaben - 4.3) * 0.015 + kitaAusbau * 0.0008;
@@ -263,8 +263,8 @@ function computeKPIs(
 
   // ── ausgabenDelta ──────────────────────────────────────────
   const ausgabenDelta =
-    vertDelta                     * 39.9  +
-    (entwicklung  - 0.4)          * 39.9  +
+    vertDelta                     * 43.06  +
+    (entwicklung  - 0.4)          * 43.06  +
     (beamte       - 4900)         * 0.072 * BEAMTE_DELAY +
     (ministerien  - 16)           * 0.8   +
     (fluechtlinge - 180)          * 0.018 +
@@ -498,8 +498,8 @@ export default function SimulatorPage() {
   // ── Dynamic chart data ─────────────────────────────────────
   const dynBarData = [
     { name: "Soziales",     einnahmen: 0, ausgaben: Math.round(175 + (buergergeld - 502) * 0.066 + (rentenniveau - 48) * 4) },
-    { name: "Verteidigung", einnahmen: 0, ausgaben: Math.round(52  + (verteidigung - 2.0) * 39.9) },
-    { name: "Bildung",      einnahmen: 0, ausgaben: Math.round(21  + (bildungsausgaben - 4.3) * 39.9) },
+    { name: "Verteidigung", einnahmen: 0, ausgaben: Math.round(52  + (verteidigung - 2.0) * 43.06) },
+    { name: "Bildung",      einnahmen: 0, ausgaben: Math.round(21  + (bildungsausgaben - 4.3) * 43.06) },
     { name: "Zinsen",       einnahmen: 0, ausgaben: Math.round(37  - (ausgabenDelta - einnahmenDelta) * sm * 0.05) },
     { name: "Sonstiges",    einnahmen: Math.round(460 + einnahmenDelta * sm), ausgaben: Math.round(191 + (beamte - 4900) * 0.072 * BEAMTE_DELAY + (ministerien - 16) * 0.8) },
   ];
@@ -1005,7 +1005,7 @@ export default function SimulatorPage() {
                 <div className="text-[#8faabb] text-xs mb-1">Bildungsausgaben</div>
                 <div className="text-lg font-bold mb-1 text-[#f0f4f8]">{bildungsausgaben.toFixed(1)}% BIP</div>
                 <div className="text-xs mb-2" style={{ color: bildungsausgaben >= 5.5 ? "#4caf82" : bildungsausgaben >= 4.3 ? "#f5a623" : "#e05c5c" }}>
-                  = {((bildungsausgaben / 100) * 3990).toFixed(0)} Mrd. €/Jahr
+                  = {((bildungsausgaben / 100) * 4306).toFixed(0)} Mrd. €/Jahr
                 </div>
                 <div className="text-[10px] text-[#8faabb]">OECD-Schnitt: ~5,5%. Deutschland: ~4,3%. Finnland: ~5,5%.</div>
                 <div className="text-[10px] text-[#8faabb] mt-1">Quelle: OECD Education at a Glance 2023</div>

@@ -42,16 +42,16 @@ export const ANNAHMEN: Annahme[] = [
   {
     id: "basis-bip",
     parameter: "BIP Deutschland",
-    wert: "3.990 Mrd. €",
+    wert: "4.306 Mrd. €",
     kategorie: "Basiswerte",
     quelle: "Statistisches Bundesamt",
     quellUrl: "https://destatis.de",
     jahr: "2024",
-    letzteUeberpruefung: "31.05.2026",
+    letzteUeberpruefung: "04.06.2026",
     datenherkunft: "Offizielle Volkswirtschaftliche Gesamtrechnung",
     evidenz: "hoch",
     geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
-    erklaerung: "Das BIP ist die Summe aller in Deutschland erbrachten Wirtschaftsleistungen in einem Jahr. Es dient als Skalierungsbasis für alle prozentualen Ausgabenpositionen (z.B. Verteidigung 2% BIP = 79,8 Mrd. €). Der Wert basiert auf der amtlichen Erstschätzung für 2024.",
+    erklaerung: "Das BIP ist die Summe aller in Deutschland erbrachten Wirtschaftsleistungen in einem Jahr. Es dient als Skalierungsbasis für alle prozentualen Ausgabenpositionen (z.B. Verteidigung 2% BIP = 86,1 Mrd. €). Der Wert basiert auf der amtlichen Erstschätzung für 2024.",
     unsicherheiten: "Revisionen des Statistischen Bundesamts können den Wert um ±0,2–0,5% verschieben.",
   },
   {
@@ -127,7 +127,7 @@ export const ANNAHMEN: Annahme[] = [
   {
     id: "verteidigung-skala",
     parameter: "Verteidigungsausgaben – Koeffizient",
-    wert: "1% BIP = 39,9 Mrd. €",
+    wert: "1% BIP = 43,1 Mrd. €",
     kategorie: "Verteidigung",
     quelle: "Bundesministerium der Verteidigung / NATO",
     quellUrl: "https://nato.int",
@@ -136,11 +136,11 @@ export const ANNAHMEN: Annahme[] = [
     datenherkunft: "NATO-Berechnungsmethode, standardisiert",
     evidenz: "hoch",
     geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
-    erklaerung: "Direkt abgeleitet aus BIP-Baseline (3.990 Mrd. × 1%). Die NATO verwendet eine standardisierte Berechnungsmethode, die nur bestimmte Ausgabenkategorien einschließt.",
+    erklaerung: "Direkt abgeleitet aus BIP-Baseline (4.306 Mrd. × 1%). Die NATO verwendet eine standardisierte Berechnungsmethode, die nur bestimmte Ausgabenkategorien einschließt.",
     sensitivitaet: [
-      { wert: "1,0% BIP", ergebnis: -39.9, einheit: "Mrd. vs. 2%" },
+      { wert: "1,0% BIP", ergebnis: -43.06, einheit: "Mrd. vs. 2%" },
       { wert: "2,0% BIP", ergebnis: 0, einheit: "Mrd. vs. 2%" },
-      { wert: "3,0% BIP", ergebnis: 39.9, einheit: "Mrd. vs. 2%" },
+      { wert: "3,0% BIP", ergebnis: 43.06, einheit: "Mrd. vs. 2%" },
     ],
   },
   {
@@ -423,7 +423,7 @@ export const ANNAHMEN: Annahme[] = [
     datenherkunft: "Jahresgutachten 2023/24 – Fiskalregeln im Vergleich",
     evidenz: "mittel",
     geprueftVon: "ki", verifizierungsgrad: "teilweise",
-    erklaerung: "Die Schuldenbremse (Art. 109 GG) begrenzt die Nettoneuverschuldung des Bundes auf 0,35% BIP (~14 Mrd. €/J.). Modus 'Reformiert' modelliert eine Klimainvestitionsausnahme (+25 Mrd.). 'Ausgesetzt' bildet das Notstandsrecht ab (z.B. Pandemie). 'Abgeschafft' entspricht dem Wegfall des verfassungsrechtlichen Verbots. Wachstumseffekte: Reformiert +0,05%, Ausgesetzt +0,1%, Abgeschafft +0,15% BIP (kurzfristig, keynesianischer Multiplikator ~1,5 für Investitionen).",
+    erklaerung: "Die Schuldenbremse (Art. 109 GG) begrenzt die Nettoneuverschuldung des Bundes auf 0,35% BIP (~15 Mrd. €/J.). Modus 'Reformiert' modelliert eine Klimainvestitionsausnahme (+25 Mrd.). 'Ausgesetzt' bildet das Notstandsrecht ab (z.B. Pandemie). 'Abgeschafft' entspricht dem Wegfall des verfassungsrechtlichen Verbots. Wachstumseffekte: Reformiert +0,05%, Ausgesetzt +0,1%, Abgeschafft +0,15% BIP (kurzfristig, keynesianischer Multiplikator ~1,5 für Investitionen).",
     unsicherheiten: "Langfristige Schuldenstandsdynamik ist entscheidend. Eine dauerhaft höhere Neuverschuldung erhöht den Schuldenstand und künftige Zinslasten — nicht im Modell abgebildet.",
     sensitivitaet: [
       { wert: "Aktiv",       ergebnis: 0,   einheit: "Mrd. Spielraum" },
@@ -579,7 +579,7 @@ export const ANNAHMEN: Annahme[] = [
   {
     id: "bildungsausgaben-koeffizient",
     parameter: "Bildungsausgaben – Baseline & Koeffizient",
-    wert: "Baseline: 4,3% BIP = ca. 172 Mrd. €/J. OECD-Schnitt: ~5,5%.",
+    wert: "Baseline: 4,3% BIP = ca. 185 Mrd. €/J. OECD-Schnitt: ~5,5%.",
     kategorie: "Bildung",
     quelle: "OECD Education at a Glance",
     quellUrl: "https://oecd.org",
@@ -588,7 +588,7 @@ export const ANNAHMEN: Annahme[] = [
     datenherkunft: "OECD Education at a Glance 2023",
     evidenz: "hoch",
     geprueftVon: "ki", verifizierungsgrad: "vollstaendig",
-    erklaerung: "Bildungsausgaben umfassen alle öffentlichen Ausgaben für Kita, Schule, Berufsausbildung und Hochschule. Jeder Prozentpunkt BIP entspricht ca. 39,9 Mrd. €. Langfristiger Wachstumseffekt: +0,05% BIP-Wachstum pro +1% BIP Bildungsinvestition (5–10 Jahres-Lag, OECD-Metaanalyse). Fachkräftelückeneffekt: −50k Stellen pro +0,1% BIP (10-Jahres-Horizont).",
+    erklaerung: "Bildungsausgaben umfassen alle öffentlichen Ausgaben für Kita, Schule, Berufsausbildung und Hochschule. Jeder Prozentpunkt BIP entspricht ca. 43,1 Mrd. €. Langfristiger Wachstumseffekt: +0,05% BIP-Wachstum pro +1% BIP Bildungsinvestition (5–10 Jahres-Lag, OECD-Metaanalyse). Fachkräftelückeneffekt: −50k Stellen pro +0,1% BIP (10-Jahres-Horizont).",
     unsicherheiten: "Langfristeffekte haben sehr hohe Unsicherheit (5–10 Jahre Verzögerung). Ausgabenhöhe allein sagt wenig ohne Qualitätsindikator aus.",
     sensitivitaet: [
       { wert: "3% BIP",  ergebnis: 40, einheit: "Mrd. günstiger" },

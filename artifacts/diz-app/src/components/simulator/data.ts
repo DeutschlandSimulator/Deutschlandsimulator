@@ -29,9 +29,9 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   verteidigung: {
     titel: "Verteidigungsausgaben (% BIP)",
     beschreibung: "Anteil des Bruttoinlandsprodukts, der für die Bundeswehr und Verteidigungsinfrastruktur ausgegeben wird. NATO-Ziel liegt bei 2% BIP.",
-    aktuellerWert: "2,0% BIP = 79,8 Mrd. €",
-    berechnungslogik: "BIP Deutschland 2024: ~3,99 Bio. €. 1% BIP entspricht ~39,9 Mrd. €. Zusätzliche Ausgaben wirken sich direkt auf das Haushaltsdefizit aus.",
-    annahmen: ["BIP 2024: 3,99 Bio. €", "Lineare Skalierung der Kosten", "Rüstungsindustrie-Multiplikator: 1,3 auf BIP"],
+    aktuellerWert: "2,0% BIP = 86,1 Mrd. €",
+    berechnungslogik: "BIP Deutschland 2024: ~4,31 Bio. €. 1% BIP entspricht ~43,1 Mrd. €. Zusätzliche Ausgaben wirken sich direkt auf das Haushaltsdefizit aus.",
+    annahmen: ["BIP 2024: 4,31 Bio. €", "Lineare Skalierung der Kosten", "Rüstungsindustrie-Multiplikator: 1,3 auf BIP"],
     quellen: [
       { name: "Bundesministerium der Verteidigung", url: "https://bmvg.de", aktualisiert: "Mär 2024" },
       { name: "NATO-Statistik", url: "https://nato.int", aktualisiert: "Feb 2024" },
@@ -42,7 +42,7 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   entwicklung: {
     titel: "Entwicklungshilfe (% BIP)",
     beschreibung: "Deutsche Entwicklungszusammenarbeit (ODA). Das UN-Ziel liegt bei 0,7% BIP. Deutschland erfüllt es aktuell nicht vollständig.",
-    aktuellerWert: "0,4% BIP = ca. 16 Mrd. €",
+    aktuellerWert: "0,4% BIP = ca. 17 Mrd. €",
     berechnungslogik: "Direkte Haushaltswirkung: linearer Zusammenhang. Indirekte Effekte (Stabilität, Handelschancen) sind nicht modelliert.",
     annahmen: ["Lineare Haushaltswirkung", "Keine Modellierung indirekter Rückflüsse"],
     quellen: [
@@ -202,8 +202,8 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   },
   schuldenbremse: {
     titel: "Schuldenbremse",
-    beschreibung: "Verfassungsrechtliche Fiskalregel (Art. 109/115 GG), in Kraft seit 2011. Begrenzt das strukturelle Defizit des Bundes auf 0,35 % BIP (~14 Mrd. €). Eine Reform würde mehr staatliche Investitionen ermöglichen, erhöht aber Schuldenlast und Zinskosten. Reformiert = Investitionsausnahme für Bildung/Infrastruktur.",
-    aktuellerWert: "Aktiv (strukturelles Defizitlimit 0,35 % BIP = ~14 Mrd. €/Jahr)",
+    beschreibung: "Verfassungsrechtliche Fiskalregel (Art. 109/115 GG), in Kraft seit 2011. Begrenzt das strukturelle Defizit des Bundes auf 0,35 % BIP (~15 Mrd. €). Eine Reform würde mehr staatliche Investitionen ermöglichen, erhöht aber Schuldenlast und Zinskosten. Reformiert = Investitionsausnahme für Bildung/Infrastruktur.",
+    aktuellerWert: "Aktiv (strukturelles Defizitlimit 0,35 % BIP = ~15 Mrd. €/Jahr)",
     berechnungslogik: "Reformiert: +20 Mrd. Investitionskredit, Wachstumsmultiplikator 1,2 (Infrastruktur-Multiplikator). Ausgesetzt: +50 Mrd. Abgeschafft: +80 Mrd. Zinsmehrkosten: +0,1–0,4 % Risikoprämie auf 2.445 Mrd. Schulden.",
     annahmen: ["Fiskalmultiplikator Investitionen: 1,2 (IWF-Schätzung für Deutschland)", "Risikoprämien-Anstieg: +0,08 % (reformiert) bis +0,5 % (abgeschafft)", "Keine Modellierung von EU-Fiskalregeln"],
     quellen: [
@@ -323,8 +323,8 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   bildungsausgaben: {
     titel: "Bildungsausgaben (% BIP)",
     beschreibung: "Öffentliche Ausgaben für Kita, Schulen, Hochschulen und Weiterbildung. Deutschland gibt ca. 4,3 % BIP aus (OECD-Schnitt ~5,5 %). Mehrinvestitionen wirken mit 5–10 Jahren Verzögerung auf Fachkräfteangebot und Produktivität. Wirkung modelliert als mittelfristig (5-Jahres-Horizont).",
-    aktuellerWert: "~4,3 % BIP = ca. 172 Mrd. € (2023, Destatis)",
-    berechnungslogik: "1 % BIP = 39,9 Mrd. € Mehrausgaben. Langfristiger Wachstumseffekt: +0,015 % BIP-Wachstum je 1 % Bildungsausgaben-Erhöhung (OECD-Meta-Analyse, 5-Jahres-Lag). Fachkräftelücke: −60k Stellen je 1 % mehr Bildungsausgaben (10-Jahres-Horizont).",
+    aktuellerWert: "~4,3 % BIP = ca. 185 Mrd. € (2023, Destatis)",
+    berechnungslogik: "1 % BIP = 43,1 Mrd. € Mehrausgaben. Langfristiger Wachstumseffekt: +0,015 % BIP-Wachstum je 1 % Bildungsausgaben-Erhöhung (OECD-Meta-Analyse, 5-Jahres-Lag). Fachkräftelücke: −60k Stellen je 1 % mehr Bildungsausgaben (10-Jahres-Horizont).",
     annahmen: ["OECD-Bildungsmultiplikator: +0,015 %/% (5 Jahre)", "Fachkräfteeffekt: 10-Jahres-Horizont, hier als mittelfristig angezeigt", "Ausgaben umfassen alle Bildungsebenen"],
     quellen: [
       { name: "Statistisches Bundesamt – Bildungsausgaben", url: "https://destatis.de", aktualisiert: "Feb 2024" },
