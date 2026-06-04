@@ -13,7 +13,7 @@ Alle Datensätze, Modellannahmen, erklärenden Texte und Dokumentation in diesem
 ### Bedingungen
 
 - **Quellenangabe** — Die Quelle muss genannt werden. Bitte verweise auf dieses Projekt:
-  > Deutschlandsimulator, Kian Salem — https://github.com/kiansalem/deutschlandsimulator
+  > DeutschlandSimulator, Kian Salem — https://github.com/kiansalem/deutschlandsimulator
 
 ### Offizielle Lizenz
 

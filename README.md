@@ -1,4 +1,4 @@
-# Deutschlandsimulator
+# DeutschlandSimulator
 
 Ein interaktives, datenbasiertes Werkzeug zur Veranschaulichung möglicher Auswirkungen politischer Entscheidungen auf Staatshaushalt, Wirtschaft, Sozialsysteme und Gesellschaft.
 

@@ -27,7 +27,7 @@ export default function Landing() {
         {/* ── Hero ───────────────────────────────────────────────── */}
         <div className="text-center mt-4 md:mt-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight leading-tight">
-            Deutschlandsimulator
+            DeutschlandSimulator
           </h1>
           <p className="text-base md:text-lg text-[#8faabb] mb-2 leading-relaxed">
             Simuliere politische Entscheidungen und entdecke ihre möglichen Auswirkungen auf
@@ -73,7 +73,7 @@ export default function Landing() {
             Unabhängiges Privatprojekt
           </p>
           <p className="text-xs text-[#8faabb] leading-relaxed">
-            Der Deutschlandsimulator ist ein privates, unabhängiges Projekt und steht in keiner
+            Der DeutschlandSimulator ist ein privates, unabhängiges Projekt und steht in keiner
             Verbindung zu Parteien, Behörden oder Interessengruppen.
           </p>
         </div>

@@ -18,7 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex items-center justify-between px-4 md:px-6 py-3 gap-4">
 
           <Link href="/" className="text-sm md:text-base font-bold text-[#00c8b4] shrink-0 leading-tight">
-            Deutschlandsimulator
+            DeutschlandSimulator
           </Link>
 
           <div className="flex items-center gap-1 sm:gap-5">

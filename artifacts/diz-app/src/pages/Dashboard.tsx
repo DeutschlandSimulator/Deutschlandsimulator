@@ -49,8 +49,8 @@ export default function DashboardPage() {
 
   function handleShare() {
     const url = window.location.href;
-    const title = "Deutschlandsimulator — Kennzahlen-Dashboard";
-    const text = "Schau dir das Kennzahlen-Dashboard des Deutschlandsimulators an.";
+    const title = "DeutschlandSimulator — Kennzahlen-Dashboard";
+    const text = "Schau dir das Kennzahlen-Dashboard des DeutschlandSimulators an.";
     if (navigator.share) {
       navigator.share({ title, text, url }).catch(() => {});
     } else {
