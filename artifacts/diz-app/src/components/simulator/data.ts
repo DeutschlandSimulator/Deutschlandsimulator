@@ -360,6 +360,26 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
     evidenz: "mittel" as EvidenzLevel,
     evidenzHinweis: "Ausgabeneffekt direkt modellierbar; Wachstums- und Bildungseffekte langfristig und schwer isolierbar.",
   },
+  privatAbschaffen: {
+    titel: "Private Krankenversicherung abschaffen",
+    beschreibung: "Abschaffung der privaten Krankenversicherung (PKV) und vollständige Integration aller Versicherten in die gesetzliche Krankenversicherung (GKV). Rund 8,7 Mio. Menschen sind derzeit privat versichert, darunter Beamte und Selbstständige. Eine Abschaffung hätte massive Auswirkungen auf die Finanzierung des Gesundheitssystems und die Versorgungsstruktur.",
+    aktuellerWert: "Dual: ~74 Mio. GKV + ~8,7 Mio. PKV-Versicherte",
+    berechnungslogik: "Modell: Mehreinnahmen durch PKV-Beitragszahler (+7 Mrd. €), jedoch Mehrkosten durch erhöhte Inanspruchnahme und wegfallende PKV-Quersubventionierung von Ärzten (+11 Mrd. € Mehrausgaben). Netto im Modell: −4 Mrd. € (Nettobelastung). Langfristige Effekte auf Versorgungsstruktur nicht modelliert.",
+    annahmen: [
+      "~8,7 Mio. PKV-Versicherte wechseln in die GKV",
+      "Ø PKV-Beitrag ~500 €/Monat → GKV ~350 €/Monat (Mehreinnahmen ~7 Mrd. €)",
+      "Wegfall PKV-Quersubventionierung: Ärztehonorare steigen (Mehrausgaben ~11 Mrd. €)",
+      "Beamte erhalten weiterhin Beihilfe (komplexe Übergangslösung nicht modelliert)",
+      "Qualitätseffekte und Kapazitätsengpässe nicht quantifiziert",
+    ],
+    quellen: [
+      { name: "Bundesministerium für Gesundheit – PKV-Statistik", url: "https://bundesgesundheitsministerium.de", aktualisiert: "Jan 2024" },
+      { name: "PKV-Verband – Rechenschaftsbericht", url: "https://pkv.de", aktualisiert: "Feb 2024" },
+      { name: "Wissenschaftliches Institut der AOK (WIdO)", url: "https://wido.de", aktualisiert: "Mär 2024" },
+    ],
+    evidenz: "gering" as EvidenzLevel,
+    evidenzHinweis: "Grunddaten zur Versicherungsstruktur sind solide; Verhaltensänderungen, Versorgungseffekte und politische Umsetzungshürden machen die Gesamtwirkung hochgradig unsicher.",
+  },
   beitragssatz: {
     titel: "Krankenversicherungs-Beitragssatz",
     beschreibung: "Allgemeiner Beitragssatz zur gesetzlichen Krankenversicherung (GKV). Arbeitgeber und Arbeitnehmer teilen ihn je zur Hälfte. Der Zusatzbeitrag der Kassen ist nicht eingeschlossen. Eine Erhöhung erhöht die Lohnnebenkosten und wirkt damit beschäftigungshemmend.",

@@ -528,7 +528,7 @@ export default function SimulatorPage() {
               <AccordionTrigger className="text-[#8faabb] hover:text-[#f0f4f8] text-sm">Gesundheit</AccordionTrigger>
               <AccordionContent className="space-y-4 pt-2">
                 <ToggleRow label="Einheitsversicherung"          value={einheitsversicherung} onChange={setEinheitsversicherung} onInfo={setInfoKey} />
-                <ToggleRow label="Privatversicherung abschaffen" value={privatAbschaffen}     onChange={setPrivatAbschaffen}     danger onInfo={setInfoKey} />
+                <ToggleRow label="Privatversicherung abschaffen" infoKey="privatAbschaffen" value={privatAbschaffen} onChange={setPrivatAbschaffen} danger onInfo={setInfoKey} />
                 <SliderRow label="Beitragssatz" infoKey="beitragssatz" value={beitragssatz} defaultValue={14.6} min={14} max={18} step={0.1} unit="%" onChange={setBeitragssatz} onInfo={setInfoKey} />
               </AccordionContent>
             </AccordionItem>
