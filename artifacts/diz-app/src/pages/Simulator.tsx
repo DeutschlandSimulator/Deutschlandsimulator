@@ -65,8 +65,7 @@ function OverviewCard({
     : { label: "Hoch",    cls: "text-[#e05c5c]", icon: "🔴" };
 
   return (
-    <div className="sticky top-0 z-10 -mx-5 -mt-5 px-5 pt-5 pb-3 bg-[#0d1b2a] border-b border-[#1e3048]">
-      <div className="relative bg-gradient-to-br from-[#1a2b3c] to-[#0f1e2e] border border-[#00c8b4]/30 rounded-xl px-4 py-3 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-[#1a2b3c] to-[#0f1e2e] border border-[#00c8b4]/30 rounded-xl px-4 py-3 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-xl"
@@ -124,7 +123,6 @@ function OverviewCard({
           />
         </div>
       </div>
-    </div>
   );
 }
 
@@ -729,16 +727,21 @@ export default function SimulatorPage() {
         </div>
 
         {/* ═══ RIGHT PANEL ═══ */}
-        <div className="flex-1 p-5 overflow-y-auto md:h-[calc(100vh-113px)] space-y-6">
+        <div className="flex-1 flex flex-col md:h-[calc(100vh-113px)]">
 
-          {/* ── Executive summary (always visible, sticky) ── */}
-          <OverviewCard
-            defizit={defizit}
-            wachstum={wachstum}
-            alq={alq}
-            co2Emissionen={co2Emissionen}
-            trust={trust}
-          />
+          {/* ── Executive summary — fixed header, never scrolls ── */}
+          <div className="shrink-0 px-5 pt-5 pb-3 border-b border-[#1e3048]">
+            <OverviewCard
+              defizit={defizit}
+              wachstum={wachstum}
+              alq={alq}
+              co2Emissionen={co2Emissionen}
+              trust={trust}
+            />
+          </div>
+
+          {/* ── Scrollable KPI body ── */}
+          <div className="flex-1 overflow-y-auto p-5 space-y-6">
 
           {/* Vertrauensindex */}
           <div className="bg-[#1a2b3c] rounded border border-[#1e3048] p-4">
@@ -1061,6 +1064,7 @@ export default function SimulatorPage() {
             </div>
           </div>
 
+          </div>
         </div>
       </div>
     </Layout>
