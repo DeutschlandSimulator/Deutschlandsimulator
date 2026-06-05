@@ -1,0 +1,148 @@
+**Prompt für Replit – Vertrauenswürdigkeit und Conversion der Startseite weiter verbessern**
+
+Die Startseite wurde bereits deutlich verbessert. Bitte setze nun die folgenden Optimierungen um, um Vertrauen, Transparenz und Nutzerinteraktion weiter zu erhöhen.
+
+---
+
+# 1. Kennzahlenbereich überarbeiten
+
+Aktuell wird angezeigt:
+
+* 35+ Quellen hinterlegt
+* 80+ Modellannahmen dokumentiert
+* 1.000+ Szenarien simuliert
+* 100 % Open Source
+
+Problem:
+
+„1.000+ Szenarien simuliert“ kann als Nutzungsstatistik interpretiert werden und möglicherweise missverständlich wirken.
+
+Ersetze diese Kennzahl durch eine vertrauensbildende Aussage, beispielsweise:
+
+* Community-Review möglich
+* Alle Annahmen dokumentiert
+* Transparente Methodik
+* Öffentlich nachvollziehbar
+
+Ziel:
+
+Mehr Glaubwürdigkeit, weniger Marketing-Eindruck.
+
+---
+
+# 2. Transparenz-Claim ergänzen
+
+Direkt unter dem Kennzahlenbereich einen dezenten, aber gut sichtbaren Hinweis ergänzen:
+
+### Variante A
+
+🔍 Jede Quelle, Modellannahme und Berechnung kann überprüft werden.
+
+### Variante B
+
+🔍 Transparente Politik-Simulation statt Black Box.
+
+### Variante C
+
+🔍 Alle Ergebnisse basieren auf öffentlich dokumentierten Quellen und Annahmen.
+
+Design:
+
+* Unauffälliger Infobalken
+* Passend zum Dark Mode
+* Kein Warnhinweis-Stil
+
+---
+
+# 3. Beispielsimulation interaktiv machen
+
+Aktuell wirkt die Vergleichstabelle wie ein statisches Bild.
+
+Verbessere die Nutzerführung:
+
+* Die drei Maßnahmen sollen anklickbar sein.
+* Ein Klick öffnet direkt den Simulator mit den entsprechenden Parametern.
+* Hover-Effekt hinzufügen.
+* Cursor als Pointer anzeigen.
+* Optional kleine Beschriftung:
+
+„Klicke auf eine Maßnahme, um sie selbst zu simulieren.“
+
+Ziel:
+
+Besucher schneller in das eigentliche Produkt führen.
+
+---
+
+# 4. Mission des Projekts klarer kommunizieren
+
+Zwischen Hero-Bereich und Beispielsimulation einen kurzen Mission-Text ergänzen:
+
+### Überschrift
+
+„Politische Entscheidungen besser verstehen“
+
+### Text
+
+„DeutschlandSimulator hilft dabei, die möglichen Folgen politischer Maßnahmen transparent und nachvollziehbar zu untersuchen. Alle Quellen und Modellannahmen sind öffentlich dokumentiert und können überprüft werden.“
+
+Design:
+
+* Kompakt
+* Maximal 2–3 Zeilen
+* Gut lesbar
+* Kein großer Textblock
+
+---
+
+# 5. Quellen-Verifizierungsstatus sichtbar machen
+
+Da viele Quellen ursprünglich KI-gestützt recherchiert wurden und später von Menschen geprüft werden sollen, soll dies transparent dargestellt werden.
+
+Ergänze ein kleines Vertrauenselement:
+
+### Quellenstatus
+
+🟢 Menschlich geprüft: X
+
+🟡 Noch nicht geprüft: Y
+
+Optional mit Tooltip:
+
+„Jede Quelle kann von der Community überprüft und verbessert werden.“
+
+Falls die Daten aktuell noch nicht vorliegen:
+
+* Infrastruktur vorbereiten
+* Platzhalterwerte verwenden
+* Später dynamisch befüllbar machen
+
+---
+
+# 6. Community-Gedanken stärker sichtbar machen
+
+Ergänze im Bereich „Warum diesem Projekt vertrauen?“ einen zusätzlichen Punkt:
+
+✅ Quellen können von der Community überprüft werden
+
+oder
+
+✅ Verbesserungsvorschläge und Korrekturen sind ausdrücklich willkommen
+
+Ziel:
+
+Das Projekt soll als offenes, gemeinschaftliches Transparenzprojekt wahrgenommen werden.
+
+---
+
+# Ziel dieser Überarbeitung
+
+Ein Besucher soll innerhalb von 10 Sekunden verstehen:
+
+1. Was DeutschlandSimulator macht.
+2. Warum die Ergebnisse nachvollziehbar sind.
+3. Dass alle Quellen offen einsehbar sind.
+4. Dass die Community bei der Qualitätssicherung mitwirken kann.
+5. Wie er sofort selbst eine Simulation starten kann.
+
+Die bestehende Designsprache, Farbwelt und das moderne Dark-Mode-Layout sollen beibehalten werden. Fokus liegt auf Vertrauen, Transparenz und Nutzeraktivierung.
