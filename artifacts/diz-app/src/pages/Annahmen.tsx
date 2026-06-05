@@ -829,22 +829,15 @@ function AnnahmeKarte({
           )}
           {a.sensitivitaet && <SensitivitaetsChart data={a.sensitivitaet} />}
 
-          {/* Discuss link */}
-          <a
-            href={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(a.parameter)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[10px] text-[#8faabb] hover:text-[#00c8b4] transition-colors w-fit pt-1"
-          >
-            <MessageCircle size={11} />
-            Diese Annahme auf GitHub diskutieren
-          </a>
-
           {/* Community validation widget */}
           <ValidationWidget
             assumptionId={a.id}
             stats={stats}
             onStatsChange={onStatsChange}
+            letzteUeberpruefung={a.letzteUeberpruefung}
+            evidenz={a.evidenz}
+            githubDiscussionUrl={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(a.parameter)}`}
+            quellUrl={a.quellUrl}
           />
         </div>
       )}

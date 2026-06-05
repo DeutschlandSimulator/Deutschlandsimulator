@@ -1,0 +1,167 @@
+Ich stimme dir zu. Aktuell werden zwei völlig unterschiedliche Dinge vermischt:
+
+1. **Qualität der Quelle / Annahme**
+
+   * KI recherchiert
+   * Menschlich geprüft
+   * Unsicherheiten
+   * Vertrauensniveau
+
+2. **Aktionen des Nutzers**
+
+   * Quelle validieren
+   * Fehler melden
+   * Diskussion öffnen
+
+Dadurch wirkt der Bereich unruhig und die eigentliche Community-Funktion geht etwas unter.
+
+## Prompt für Replit
+
+Überarbeite den Bereich zur Quellen- und Annahmenvalidierung. Aktuell werden Metadaten zur Qualität einer Quelle mit Nutzeraktionen vermischt. Ziel ist eine klarere Trennung zwischen Informationsbereich und Community-Aktionen.
+
+### Problem
+
+Der aktuelle Aufbau enthält gleichzeitig:
+
+* KI recherchiert
+* Anzahl Überprüfungen
+* Vertrauensstatus
+* Quelle diskutieren
+* Fehler melden
+* Bestätigung zurückziehen
+
+Dadurch ist nicht sofort erkennbar:
+
+* Wie vertrauenswürdig die Annahme ist
+* Welche Aktionen der Nutzer durchführen kann
+
+---
+
+## Neuer Aufbau
+
+### Bereich 1: Qualitäts- und Vertrauensstatus
+
+Dieser Bereich ist rein informativ.
+
+Beispiel:
+
+**Status der Annahme**
+
+🟡 KI recherchiert
+
+👥 1 Community-Prüfung
+
+📅 Zuletzt geprüft: 04.06.2026
+
+🎯 Vertrauensniveau: Hoch
+
+Optional:
+
+Fortschrittsbalken
+
+Validierungsgrad:
+20 %
+
+oder
+
+1 von 5 Bestätigungen
+
+Ziel:
+
+Der Nutzer soll sofort erkennen, wie gut die Annahme bereits überprüft wurde.
+
+---
+
+### Bereich 2: Community-Aktionen
+
+Darunter ein eigener Abschnitt:
+
+**Community-Beiträge**
+
+Mit klar getrennten Buttons:
+
+✅ Quelle validieren
+
+🐞 Fehler melden
+
+💬 Diskussion öffnen
+
+---
+
+## Neue Hauptaktion: „Quelle validieren“
+
+Dieser Button soll die zentrale Community-Aktion werden.
+
+Beim Klick:
+
+### Schritt 1
+
+Modal öffnen:
+
+„Hast du die zugrunde liegende Quelle geprüft und bestätigt, dass sie den angegebenen Wert unterstützt?“
+
+Hinweis:
+
+„Du bestätigst nicht die politische Aussage oder die Modellierung, sondern lediglich die Korrektheit der Quelle und des übernommenen Wertes.“
+
+Buttons:
+
+* Bestätigen
+* Abbrechen
+
+---
+
+### Schritt 2
+
+Nach erfolgreicher Validierung:
+
+* Community-Zähler erhöhen
+* Vertrauensindikator aktualisieren
+
+Beispiel:
+
+0 Bestätigungen → Niedrig
+
+1–4 Bestätigungen → Mittel
+
+5+ Bestätigungen → Hoch
+
+(optional)
+
+---
+
+## Diskussion auslagern
+
+Den Link
+
+„Diese Annahme auf GitHub diskutieren“
+
+nicht mehr mitten im Vertrauensbereich platzieren.
+
+Stattdessen:
+
+💬 Diskussion öffnen
+
+als Community-Aktion neben:
+
+* Quelle validieren
+* Fehler melden
+
+anzeigen.
+
+---
+
+## Optische Ziele
+
+* Informationsbereich und Aktionsbereich klar trennen.
+* Weniger wie ein Formular.
+* Mehr wie eine wissenschaftliche Faktenkarte.
+* Community-Beiträge als eigene Funktion sichtbar machen.
+* Vertrauen und Nachvollziehbarkeit stärker betonen.
+
+Der Nutzer soll auf einen Blick erkennen:
+
+1. Woher der Wert stammt.
+2. Wie gut er überprüft wurde.
+3. Welche Unsicherheiten bestehen.
+4. Wie er selbst zur Qualitätssicherung beitragen kann.
