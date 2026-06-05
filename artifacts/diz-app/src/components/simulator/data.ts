@@ -204,8 +204,8 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
     titel: "Schuldenbremse",
     beschreibung: "Verfassungsrechtliche Fiskalregel (Art. 109/115 GG), in Kraft seit 2011. Begrenzt das strukturelle Defizit des Bundes auf 0,35 % BIP (~15 Mrd. €). Eine Reform würde mehr staatliche Investitionen ermöglichen, erhöht aber Schuldenlast und Zinskosten. Reformiert = Investitionsausnahme für Bildung/Infrastruktur.",
     aktuellerWert: "Aktiv (strukturelles Defizitlimit 0,35 % BIP = ~15 Mrd. €/Jahr)",
-    berechnungslogik: "Reformiert: +20 Mrd. Investitionskredit, Wachstumsmultiplikator 1,2 (Infrastruktur-Multiplikator). Ausgesetzt: +50 Mrd. Abgeschafft: +80 Mrd. Zinsmehrkosten: +0,1–0,4 % Risikoprämie auf 2.445 Mrd. Schulden.",
-    annahmen: ["Fiskalmultiplikator Investitionen: 1,2 (IWF-Schätzung für Deutschland)", "Risikoprämien-Anstieg: +0,08 % (reformiert) bis +0,5 % (abgeschafft)", "Keine Modellierung von EU-Fiskalregeln"],
+    berechnungslogik: "Alle Beträge sind Modellschätzungen auf Basis von IWF-Fiskalmultiplikatoren und Bundeshaushalts-Analysen — keine offiziell festgelegten Werte. Reformiert: +20 Mrd. Investitionskredit (netto nach Zinsen: +18 Mrd.), Wachstumsmultiplikator 1,2. Ausgesetzt: +50 Mrd. Brutto-Spielraum (+44 Mrd. netto). Abgeschafft: +80 Mrd. Brutto (+66 Mrd. netto). Zinsmehrkosten: +0,1–0,4 % Risikoprämie auf 2.445 Mrd. Schulden.",
+    annahmen: ["⚠ Modellannahme: Ausgabenspielräume sind Näherungswerte, keine politisch beschlossenen Beträge", "Fiskalmultiplikator Investitionen: 1,2 (IWF-Schätzung für Deutschland)", "Risikoprämien-Anstieg: +0,08 % (reformiert) bis +0,5 % (abgeschafft)", "Keine Modellierung von EU-Fiskalregeln (Stabilitätspakt)"],
     quellen: [
       { name: "Sachverständigenrat – Jahresgutachten 2023", url: "https://sachverstaendigenrat-wirtschaft.de", aktualisiert: "Nov 2023" },
       { name: "IMF – Fiscal Multipliers Germany", url: "https://imf.org", aktualisiert: "Jan 2024" },
@@ -230,9 +230,9 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   },
   windausbau: {
     titel: "Windkraftausbau",
-    beschreibung: "Ausbaupace der Windenergie (an Land + Offshore) relativ zum aktuellen Tempo (~8–10 GW/Jahr). 100 % = Status-quo-Ausbau. Erhöhter Ausbau senkt langfristig Strompreise durch niedrige Grenzkosten, erfordert aber Netzausbau und Systemintegration.",
-    aktuellerWert: "~8–10 GW Neuinstallation/Jahr; Ziel: 115 GW Onshore + 30 GW Offshore bis 2030",
-    berechnungslogik: "+1 % über Status quo → −0,025 ct/kWh Strompreis (Merit-Order), −0,8 Mt CO₂. Subventionen: +0,12 Mrd. je 10 % über Status quo (EEG-Umlage-Äquivalent). Unter 100 %: Umkehreffekte.",
+    beschreibung: "Ausbaupace der Windenergie (an Land + Offshore) relativ zum aktuellen Tempo (~8–10 GW/Jahr). 100 % = Baseline = aktuelles Ausbautempo (Ist-Zustand). Erhöhter Ausbau senkt langfristig Strompreise durch niedrige Grenzkosten, erfordert aber Netzausbau und Systemintegration.",
+    aktuellerWert: "Baseline (100 %): ~8–10 GW Neuinstallation/Jahr (Ist-Zustand 2023/24). Referenzwert (nicht Baseline): Regierungsziel 115 GW Onshore + 30 GW Offshore bis 2030.",
+    berechnungslogik: "Alle Deltas beziehen sich auf die Baseline = aktuelles Ausbautempo (100 %). +1 % über Status quo → −0,025 ct/kWh Strompreis (Merit-Order), −0,8 Mt CO₂. Subventionen: +0,12 Mrd. je 10 % über Status quo (EEG-Umlage-Äquivalent). Unter 100 %: Umkehreffekte.",
     annahmen: ["Merit-Order-Modell: neue kWh verdrängt fossile Spitzenlast", "Netzausbaukosten nicht vollständig modelliert", "Systemintegration (Speicher) ab 150 % zusätzliche Kosten"],
     quellen: [
       { name: "Bundesnetzagentur – Monitoringbericht", url: "https://bundesnetzagentur.de", aktualisiert: "Feb 2024" },
@@ -243,9 +243,9 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   },
   solarausbau: {
     titel: "Solarausbau",
-    beschreibung: "Ausbaupace der Photovoltaik relativ zum aktuellen Tempo (~14–15 GW/Jahr). Solarstrom hat nahezu null Grenzkosten und senkt mittags die Börsenstrompreise. Herausforderung: Volatilität und Speicherbedarf.",
-    aktuellerWert: "~14–15 GW Neuinstallation/Jahr; Ziel: 215 GW bis 2030",
-    berechnungslogik: "+1 % über Status quo → −0,010 ct/kWh Strompreis (Merit-Order mittags), −0,3 Mt CO₂. Subventionen: +0,06 Mrd. je 10 % (EEG-Differenzkosten bei Spot-Minus).",
+    beschreibung: "Ausbaupace der Photovoltaik relativ zum aktuellen Tempo (~14–15 GW/Jahr). 100 % = Baseline = aktuelles Ausbautempo (Ist-Zustand). Solarstrom hat nahezu null Grenzkosten und senkt mittags die Börsenstrompreise. Herausforderung: Volatilität und Speicherbedarf.",
+    aktuellerWert: "Baseline (100 %): ~14–15 GW Neuinstallation/Jahr (Ist-Zustand 2023/24). Referenzwert (nicht Baseline): Regierungsziel 215 GW kumuliert bis 2030.",
+    berechnungslogik: "Alle Deltas beziehen sich auf die Baseline = aktuelles Ausbautempo (100 %). +1 % über Status quo → −0,010 ct/kWh Strompreis (Merit-Order mittags), −0,3 Mt CO₂. Subventionen: +0,06 Mrd. je 10 % (EEG-Differenzkosten bei Spot-Minus).",
     annahmen: ["Grenzkosten Solar: 0 €/kWh", "Subventionen: Differenz zwischen EEG-Vergütung und Börsenpreis", "Duck Curve Effekte ab 150 % erhöhen Systemkosten"],
     quellen: [
       { name: "Fraunhofer ISE – Photovoltaics Report", url: "https://ise.fraunhofer.de", aktualisiert: "Feb 2024" },
@@ -270,10 +270,10 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   },
   kohleausstieg: {
     titel: "Kohleausstiegsdatum",
-    beschreibung: "Deutschland hat einen gesetzlichen Kohleausstieg bis 2038, eine Vorziehung auf 2030 gilt als möglich. Frühere Ausstiege erhöhen kurzfristig die Systemsystemlast für Gas und Renewables, senken aber CO₂-Emissionen schneller.",
-    aktuellerWert: "Gesetzlich 2038; politisches Ziel 2030",
-    berechnungslogik: "Basis: 2030-Ausstieg (Regierungsziel). Jedes spätere Datum: +0,7–1,5 ct/kWh günstigerer Strom kurzfristig, +20–70 Mt CO₂. Kein Mehraufwand bei 2030 vs. 2038 für Staatsausgaben (Entschädigung bereits verhandelt).",
-    annahmen: ["Entschädigungen für Kohlekraftwerke im Modell nicht separat ausgewiesen (bereits 2021 verhandelt)", "CO₂-Delta pro Jahr verzögerter Ausstieg: ca. 20–25 Mt"],
+    beschreibung: "Gesetzlicher Kohleausstieg spätestens 2038 (Kohleausstiegsgesetz 2020). Politisches Ziel ist ein möglichst vorgezogener Ausstieg bis 2030. Das Modell verwendet 2030 als Nulllinie (Baseline), da dies dem aktuellen Regierungsziel entspricht. Abweichungen nach hinten bedeuten im Modell eine Verzögerung gegenüber dem politischen Ziel.",
+    aktuellerWert: "Rechtslage: Kohleausstieg spätestens 2038 (§ 4 KVBG). Politisches Ziel: Vorziehung auf 2030 (Koalitionsvertrag 2021). Modell-Baseline: 2030.",
+    berechnungslogik: "Modell-Baseline = 2030 (Regierungsziel). Alle Deltas beziehen sich auf diesen Ausgangspunkt. Jedes spätere Datum: kurzfristig günstigerer Strom durch weiter laufende Kohlekraft (+0,7–1,5 ct/kWh), aber mehr CO₂ (+20–70 Mt gegenüber 2030-Szenario). Entschädigungen für Kraftwerksbetreiber (rd. 4,35 Mrd. €, vereinbart 2021) sind im Modell nicht als variable Ausgabe erfasst.",
+    annahmen: ["⚠ Modell-Baseline ist 2030 (politisches Ziel), NICHT der Rechtsstatus 2038", "Entschädigungen bereits verhandelt — werden nicht als variable Modellasgabe erfasst", "CO₂-Delta pro Jahr verzögerter Ausstieg gegenüber 2030: ca. 20–25 Mt"],
     quellen: [
       { name: "Umweltbundesamt – THG-Emissionen", url: "https://umweltbundesamt.de", aktualisiert: "Mär 2024" },
       { name: "Fraunhofer ISE – Kohleausstieg-Studien", url: "https://ise.fraunhofer.de", aktualisiert: "Jan 2024" },
@@ -285,8 +285,8 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
     titel: "Sozialwohnungsbau (pro Jahr)",
     beschreibung: "Staatlich geförderte Mietwohnungen mit Belegungsbindung und Mietpreisbindung. Deutschland baut derzeit ~30.000 Sozialwohnungen/Jahr, während jährlich ~50.000 aus der Bindung fallen. Netto schrumpft der Bestand. Ziel der Regierung: 100.000/Jahr.",
     aktuellerWert: "~30.000 Einheiten/Jahr (Bundesregierung 2023); Bindungsauslauf ~50.000/Jahr",
-    berechnungslogik: "Staatskosten: ~40–50k € Förderung pro Wohneinheit (Bundesförderung). Mietniveau-Effekt: je 10.000 Einheiten über Status quo → −0,15 Indexpunkte. Wohnraumdefizit-Abbau: 1 gebaut = 1,5 weniger Mangel (Multiplier durch Flächenmobilisierung).",
-    annahmen: ["Förderanteil pro Einheit: 45.000 € (Bundesschnitt)", "Keine Grundstückskosten im Modell (Länder-Aufgabe)", "Jährlicher Nettoneubau = Bau minus Bindungsauslauf"],
+    berechnungslogik: "Bundesförderanteil: ~40–50k € pro Wohneinheit. Hinweis: Dies ist ausschließlich der Bundesförderanteil (Zuschuss/Darlehen), NICHT die Gesamtbaukosten (~250–400k € je nach Region und Ausstattung). Grundstücks- und Länderanteile sind nicht enthalten. Mietniveau-Effekt: je 10.000 Einheiten über Status quo → −0,15 Indexpunkte. Wohnraumdefizit-Abbau: 1 gebaut = 1,5 weniger Mangel (Multiplier durch Flächenmobilisierung).",
+    annahmen: ["Bundesförderanteil pro Einheit: 45.000 € (Bundesschnitt, Quelle: BMWSB)", "⚠ Gesamtbaukosten (~250–400k €) werden nicht im Modell erfasst (Länder- und Eigenanteile)", "Keine Grundstückskosten im Modell (Länder-Aufgabe)", "Jährlicher Nettoneubau = Bau minus Bindungsauslauf"],
     quellen: [
       { name: "Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen", url: "https://bmwsb.bund.de", aktualisiert: "Feb 2024" },
       { name: "Institut Pestel – Wohnraum-Gutachten", url: "https://pestel-institut.de", aktualisiert: "Jan 2024" },
@@ -336,10 +336,10 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
   },
   kitaAusbau: {
     titel: "Kita-Ausbau (Erhöhung)",
-    beschreibung: "Ausbau der Kinderbetreuung für unter 3-Jährige. Aktuelle Betreuungsquote: ~65 %, erhebliche regionale Unterschiede. Bessere Betreuung erhöht die Frauenerwerbsquote, verbessert frühkindliche Bildungschancen und reduziert langfristig Fachkräftemangel.",
+    beschreibung: "Ausbau der Kinderbetreuung für unter 3-Jährige. Aktuelle Betreuungsquote: ~65 % (U3), erhebliche regionale Unterschiede. Bessere Betreuung erhöht die Frauenerwerbsquote, verbessert frühkindliche Bildungschancen und reduziert langfristig Fachkräftemangel. Slider 0–100 %: 100 % entspricht dem vollständigen Schließen der Versorgungslücke (aktuelle Quote ~65 % → ~100 % U3-Versorgung, ca. +35 Prozentpunkte), was im Modell ca. +13 Mrd. € Bundesausgaben entspricht.",
     aktuellerWert: "~65 % Betreuungsquote U3; ~95 % U6; Gesamtausgaben Bund ~5 Mrd. €/Jahr",
-    berechnungslogik: "+1 % mehr Betreuungsplätze (U3): +0,13 Mrd. € Bundesausgaben. ALQ-Effekt: +0,1 pp Rückgang durch höhere Frauenerwerbstätigkeit je 10 % Ausbau. Langfristiger Produktivitätseffekt: modelliert als Teilkomponente Bildungswachstum.",
-    annahmen: ["5 Mrd. € Bundesausgaben als Basis", "+1 % Kita-Quote = ca. 35.000 neue Plätze", "Frauenerwerbsquote-Elastizität: +0,01 pp je 10 % Ausbau"],
+    berechnungslogik: "Slider-Wert 0 = Status quo (keine Änderung). Slider-Wert 100 = Vollausbau zur Schließung der U3-Versorgungslücke (~35 Prozentpunkte) ≈ +13 Mrd. € zusätzliche Bundesausgaben. Pro 1 Slider-Einheit: +0,13 Mrd. € und ca. +350 neue Betreuungsplätze. ALQ-Effekt: −0,1 pp Arbeitslosigkeit je 10 Slider-Einheiten durch höhere Frauenerwerbstätigkeit. Langfristiger Produktivitätseffekt: modelliert als Teilkomponente Bildungswachstum.",
+    annahmen: ["5 Mrd. € Bundesausgaben als Basis (Ist-Zustand)", "100 % Slider = Schließung der U3-Lücke (~35 pp), nicht 100 % mehr Ausgaben", "+1 Slider-Einheit = ca. 350 neue U3-Plätze (Bundesschnitt)", "Frauenerwerbsquote-Elastizität: −0,01 pp ALQ je 10 Slider-Einheiten (DIW-Schätzung)"],
     quellen: [
       { name: "BMFSFJ – KiTa-Statistik", url: "https://bmfsfj.de", aktualisiert: "Jan 2024" },
       { name: "DIW Berlin – Erwerbstätigkeit und Kita", url: "https://diw.de", aktualisiert: "Dez 2023" },

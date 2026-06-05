@@ -1,0 +1,134 @@
+**Prompt für Replit:**
+
+---
+
+Überprüfe und verbessere die Modellannahmen des DeutschlandSimulators gezielt in den unten genannten Bereichen. Dabei gilt:
+
+### Wichtige Regel
+
+**Keine eigenständige Neubewertung aller Modellannahmen durchführen.**
+
+Bestehende Annahmen dürfen nur geändert werden, wenn mindestens eine der folgenden Bedingungen erfüllt ist:
+
+* Es liegt ein nachweisbarer sachlicher Fehler vor.
+* Die aktuelle Formulierung ist irreführend oder missverständlich.
+* Innerhalb des Modells besteht eine Inkonsistenz.
+* Die hinterlegte Quelle widerspricht der dargestellten Annahme.
+
+Nicht ausreichend für Änderungen sind:
+
+* alternative KI-Einschätzungen,
+* Vermutungen,
+* nicht belegte Plausibilitätsargumente,
+* automatisch recherchierte Ersatzwerte.
+
+Falls Unsicherheit besteht:
+
+* bestehende Annahme unverändert lassen,
+* Verbesserungsvorschlag dokumentieren,
+* menschliche Prüfung empfehlen.
+
+---
+
+## 1. Kohleausstieg prüfen und korrigieren
+
+Der aktuelle Text suggeriert:
+
+> „Gesetzlicher Plan: 2030“
+
+Prüfe, ob dies mit der zugrunde liegenden Quelle übereinstimmt.
+
+Falls nicht, korrigiere die Formulierung zu einer rechtlich und politisch korrekten Darstellung, beispielsweise:
+
+> Gesetzlicher Kohleausstieg spätestens 2038. Politisches Ziel ist ein möglichst vorgezogener Ausstieg bis 2030.
+
+Quellenangaben und Herleitung entsprechend anpassen.
+
+---
+
+## 2. Erneuerbare Energien – Baseline prüfen
+
+Aktuell werden Wind- und Solarwerte mit Verweis auf die 2030-Ziele dargestellt.
+
+Prüfe:
+
+* ob diese Werte tatsächlich als Baseline verwendet werden,
+* oder lediglich als Referenz-/Zielwerte ausgewiesen werden sollen.
+
+Falls 2030-Zielwerte als aktuelle Baseline verwendet werden, korrigiere dies.
+
+Ziel:
+
+* Baseline = tatsächlicher Ist-Zustand des gewählten Basisjahres
+* Zielwerte = separat ausgewiesen
+
+---
+
+## 3. Sozialwohnungen – Kosten pro Einheit validieren
+
+Prüfe die Annahme:
+
+> 250.000 € Bundeszuschuss pro Wohneinheit
+
+Überprüfe anhand der bereits hinterlegten Quelle:
+
+* ob es sich um Bundesförderung,
+* Gesamtkosten,
+* durchschnittliche Baukosten,
+* oder eine andere Kennzahl handelt.
+
+Falls die Beschreibung missverständlich ist:
+
+* Formulierung präzisieren,
+* Herleitung ergänzen,
+* keine Änderung ohne belastbare Quellenbasis.
+
+---
+
+## 4. Schuldenbremse transparenter machen
+
+Die Werte
+
+* Reformiert: +25 Mrd. €
+* Ausgesetzt: +75 Mrd. €
+* Abgeschafft: +150 Mrd. €
+
+sollen auf ihre Darstellung geprüft werden.
+
+Falls diese Werte modellhafte Näherungen darstellen:
+
+* deutlich als Modellannahme kennzeichnen,
+* Unsicherheiten transparent beschreiben,
+* Herleitung nachvollziehbarer machen.
+
+Die Zahlen selbst sollen nur geändert werden, wenn ein nachweisbarer Fehler vorliegt.
+
+---
+
+## 5. Kita-Ausbau präzisieren
+
+Aktuell lautet die Annahme:
+
+> Vollausbau (+100 %) = +20 Mrd. €
+
+Prüfe, ob eindeutig erklärt wird, was „+100 %“ bedeutet.
+
+Falls unklar:
+
+* Begriff präzisieren,
+* Definition ergänzen,
+* Berechnungslogik verständlicher darstellen.
+
+---
+
+## Ergebnis
+
+Erstelle nach Abschluss einen Änderungsbericht mit:
+
+* geprüfter Annahme,
+* festgestelltem Problem,
+* durchgeführter Änderung,
+* Begründung,
+* zugrunde liegender Quelle.
+
+Führe keine Änderungen durch, die nicht durch Quellen oder nachweisbare Modellfehler gestützt werden. Ziel ist eine möglichst transparente, nachvollziehbare und wissenschaftlich saubere Darstellung der bestehenden Modellannahmen.
