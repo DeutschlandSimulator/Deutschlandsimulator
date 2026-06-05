@@ -1,0 +1,156 @@
+**Prompt für Replit – Globalen Wirkungs-Überblick hinzufügen**
+
+Verbessere die Benutzerfreundlichkeit des Simulators durch die Einführung einer zentralen, permanent sichtbaren Zusammenfassung der wichtigsten Auswirkungen aller aktuell gewählten politischen Maßnahmen.
+
+## Problem
+
+Aktuell werden viele Detailkennzahlen gleichzeitig angezeigt:
+
+* Rentenkosten
+* Gesundheitskosten
+* CO₂-Emissionen
+* Strompreis
+* Bildungsausgaben
+* Wohnraumdefizit
+* usw.
+
+Dadurch fällt es neuen Nutzern schwer zu erkennen, welche Gesamtauswirkungen ihre Änderungen eigentlich haben.
+
+Der Simulator liefert viele Details, aber keinen schnellen Gesamtüberblick.
+
+---
+
+## Lösung
+
+Füge oberhalb aller Detailbereiche eine prominente Karte ein:
+
+# Auswirkungen deiner Politik
+
+Diese Karte soll jederzeit sichtbar sein und die wichtigsten Gesamteffekte der aktuellen Einstellungen zusammenfassen.
+
+---
+
+## Inhalt der Karte
+
+### 💰 Finanzierungssaldo
+
++12 Mrd. €
+
+oder
+
+−18 Mrd. €
+
+Farbcodierung:
+
+* Grün = Verbesserung
+* Rot = Verschlechterung
+
+---
+
+### 📈 Wirtschaftswachstum
+
++0,3 %
+
+Vergleich zum Status quo.
+
+---
+
+### 👷 Arbeitsmarkt
+
++150.000 Arbeitsplätze
+
+oder
+
+−80.000 Arbeitsplätze
+
+Falls aktuell noch kein Modell vorhanden ist:
+
+Platzhalterstruktur vorbereiten.
+
+---
+
+### 🌱 Klima
+
+−40 Mt CO₂
+
+oder
+
+Klimaindex +8 %
+
+Je nachdem, welche Kennzahl im Modell bereits verfügbar ist.
+
+---
+
+### ⚠️ Unsicherheit
+
+Niedrig
+
+Mittel
+
+Hoch
+
+Berechnet aus den Evidenzbewertungen der aktuell betroffenen Modellannahmen.
+
+---
+
+## Zusätzliche Anforderungen
+
+### Delta statt Absolutwerte
+
+Wo möglich sollen Veränderungen zum Status quo angezeigt werden.
+
+Nicht:
+
+Schulden pro Kopf = 29.100 €
+
+Sondern:
+
+Schulden pro Kopf
+
+▲ +1.800 €
+
+gegenüber Status quo
+
+---
+
+### Live-Aktualisierung
+
+Die Übersicht muss sich sofort aktualisieren, wenn ein Schieberegler verändert wird.
+
+Keine Verzögerung.
+
+---
+
+### Sticky-Verhalten
+
+Auf Desktop:
+
+Die Karte bleibt beim Scrollen am oberen Rand sichtbar.
+
+Oder alternativ:
+
+Sie bleibt oberhalb des Dashboards dauerhaft sichtbar.
+
+---
+
+## Visuelles Design
+
+Die Karte soll:
+
+* größer als normale Kennzahlenkarten sein
+* die gleiche Dark-Mode-Designsprache verwenden
+* wie ein Executive Summary wirken
+* auf den ersten Blick erfassbar sein
+
+Ziel:
+
+Ein Nutzer soll innerhalb von 3 Sekunden erkennen können:
+
+* Wird der Staatshaushalt besser oder schlechter?
+* Wächst die Wirtschaft oder schrumpft sie?
+* Welche Folgen gibt es für Klima und Gesellschaft?
+* Wie unsicher sind die Ergebnisse?
+
+Erst danach sollen die Detailkarten die Hintergründe und Einzelwirkungen erklären.
+
+Diese Übersicht soll zum zentralen Orientierungspunkt des gesamten Simulators werden.

@@ -24,6 +24,110 @@ import {
   type Schuldenbremse, type Atomkraft, type Kohleausstieg, type VmBetrieb,
 } from "@/lib/compute";
 
+// ─── Overview card (executive summary) ───────────────────────────────────────
+const SQ_DEFIZIT  = -34.2; // Mrd. € — baseline at default params
+const SQ_WACHSTUM =   0.8; // %
+const SQ_ALQ      =   5.7; // %
+const SQ_CO2      = 670;   // Mt CO₂
+
+function KpiTile({
+  icon, label, value, positive, negative, sub,
+}: { icon: string; label: string; value: string; positive: boolean; negative: boolean; sub: string }) {
+  const valueColor = positive ? "text-[#4caf82]" : negative ? "text-[#e05c5c]" : "text-[#8faabb]";
+  const arrow      = positive ? "▲ "              : negative ? "▼ "              : "";
+  return (
+    <div className="bg-[#0d1b2a]/80 border border-[#1e3048] rounded-lg px-3 py-2.5">
+      <div className="flex items-center gap-1.5 mb-1.5">
+        <span className="text-sm leading-none">{icon}</span>
+        <span className="text-[9px] text-[#8faabb] uppercase tracking-wider font-semibold">{label}</span>
+      </div>
+      <div className={`text-base font-extrabold tabular-nums leading-none mb-1 ${valueColor}`}>
+        {arrow}{value}
+      </div>
+      <div className="text-[9px] text-[#8faabb]/60 leading-none">{sub}</div>
+    </div>
+  );
+}
+
+function OverviewCard({
+  defizit, wachstum, alq, co2Emissionen, trust,
+}: { defizit: number; wachstum: number; alq: number; co2Emissionen: number; trust: number }) {
+  const defDelta  = defizit - SQ_DEFIZIT;    // positive = fiscal improvement
+  const wachDelta = wachstum - SQ_WACHSTUM;  // positive = more growth
+  const alqDelta  = alq - SQ_ALQ;            // negative = more jobs
+  const co2Delta  = co2Emissionen - SQ_CO2;  // negative = better climate
+  const jobsK     = Math.round(-alqDelta * 460); // ~460k people per ALQ point
+
+  const uncert = trust >= 70
+    ? { label: "Niedrig", cls: "text-[#4caf82]", icon: "🟢" }
+    : trust >= 40
+    ? { label: "Mittel",  cls: "text-[#f5a623]", icon: "🟡" }
+    : { label: "Hoch",    cls: "text-[#e05c5c]", icon: "🔴" };
+
+  return (
+    <div className="sticky top-0 z-10 -mx-5 -mt-5 px-5 pt-5 pb-3 bg-[#0d1b2a] border-b border-[#1e3048]">
+      <div className="relative bg-gradient-to-br from-[#1a2b3c] to-[#0f1e2e] border border-[#00c8b4]/30 rounded-xl px-4 py-3 overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-xl"
+          style={{ background: "radial-gradient(ellipse 90% 60% at 50% 0%, rgba(0,200,180,0.07) 0%, transparent 70%)" }}
+        />
+
+        {/* Header */}
+        <div className="relative flex items-center justify-between mb-3">
+          <div>
+            <h2 className="text-sm font-extrabold text-[#f0f4f8] leading-none">
+              Auswirkungen deiner Politik
+            </h2>
+            <p className="text-[10px] text-[#8faabb] mt-0.5">Veränderung gegenüber Status quo</p>
+          </div>
+          <div className="flex items-center gap-1.5 bg-[#0d1b2a] border border-[#1e3048] rounded-lg px-2.5 py-1.5 text-xs shrink-0">
+            <span className="text-sm leading-none">{uncert.icon}</span>
+            <span className={`font-semibold ${uncert.cls}`}>{uncert.label}</span>
+            <span className="text-[#8faabb] hidden sm:inline">Unsicherheit</span>
+          </div>
+        </div>
+
+        {/* KPI tiles */}
+        <div className="relative grid grid-cols-2 md:grid-cols-4 gap-2">
+          <KpiTile
+            icon="💰"
+            label="Haushalt"
+            value={`${defDelta >= 0 ? "+" : ""}${defDelta.toFixed(1)} Mrd.`}
+            positive={defDelta > 0.2}
+            negative={defDelta < -0.2}
+            sub="Finanzierungssaldo"
+          />
+          <KpiTile
+            icon="📈"
+            label="Wirtschaft"
+            value={`${wachDelta >= 0 ? "+" : ""}${wachDelta.toFixed(2)} %`}
+            positive={wachDelta > 0.01}
+            negative={wachDelta < -0.01}
+            sub="BIP-Wachstum"
+          />
+          <KpiTile
+            icon="👷"
+            label="Arbeitsmarkt"
+            value={jobsK > 0 ? `+${jobsK}k Jobs` : jobsK < 0 ? `${jobsK}k Jobs` : "±0 Jobs"}
+            positive={jobsK > 10}
+            negative={jobsK < -10}
+            sub={`ALQ ${alq.toFixed(1)}%`}
+          />
+          <KpiTile
+            icon="🌱"
+            label="Klima"
+            value={`${co2Delta <= 0 ? "" : "+"}${co2Delta.toFixed(0)} Mt CO₂`}
+            positive={co2Delta < -2}
+            negative={co2Delta > 2}
+            sub={`${co2Emissionen.toFixed(0)} Mt gesamt`}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── EvidenzDot ───────────────────────────────────────────────────────────────
 function EvidenzDot({ level }: { level: EvidenzLevel }) {
   const colors: Record<EvidenzLevel, string> = { hoch: "bg-[#4caf82]", mittel: "bg-[#f5a623]", gering: "bg-[#e05c5c]" };
@@ -627,6 +731,15 @@ export default function SimulatorPage() {
         {/* ═══ RIGHT PANEL ═══ */}
         <div className="flex-1 p-5 overflow-y-auto md:h-[calc(100vh-113px)] space-y-6">
 
+          {/* ── Executive summary (always visible, sticky) ── */}
+          <OverviewCard
+            defizit={defizit}
+            wachstum={wachstum}
+            alq={alq}
+            co2Emissionen={co2Emissionen}
+            trust={trust}
+          />
+
           {/* Vertrauensindex */}
           <div className="bg-[#1a2b3c] rounded border border-[#1e3048] p-4">
             <div className="flex items-center justify-between mb-2">
@@ -657,11 +770,11 @@ export default function SimulatorPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="bg-[#1a2b3c] p-3 rounded border border-[#1e3048]" data-testid="card-kpi-haushaltsdefizit">
                 <div className="text-[#8faabb] text-xs mb-1">{defizitLabel}</div>
-                <div className="text-lg font-bold mb-2" style={{ color: defizit >= 0 ? "#4caf82" : "#e05c5c" }}>{fmtDef(defizit)} Mrd.</div>
+                <div className="text-lg font-bold mb-2" style={{ color: defizit >= 0 ? "#4caf82" : "#e05c5c" }}>{fmtDef(defizit)}</div>
                 <div className="space-y-0.5">
-                  <div className="flex justify-between text-[10px]"><span className="text-[#4caf82]">Opt.</span><span className="text-[#4caf82]">{fmtDef(kpiOpt.defizit)} Mrd.</span></div>
-                  <div className="flex justify-between text-[10px]"><span className="text-[#00c8b4]">Real.</span><span className="text-[#00c8b4]">{fmtDef(kpiReal.defizit)} Mrd.</span></div>
-                  <div className="flex justify-between text-[10px]"><span className="text-[#e05c5c]">Pess.</span><span className="text-[#e05c5c]">{fmtDef(kpiPess.defizit)} Mrd.</span></div>
+                  <div className="flex justify-between text-[10px]"><span className="text-[#4caf82]">Opt.</span><span className="text-[#4caf82]">{fmtDef(kpiOpt.defizit)}</span></div>
+                  <div className="flex justify-between text-[10px]"><span className="text-[#00c8b4]">Real.</span><span className="text-[#00c8b4]">{fmtDef(kpiReal.defizit)}</span></div>
+                  <div className="flex justify-between text-[10px]"><span className="text-[#e05c5c]">Pess.</span><span className="text-[#e05c5c]">{fmtDef(kpiPess.defizit)}</span></div>
                 </div>
               </div>
               <div className="bg-[#1a2b3c] p-3 rounded border border-[#1e3048]" data-testid="card-kpi-steueraufkommen">
