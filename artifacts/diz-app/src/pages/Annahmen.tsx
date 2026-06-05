@@ -757,6 +757,8 @@ function getQuelleKategorie(url: string): string {
 }
 
 // ─── Annahme Card ─────────────────────────────────────────────────────────────
+type ActivePanel = null | "fachlich" | "qualitaet";
+
 function AnnahmeKarte({
   a,
   stats,
@@ -766,7 +768,11 @@ function AnnahmeKarte({
   stats: AssumptionStats | undefined;
   onStatsChange: (updated: AssumptionStats) => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [activePanel, setActivePanel] = useState<ActivePanel>(null);
+
+  function togglePanel(panel: "fachlich" | "qualitaet") {
+    setActivePanel((prev) => (prev === panel ? null : panel));
+  }
 
   return (
     <div className="bg-[#1a2b3c] rounded border border-[#1e3048] overflow-hidden">
@@ -786,7 +792,7 @@ function AnnahmeKarte({
         {/* Value */}
         <div className="font-mono text-xs text-[#00c8b4] mb-2 leading-relaxed">{a.wert}</div>
 
-        {/* Source */}
+        {/* Source line */}
         <div className="flex flex-wrap items-center gap-2 text-[10px] text-[#8faabb]">
           <span className="flex items-center gap-1">
             {a.quellUrl ? (
@@ -797,45 +803,71 @@ function AnnahmeKarte({
             ) : a.quelle}
           </span>
           <span className="text-[#1e3048]">·</span>
-          <span>{a.datenherkunft}</span>
-          <span className="text-[#1e3048]">·</span>
           <span>Stand: {a.jahr}</span>
           <span className="text-[#1e3048]">·</span>
           <span>Geprüft: {a.letzteUeberpruefung}</span>
         </div>
 
-        {/* Expand button */}
-        <button
-          onClick={() => setOpen((o) => !o)}
-          className="mt-3 flex items-center gap-1.5 text-[10px] text-[#8faabb] hover:text-[#00c8b4] transition-colors border border-[#1e3048] hover:border-[#00c8b4]/40 rounded px-2 py-1"
-        >
-          {open ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
-          Warum verwenden wir diesen Wert?
-        </button>
+        {/* Two-tab buttons */}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          <button
+            onClick={() => togglePanel("fachlich")}
+            className={`flex items-center gap-1.5 text-[10px] font-medium rounded px-2.5 py-1 border transition-colors ${
+              activePanel === "fachlich"
+                ? "bg-[#00c8b4]/10 text-[#00c8b4] border-[#00c8b4]/40"
+                : "text-[#8faabb] border-[#1e3048] hover:border-[#00c8b4]/40 hover:text-[#00c8b4]"
+            }`}
+          >
+            {activePanel === "fachlich" ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
+            📚 Warum verwenden wir diesen Wert?
+          </button>
+          <button
+            onClick={() => togglePanel("qualitaet")}
+            className={`flex items-center gap-1.5 text-[10px] font-medium rounded px-2.5 py-1 border transition-colors ${
+              activePanel === "qualitaet"
+                ? "bg-[#00c8b4]/10 text-[#00c8b4] border-[#00c8b4]/40"
+                : "text-[#8faabb] border-[#1e3048] hover:border-[#00c8b4]/40 hover:text-[#00c8b4]"
+            }`}
+          >
+            {activePanel === "qualitaet" ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
+            🔍 Quellen- &amp; Qualitätsstatus
+          </button>
+        </div>
       </div>
 
-      {/* Expandable section */}
-      {open && (
+      {/* Panel: Fachliche Erklärung */}
+      {activePanel === "fachlich" && (
         <div className="border-t border-[#1e3048] bg-[#0d1b2a]/50 px-4 py-3 space-y-2">
           <div>
-            <p className="text-[10px] text-[#8faabb] font-semibold uppercase tracking-wider mb-1">Herleitung & wissenschaftliche Grundlage</p>
+            <p className="text-[10px] text-[#8faabb] font-semibold uppercase tracking-wider mb-1">
+              Herleitung &amp; wissenschaftliche Grundlage
+            </p>
             <p className="text-xs text-[#f0f4f8] leading-relaxed">{a.erklaerung}</p>
           </div>
           {a.unsicherheiten && (
             <div className="bg-[#3d2d0a] border border-[#f5a623]/20 rounded px-3 py-2">
-              <p className="text-[10px] text-[#f5a623] font-semibold uppercase tracking-wider mb-1">⚠ Bekannte Unsicherheiten</p>
+              <p className="text-[10px] text-[#f5a623] font-semibold uppercase tracking-wider mb-1">
+                ⚠ Bekannte Unsicherheiten
+              </p>
               <p className="text-xs text-[#f5a623]/80 leading-relaxed">{a.unsicherheiten}</p>
             </div>
           )}
           {a.sensitivitaet && <SensitivitaetsChart data={a.sensitivitaet} />}
+        </div>
+      )}
 
-          {/* Community validation widget */}
+      {/* Panel: Quellen- & Qualitätsstatus */}
+      {activePanel === "qualitaet" && (
+        <div className="border-t border-[#1e3048] bg-[#0d1b2a]/50 px-4 py-3">
           <ValidationWidget
             assumptionId={a.id}
             stats={stats}
             onStatsChange={onStatsChange}
             letzteUeberpruefung={a.letzteUeberpruefung}
             evidenz={a.evidenz}
+            verifizierungsgrad={a.verifizierungsgrad}
+            datenherkunft={a.datenherkunft}
+            geprueftVon={a.geprueftVon}
             githubDiscussionUrl={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(a.parameter)}`}
             quellUrl={a.quellUrl}
           />

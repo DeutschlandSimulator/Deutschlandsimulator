@@ -1,0 +1,137 @@
+**Prompt für Replit**
+
+Überarbeite die Informationsarchitektur der Annahmen- und Quellenkarten.
+
+## Problem
+
+Aktuell befindet sich der Bereich „Status der Annahme“ innerhalb des aufklappbaren Abschnitts:
+
+**„Warum verwenden wir diesen Wert?“**
+
+Dadurch werden zwei völlig unterschiedliche Themen vermischt:
+
+### Fachliche Begründung
+
+* Herleitung des Werts
+* Wissenschaftliche Grundlage
+* Methodische Erklärung
+* Bekannte Unsicherheiten
+
+### Qualitätssicherung & Community-Prüfung
+
+* KI recherchiert
+* Community-Bestätigungen
+* Validierungsgrad
+* Diskussion
+* Quelle validieren
+
+Aus Nutzersicht beantworten diese Bereiche unterschiedliche Fragen und sollten daher getrennt werden.
+
+---
+
+## Ziel
+
+Die Nutzer sollen klar unterscheiden können zwischen:
+
+### 1. Fachliche Erklärung
+
+**Warum wird dieser Wert verwendet?**
+
+und
+
+### 2. Vertrauenswürdigkeit & Qualitätssicherung
+
+**Wie gut wurde dieser Wert überprüft?**
+
+---
+
+## Neue Struktur
+
+Direkt unter den Basisinformationen zwei eigenständige Buttons bzw. Tabs anzeigen:
+
+### Button 1
+
+📚 **Warum verwenden wir diesen Wert?**
+
+Inhalt:
+
+* Herleitung & wissenschaftliche Grundlage
+* Erläuterung des Werts
+* Methodische Verwendung im Modell
+* Bekannte Unsicherheiten
+
+Dieser Bereich soll ausschließlich die fachliche Begründung enthalten.
+
+---
+
+### Button 2
+
+🔍 **Quellen- & Qualitätsstatus**
+
+Alternativ:
+
+* Quellenstatus
+* Qualitätsprüfung
+* Vertrauensstatus
+
+Inhalt:
+
+* Quelle und Quellentyp
+* Amtliche Quelle / Studie / Schätzung
+* KI recherchiert oder menschlich recherchiert
+* Community-Bestätigungen
+* Validierungsgrad
+* Letzte Prüfung
+* Vertrauensindikator
+* Diskussion öffnen
+* Quelle validieren
+
+Dieser Bereich soll ausschließlich Informationen zur Qualitätssicherung und Community-Prüfung enthalten.
+
+---
+
+## Zusätzliche Verbesserung
+
+Innerhalb des Qualitätsstatus klar zwischen folgenden Konzepten unterscheiden:
+
+### Quellenqualität
+
+Beispiele:
+
+* Amtliche Quelle
+* Primärquelle
+* Wissenschaftliche Studie
+* Expertenschätzung
+
+### Recherchestatus
+
+Beispiele:
+
+* KI recherchiert
+* Menschlich recherchiert
+* Redaktionell geprüft
+
+### Community-Validierung
+
+Beispiele:
+
+* 0 von 3 Bestätigungen
+* 1 von 3 Bestätigungen
+* 2 von 3 Bestätigungen
+* 3 von 3 Bestätigungen
+
+Diese drei Aspekte dürfen nicht zu einem einzigen Vertrauenswert vermischt werden.
+
+---
+
+## UX-Ziel
+
+Ein Nutzer soll sofort erkennen:
+
+**Button „Warum verwenden wir diesen Wert?“**
+→ Woher kommt der Wert fachlich?
+
+**Button „Quellen- & Qualitätsstatus“**
+→ Wie gut wurde der Wert überprüft und wie kann ich zur Qualitätssicherung beitragen?
+
+Dadurch werden die Community-Funktionen sichtbarer, die Informationsarchitektur verständlicher und die Vertrauenswürdigkeit des Projekts erhöht.

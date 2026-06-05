@@ -20,8 +20,12 @@ interface Props {
   assumptionId: string;
   stats: AssumptionStats | undefined;
   onStatsChange: (updated: AssumptionStats) => void;
+  // Context for the info sections
   letzteUeberpruefung: string;
   evidenz: "hoch" | "mittel" | "gering";
+  verifizierungsgrad: "vollstaendig" | "teilweise" | "nicht";
+  datenherkunft: string;
+  geprueftVon: "ki" | "mensch";
   githubDiscussionUrl: string;
   quellUrl?: string;
 }
@@ -36,14 +40,37 @@ async function apiFetch(path: string, init?: RequestInit) {
   return res.json();
 }
 
-function getTrustLevel(n: number) {
-  if (n === 0)                    return { label: "Nicht geprüft",      color: "text-[#e05c5c]", barColor: "bg-[#e05c5c]", icon: "🔴" };
-  if (n < VALIDATION_THRESHOLD)  return { label: "Mittel",             color: "text-[#f5a623]", barColor: "bg-[#f5a623]", icon: "🟡" };
-  return                                 { label: "Community geprüft",  color: "text-[#4caf82]", barColor: "bg-[#4caf82]", icon: "🟢" };
-}
+// ─── Label helpers ────────────────────────────────────────────────────────────
+const QUELLENTYP: Record<string, string> = {
+  hoch:   "Amtliche Statistik · Primärquelle",
+  mittel: "Wissenschaftliche Studie · Forschungsinstitut",
+  gering: "Expertenschätzung · Prognose",
+};
 
-const EVIDENZ_LABEL: Record<string, string> = { hoch: "Hoch",   mittel: "Mittel", gering: "Gering" };
-const EVIDENZ_COLOR: Record<string, string> = { hoch: "text-[#4caf82]", mittel: "text-[#f5a623]", gering: "text-[#e05c5c]" };
+const EVIDENZ_LABEL: Record<string, string> = { hoch: "Hoch", mittel: "Mittel", gering: "Gering" };
+const EVIDENZ_COLOR: Record<string, string> = {
+  hoch:   "text-[#4caf82]",
+  mittel: "text-[#f5a623]",
+  gering: "text-[#e05c5c]",
+};
+const EVIDENZ_ICON: Record<string, string> = { hoch: "🟢", mittel: "🟡", gering: "🔴" };
+
+const VERIFIZIERUNG: Record<string, { icon: string; label: string; color: string }> = {
+  vollstaendig: { icon: "✅", label: "Quelle vollständig belegt",  color: "text-[#4caf82]" },
+  teilweise:    { icon: "⚠️", label: "Quelle teilweise belegt",    color: "text-[#f5a623]" },
+  nicht:        { icon: "❌", label: "Keine verifizierte Quelle",  color: "text-[#e05c5c]" },
+};
+
+const GEPRUEFT_VON: Record<string, { icon: string; label: string }> = {
+  ki:     { icon: "🤖", label: "KI-gestützte Recherche (Initial)" },
+  mensch: { icon: "👤", label: "Redaktionell / menschlich geprüft" },
+};
+
+function getCommunityTrust(n: number): { label: string; color: string; barColor: string; icon: string } {
+  if (n === 0)                   return { label: "Noch nicht geprüft",  color: "text-[#8faabb]",  barColor: "bg-[#1e3048]",  icon: "⚪" };
+  if (n < VALIDATION_THRESHOLD) return { label: "Prüfung läuft",       color: "text-[#f5a623]",  barColor: "bg-[#f5a623]",  icon: "🟡" };
+  return                                { label: "Community bestätigt", color: "text-[#4caf82]",  barColor: "bg-[#4caf82]",  icon: "🟢" };
+}
 
 // ─── Confirmation modal ───────────────────────────────────────────────────────
 function ConfirmModal({
@@ -113,25 +140,46 @@ function ConfirmModal({
   );
 }
 
+// ─── Section divider ──────────────────────────────────────────────────────────
+function SectionLabel({ label }: { label: string }) {
+  return (
+    <p className="text-[9px] font-semibold uppercase tracking-widest text-[#8faabb] pb-1.5 border-b border-[#1e3048] mb-2">
+      {label}
+    </p>
+  );
+}
+
+function InfoRow({ label, value, valueClass = "text-[#f0f4f8]" }: { label: string; value: string; valueClass?: string }) {
+  return (
+    <div className="flex items-start justify-between gap-2">
+      <span className="text-[10px] text-[#8faabb] shrink-0 mt-px">{label}</span>
+      <span className={`text-[11px] font-semibold text-right leading-snug ${valueClass}`}>{value}</span>
+    </div>
+  );
+}
+
 // ─── Main widget ──────────────────────────────────────────────────────────────
 export function ValidationWidget({
   assumptionId, stats, onStatsChange,
-  letzteUeberpruefung, evidenz, githubDiscussionUrl, quellUrl,
+  letzteUeberpruefung, evidenz, verifizierungsgrad, datenherkunft, geprueftVon,
+  githubDiscussionUrl, quellUrl,
 }: Props) {
   const { isAuthenticated, isLoading: authLoading, login } = useAuth();
-  const [busy,        setBusy]        = useState(false);
-  const [showModal,   setShowModal]   = useState(false);
-  const [showReport,  setShowReport]  = useState(false);
-  const [reason,      setReason]      = useState("");
-  const [reportSent,  setReportSent]  = useState(false);
-  const [error,       setError]       = useState<string | null>(null);
+  const [busy,       setBusy]       = useState(false);
+  const [showModal,  setShowModal]  = useState(false);
+  const [showReport, setShowReport] = useState(false);
+  const [reason,     setReason]     = useState("");
+  const [reportSent, setReportSent] = useState(false);
+  const [error,      setError]      = useState<string | null>(null);
 
   const validationCount = stats?.validationCount ?? 0;
   const errorCount      = stats?.errorCount      ?? 0;
   const myValidation    = stats?.myValidation     ?? false;
   const status          = stats?.status           ?? "ki_recherchiert";
-  const isCommunityVerified = status === "community_geprueft";
-  const trust = getTrustLevel(validationCount);
+
+  const verifInfo  = VERIFIZIERUNG[verifizierungsgrad];
+  const geprueftInfo = GEPRUEFT_VON[geprueftVon];
+  const communityTrust = getCommunityTrust(validationCount);
   const progressPct = Math.min(100, (validationCount / VALIDATION_THRESHOLD) * 100);
 
   const doValidate = useCallback(async () => {
@@ -187,65 +235,61 @@ export function ValidationWidget({
         />
       )}
 
-      <div className="border-t border-[#1e3048] pt-3 mt-2 space-y-3">
+      <div className="space-y-4">
 
-        {/* ── Bereich 1: Qualitäts- und Vertrauensstatus ─────────────── */}
+        {/* ── 1. Quellenqualität ──────────────────────────────────────── */}
+        <div className="bg-[#0d1b2a] border border-[#1e3048] rounded-lg p-3 space-y-2">
+          <SectionLabel label="Quellenqualität" />
+          <InfoRow
+            label="Quellentyp"
+            value={QUELLENTYP[evidenz]}
+          />
+          <InfoRow
+            label="Evidenzniveau"
+            value={`${EVIDENZ_ICON[evidenz]} ${EVIDENZ_LABEL[evidenz]}`}
+            valueClass={EVIDENZ_COLOR[evidenz]}
+          />
+          <InfoRow
+            label="Quellennachweis"
+            value={`${verifInfo.icon} ${verifInfo.label}`}
+            valueClass={verifInfo.color}
+          />
+        </div>
+
+        {/* ── 2. Recherchestatus ──────────────────────────────────────── */}
+        <div className="bg-[#0d1b2a] border border-[#1e3048] rounded-lg p-3 space-y-2">
+          <SectionLabel label="Recherchestatus" />
+          <InfoRow
+            label="Recherchemethode"
+            value={`${geprueftInfo.icon} ${geprueftInfo.label}`}
+          />
+          <InfoRow
+            label="Datenherkunft"
+            value={datenherkunft}
+          />
+          <InfoRow
+            label="Zuletzt geprüft"
+            value={letzteUeberpruefung}
+          />
+        </div>
+
+        {/* ── 3. Community-Validierung ────────────────────────────────── */}
         <div className="bg-[#0d1b2a] border border-[#1e3048] rounded-lg p-3 space-y-3">
-          <p className="text-[9px] font-semibold uppercase tracking-widest text-[#8faabb]">
-            Status der Annahme
-          </p>
+          <SectionLabel label="Community-Validierung" />
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-            <div className="flex items-center gap-2">
-              <span className="text-sm leading-none">{isCommunityVerified ? "🟢" : "🟡"}</span>
-              <div>
-                <div className="text-[9px] text-[#8faabb] uppercase tracking-wider">Recherche</div>
-                <div className="text-[11px] font-semibold text-[#f0f4f8]">
-                  {isCommunityVerified ? "Community geprüft" : "KI recherchiert"}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-sm leading-none">🎯</span>
-              <div>
-                <div className="text-[9px] text-[#8faabb] uppercase tracking-wider">Vertrauensniveau</div>
-                <div className={`text-[11px] font-semibold ${EVIDENZ_COLOR[evidenz]}`}>
-                  {EVIDENZ_LABEL[evidenz]}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-sm leading-none">👥</span>
-              <div>
-                <div className="text-[9px] text-[#8faabb] uppercase tracking-wider">Community-Prüfungen</div>
-                <div className="text-[11px] font-semibold text-[#f0f4f8]">
-                  {validationCount} {validationCount === 1 ? "Bestätigung" : "Bestätigungen"}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-sm leading-none">📅</span>
-              <div>
-                <div className="text-[9px] text-[#8faabb] uppercase tracking-wider">Zuletzt geprüft</div>
-                <div className="text-[11px] font-semibold text-[#f0f4f8]">{letzteUeberpruefung}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Validation progress bar */}
+          {/* Progress bar */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[9px] text-[#8faabb] uppercase tracking-wider">Validierungsgrad</span>
-              <span className={`text-[9px] font-semibold ${trust.color}`}>
-                {trust.icon} {validationCount} von {VALIDATION_THRESHOLD} · {trust.label}
+              <span className="text-[10px] text-[#8faabb]">
+                {validationCount} von {VALIDATION_THRESHOLD} Bestätigungen
+              </span>
+              <span className={`text-[10px] font-semibold ${communityTrust.color}`}>
+                {communityTrust.icon} {communityTrust.label}
               </span>
             </div>
             <div className="h-1.5 bg-[#1e3048] rounded-full overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-500 ${trust.barColor}`}
+                className={`h-full rounded-full transition-all duration-500 ${communityTrust.barColor}`}
                 style={{ width: `${validationCount > 0 ? Math.max(progressPct, 12) : 0}%` }}
               />
             </div>
@@ -259,7 +303,7 @@ export function ValidationWidget({
           )}
         </div>
 
-        {/* ── Bereich 2: Community-Aktionen ────────────────────────────── */}
+        {/* ── Community-Aktionen ──────────────────────────────────────── */}
         <div>
           <p className="text-[9px] font-semibold uppercase tracking-widest text-[#8faabb] mb-2">
             Community-Beiträge
@@ -333,7 +377,6 @@ export function ValidationWidget({
             </div>
           )}
 
-          {/* Report form */}
           {showReport && !reportSent && (
             <div className="mt-2 bg-[#0d1b2a] border border-[#1e3048] rounded-lg p-3 space-y-2">
               <div className="flex items-center justify-between">
@@ -367,7 +410,6 @@ export function ValidationWidget({
           {error && <p className="text-xs text-[#e05c5c] mt-1">{error}</p>}
         </div>
 
-        {/* ── Disclaimer ───────────────────────────────────────────────── */}
         <p className="text-[9px] text-[#8faabb]/50 leading-relaxed italic">
           Community-Validierungen bestätigen die Korrektheit der Quellenangabe und des übernommenen Wertes — keine politische Bewertung oder Modellgüte.
         </p>
