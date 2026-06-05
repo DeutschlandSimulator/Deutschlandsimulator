@@ -1,30 +1,108 @@
 import { Link } from "wouter";
 import { Layout } from "@/components/Layout";
-import { ChevronRight, TrendingDown, TrendingUp } from "lucide-react";
+import { ChevronRight, TrendingDown, TrendingUp, Minus } from "lucide-react";
 
-// ─── Example simulation card data ────────────────────────────────────────────
-const exampleResults = [
-  { label: "Staatseinnahmen",    value: "−18 Mrd. €", dir: "down" },
-  { label: "Wirtschaftswachstum", value: "+0,4 %",    dir: "up"   },
-  { label: "Staatsverschuldung",  value: "+0,3 %",    dir: "neutral" },
+// ─── Trust stats ──────────────────────────────────────────────────────────────
+const TRUST_STATS = [
+  { value: "35+",    label: "Quellen hinterlegt"        },
+  { value: "80+",    label: "Modellannahmen dokumentiert" },
+  { value: "1.000+", label: "Szenarien simuliert"        },
+  { value: "100 %",  label: "Open Source"               },
+];
+
+// ─── Comparison table ─────────────────────────────────────────────────────────
+type Dir = "up" | "down" | "neutral";
+
+interface Massnahme {
+  emoji: string;
+  label: string;
+  effekte: { metric: string; value: string; dir: Dir }[];
+}
+
+const MASSNAHMEN: Massnahme[] = [
+  {
+    emoji: "📉",
+    label: "Einkommensteuer senken",
+    effekte: [
+      { metric: "Staatseinnahmen",    value: "−18 Mrd. €", dir: "down"    },
+      { metric: "Wirtschaftswachstum", value: "+0,4 %",    dir: "up"      },
+      { metric: "Staatsverschuldung",  value: "+0,3 %",    dir: "neutral" },
+    ],
+  },
+  {
+    emoji: "👴",
+    label: "Renteneintrittsalter erhöhen",
+    effekte: [
+      { metric: "Staatseinnahmen",    value: "+12 Mrd. €", dir: "up"   },
+      { metric: "Wirtschaftswachstum", value: "+0,2 %",    dir: "up"   },
+      { metric: "Staatsverschuldung",  value: "−0,4 %",    dir: "up"   },
+    ],
+  },
+  {
+    emoji: "💎",
+    label: "Vermögensteuer einführen",
+    effekte: [
+      { metric: "Staatseinnahmen",    value: "+15 Mrd. €", dir: "up"   },
+      { metric: "Wirtschaftswachstum", value: "−0,1 %",    dir: "down" },
+      { metric: "Staatsverschuldung",  value: "−0,2 %",    dir: "up"   },
+    ],
+  },
+];
+
+// ─── Currently discussed topics ──────────────────────────────────────────────
+const AKTUELLE_THEMEN = [
+  { emoji: "💶", label: "Bürgergeld reformieren"                        },
+  { emoji: "🛡️", label: "Verteidigungsausgaben auf 3,5 % des BIP"      },
+  { emoji: "👴", label: "Renteneintrittsalter auf 69 Jahre anheben"    },
+  { emoji: "⚡",  label: "Stromsteuer senken"                           },
+  { emoji: "🚌", label: "Deutschlandticket abschaffen"                 },
 ];
 
 // ─── Popular scenarios ────────────────────────────────────────────────────────
-const SZENARIEN = [
-  { emoji: "🛒", label: "Mehrwertsteuer senken"         },
-  { emoji: "💎", label: "Vermögenssteuer einführen"     },
-  { emoji: "👴", label: "Renteneintrittsalter erhöhen"  },
-  { emoji: "💶", label: "Bürgergeld reformieren"        },
-  { emoji: "🛡️", label: "Verteidigungsausgaben erhöhen" },
-  { emoji: "🌱", label: "CO₂-Steuer erhöhen"            },
-];
+interface Szenario {
+  emoji: string;
+  label: string;
+  beschreibung: string;
+  haupteffekt: { label: string; value: string; positiv: boolean };
+}
 
-// ─── Trust badges ─────────────────────────────────────────────────────────────
-const TRUST_BADGES = [
-  { label: "Open Source",           color: "teal"  },
-  { label: "Unabhängig",            color: "green" },
-  { label: "Transparente Quellen",  color: "blue"  },
-  { label: "Dokumentierte Annahmen",color: "blue"  },
+const SZENARIEN: Szenario[] = [
+  {
+    emoji: "💎",
+    label: "Vermögensteuer einführen",
+    beschreibung: "Zusätzliche Besteuerung großer Vermögen zur Finanzierung öffentlicher Ausgaben.",
+    haupteffekt: { label: "Staatseinnahmen", value: "+15 Mrd. €", positiv: true },
+  },
+  {
+    emoji: "👴",
+    label: "Renteneintrittsalter erhöhen",
+    beschreibung: "Schrittweise Anhebung des Rentenalters zur Stabilisierung der Sozialversicherungen.",
+    haupteffekt: { label: "Staatsverschuldung", value: "−0,4 %", positiv: true },
+  },
+  {
+    emoji: "🛡️",
+    label: "Verteidigungsausgaben erhöhen",
+    beschreibung: "Steigerung der Verteidigungsinvestitionen auf das NATO-Ziel.",
+    haupteffekt: { label: "Mehrausgaben", value: "+43 Mrd. €", positiv: false },
+  },
+  {
+    emoji: "🛒",
+    label: "Mehrwertsteuer senken",
+    beschreibung: "Senkung der Mehrwertsteuer zur Entlastung von Konsumenten und Unternehmen.",
+    haupteffekt: { label: "Staatseinnahmen", value: "−10 Mrd. €", positiv: false },
+  },
+  {
+    emoji: "💶",
+    label: "Bürgergeld reformieren",
+    beschreibung: "Anpassung der Grundsicherung für mehr Arbeitsanreize.",
+    haupteffekt: { label: "Einsparungen", value: "−5 Mrd. €", positiv: true },
+  },
+  {
+    emoji: "🌱",
+    label: "CO₂-Steuer erhöhen",
+    beschreibung: "Stärkere Bepreisung von Treibhausgasen für mehr Klimaschutz.",
+    haupteffekt: { label: "Mehreinnahmen", value: "+1 Mrd. €", positiv: true },
+  },
 ];
 
 // ─── Trust checklist ──────────────────────────────────────────────────────────
@@ -36,21 +114,18 @@ const TRUST_POINTS = [
   "Community kann Fehler melden und Verbesserungen vorschlagen",
 ];
 
-
-// ─── Badge component ──────────────────────────────────────────────────────────
-function TrustBadge({ label, color }: { label: string; color: string }) {
-  const styles: Record<string, string> = {
-    teal:  "bg-[#00c8b4]/10 text-[#00c8b4]  border-[#00c8b4]/25",
-    green: "bg-[#4caf82]/10 text-[#4caf82]  border-[#4caf82]/25",
-    blue:  "bg-[#4a90c4]/10 text-[#7ab3d8]  border-[#4a90c4]/25",
-  };
-  return (
-    <span className={`inline-flex items-center text-[10px] font-semibold uppercase tracking-wider border rounded-full px-2.5 py-0.5 ${styles[color]}`}>
-      {label}
-    </span>
-  );
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function DirIcon({ dir }: { dir: Dir }) {
+  if (dir === "up")      return <TrendingUp  size={11} className="text-[#4caf82] shrink-0" />;
+  if (dir === "down")    return <TrendingDown size={11} className="text-[#e05c5c] shrink-0" />;
+  return <Minus size={11} className="text-[#8faabb] shrink-0" />;
 }
 
+function dirColor(dir: Dir) {
+  return dir === "up" ? "text-[#4caf82]" : dir === "down" ? "text-[#e05c5c]" : "text-[#f0f4f8]";
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Landing() {
   return (
     <Layout>
@@ -87,86 +162,164 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* ── Example simulation ───────────────────────────────────────────── */}
+        {/* ── Trust stats bar ──────────────────────────────────────────────── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#1e3048] rounded-xl overflow-hidden border border-[#1e3048]">
+          {TRUST_STATS.map((s) => (
+            <div key={s.label} className="bg-[#1a2b3c] px-4 py-4 text-center">
+              <div className="text-2xl font-extrabold text-[#00c8b4] tabular-nums leading-none mb-1">
+                {s.value}
+              </div>
+              <div className="text-[11px] text-[#8faabb] leading-snug">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Comparison example ───────────────────────────────────────────── */}
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#8faabb] mb-3">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#8faabb] mb-1">
             Beispiel einer Simulation
           </p>
-          <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg p-5">
-            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-[#1e3048]">
-              <div className="w-8 h-8 rounded bg-[#0d1b2a] border border-[#1e3048] flex items-center justify-center text-lg shrink-0">
-                📉
+          <h2 className="text-lg font-extrabold text-[#f0f4f8] mb-1">Was passiert, wenn …?</h2>
+          <p className="text-sm text-[#8faabb] mb-4 leading-relaxed">
+            Politische Entscheidungen haben unterschiedliche Auswirkungen auf Staat, Wirtschaft und Gesellschaft.
+            Vergleiche mehrere Maßnahmen auf einen Blick.
+          </p>
+
+          {/* Desktop table */}
+          <div className="hidden sm:block bg-[#1a2b3c] border border-[#1e3048] rounded-xl overflow-hidden">
+            {/* Header */}
+            <div className="grid grid-cols-4 bg-[#0d1b2a] border-b border-[#1e3048]">
+              <div className="px-4 py-3 text-[10px] font-semibold uppercase tracking-wider text-[#8faabb]">
+                Kennzahl
               </div>
-              <div>
-                <p className="text-xs text-[#8faabb] mb-0.5">Parameter</p>
-                <p className="text-sm font-semibold text-[#f0f4f8]">Einkommensteuer senken (−3 Prozentpunkte)</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
-              {exampleResults.map((r) => (
-                <div key={r.label} className="bg-[#0d1b2a] rounded p-2.5 sm:p-3 border border-[#1e3048]">
-                  <div className="flex items-center gap-1 mb-1">
-                    {r.dir === "up"
-                      ? <TrendingUp size={11} className="text-[#4caf82] shrink-0" />
-                      : r.dir === "down"
-                      ? <TrendingDown size={11} className="text-[#e05c5c] shrink-0" />
-                      : <span className="w-[11px] h-[11px] shrink-0" />}
-                    <span className="text-[9px] text-[#8faabb] uppercase tracking-wider truncate">{r.label}</span>
-                  </div>
-                  <div className={`text-sm font-bold tabular-nums ${r.dir === "up" ? "text-[#4caf82]" : r.dir === "down" ? "text-[#e05c5c]" : "text-[#f0f4f8]"}`}>
-                    {r.value}
-                  </div>
+              {MASSNAHMEN.map((m) => (
+                <div key={m.label} className="px-4 py-3 text-center border-l border-[#1e3048]">
+                  <div className="text-lg mb-0.5">{m.emoji}</div>
+                  <div className="text-[11px] font-semibold text-[#f0f4f8] leading-snug">{m.label}</div>
                 </div>
               ))}
             </div>
-            <p className="text-[10px] text-[#8faabb]/60 mt-3">
-              Beispielansicht eines Simulationsergebnisses · Keine echten Berechnungsergebnisse
-            </p>
+            {/* Rows */}
+            {["Staatseinnahmen", "Wirtschaftswachstum", "Staatsverschuldung"].map((metric, ri) => (
+              <div
+                key={metric}
+                className={`grid grid-cols-4 ${ri < 2 ? "border-b border-[#1e3048]" : ""}`}
+              >
+                <div className="px-4 py-3 text-xs text-[#8faabb] flex items-center">{metric}</div>
+                {MASSNAHMEN.map((m) => {
+                  const e = m.effekte[ri];
+                  return (
+                    <div key={m.label} className="px-4 py-3 border-l border-[#1e3048] flex items-center justify-center gap-1.5">
+                      <DirIcon dir={e.dir} />
+                      <span className={`text-sm font-bold tabular-nums ${dirColor(e.dir)}`}>{e.value}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
+
+          {/* Mobile cards */}
+          <div className="sm:hidden flex flex-col gap-2.5">
+            {MASSNAHMEN.map((m) => (
+              <div key={m.label} className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg p-4">
+                <div className="flex items-center gap-2.5 mb-3 pb-3 border-b border-[#1e3048]">
+                  <span className="text-xl shrink-0">{m.emoji}</span>
+                  <span className="text-sm font-semibold text-[#f0f4f8]">{m.label}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {m.effekte.map((e) => (
+                    <div key={e.metric} className="bg-[#0d1b2a] rounded p-2 border border-[#1e3048]">
+                      <div className="flex items-center gap-1 mb-1">
+                        <DirIcon dir={e.dir} />
+                        <span className="text-[9px] text-[#8faabb] uppercase tracking-wider leading-none truncate">{e.metric}</span>
+                      </div>
+                      <span className={`text-sm font-bold tabular-nums ${dirColor(e.dir)}`}>{e.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-[10px] text-[#8faabb]/50 mt-2.5 text-center">
+            Beispielansicht eines Simulationsergebnisses · Keine echten Berechnungsergebnisse
+          </p>
           <div className="mt-3 flex justify-center">
             <Link
               href="/simulator"
               className="inline-flex items-center gap-2 text-sm font-semibold text-[#00c8b4] hover:text-[#00a896] border border-[#00c8b4]/40 hover:border-[#00c8b4] rounded-lg px-5 py-2.5 transition-all duration-150 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-[#00c8b4] focus-visible:outline-offset-2"
             >
-              Jetzt eigene Szenarien testen
+              Jetzt eigene Szenarien simulieren
               <ChevronRight size={14} />
             </Link>
+          </div>
+        </div>
+
+        {/* ── Currently discussed topics ───────────────────────────────────── */}
+        <div>
+          <h2 className="text-base font-bold text-[#f0f4f8] mb-1">Aktuell diskutierte Themen</h2>
+          <p className="text-sm text-[#8faabb] mb-3 leading-relaxed">
+            Teste politische Vorschläge, die derzeit öffentlich diskutiert werden.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {AKTUELLE_THEMEN.map((t) => (
+              <Link
+                key={t.label}
+                href="/simulator"
+                className="inline-flex items-center gap-2 bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/50 hover:bg-[#1e3448] rounded-full px-4 py-2 text-sm text-[#f0f4f8] transition-all duration-150 hover:-translate-y-0.5 group focus-visible:outline-2 focus-visible:outline-[#00c8b4] focus-visible:outline-offset-2"
+              >
+                <span className="text-base leading-none">{t.emoji}</span>
+                <span className="font-medium">{t.label}</span>
+                <ChevronRight size={13} className="text-[#8faabb] group-hover:text-[#00c8b4] transition-colors duration-150" />
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* ── Popular scenarios ────────────────────────────────────────────── */}
         <div>
           <h2 className="text-base font-bold text-[#f0f4f8] mb-3">Beliebte Szenarien</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {SZENARIEN.map((s) => (
-              <Link
+              <div
                 key={s.label}
-                href="/simulator"
-                className="flex items-center gap-3 bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/50 hover:bg-[#1e3448] rounded-lg px-4 py-3.5 text-sm text-[#f0f4f8] transition-all duration-150 hover:-translate-y-0.5 group focus-visible:outline-2 focus-visible:outline-[#00c8b4] focus-visible:outline-offset-2"
+                className="bg-[#1a2b3c] border border-[#1e3048] hover:border-[#00c8b4]/50 hover:bg-[#1e3448] rounded-xl p-4 flex flex-col gap-3 transition-all duration-150 hover:-translate-y-0.5 group"
               >
-                <span className="text-xl shrink-0">{s.emoji}</span>
-                <span className="font-medium leading-snug flex-1 min-w-0">{s.label}</span>
-                <ChevronRight size={14} className="text-[#8faabb] group-hover:text-[#00c8b4] shrink-0 transition-colors duration-150" />
-              </Link>
+                {/* Icon + title */}
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl shrink-0 mt-0.5">{s.emoji}</span>
+                  <span className="text-sm font-semibold text-[#f0f4f8] leading-snug">{s.label}</span>
+                </div>
+                {/* Description */}
+                <p className="text-xs text-[#8faabb] leading-relaxed flex-1">
+                  {s.beschreibung}
+                </p>
+                {/* Main effect */}
+                <div className="bg-[#0d1b2a] border border-[#1e3048] rounded-lg px-3 py-2 flex items-center justify-between gap-2">
+                  <span className="text-[10px] text-[#8faabb] uppercase tracking-wider font-semibold">
+                    Haupteffekt · {s.haupteffekt.label}
+                  </span>
+                  <span className={`text-sm font-bold tabular-nums ${s.haupteffekt.positiv ? "text-[#4caf82]" : "text-[#e05c5c]"}`}>
+                    {s.haupteffekt.value}
+                  </span>
+                </div>
+                {/* CTA */}
+                <Link
+                  href="/simulator"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-[#00c8b4] group-hover:text-[#00a896] border border-[#00c8b4]/30 group-hover:border-[#00c8b4]/60 rounded-lg py-2 px-3 transition-all duration-150 focus-visible:outline-2 focus-visible:outline-[#00c8b4] focus-visible:outline-offset-2"
+                >
+                  Szenario starten
+                  <ChevronRight size={13} />
+                </Link>
+              </div>
             ))}
           </div>
-          <p className="text-[10px] text-[#8faabb]/60 mt-2 text-center">
-            Szenarien-Presets in Entwicklung — öffnet derzeit den Simulator
-          </p>
         </div>
 
         {/* ── Trust section ────────────────────────────────────────────────── */}
-        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-lg px-5 py-5">
-          <h2 className="text-base font-bold text-[#f0f4f8] mb-3">Warum diesem Projekt vertrauen?</h2>
-
-          {/* Badges */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {TRUST_BADGES.map((b) => (
-              <TrustBadge key={b.label} label={b.label} color={b.color} />
-            ))}
-          </div>
-
-          {/* Checklist */}
+        <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl px-5 py-5">
+          <h2 className="text-base font-bold text-[#f0f4f8] mb-4">Warum diesem Projekt vertrauen?</h2>
           <ul className="space-y-2.5 mb-5">
             {TRUST_POINTS.map((p) => (
               <li key={p} className="flex items-start gap-2.5 text-sm text-[#8faabb]">
@@ -175,8 +328,6 @@ export default function Landing() {
               </li>
             ))}
           </ul>
-
-          {/* Links */}
           <div className="flex flex-wrap gap-2 border-t border-[#1e3048] pt-4">
             <a
               href="https://github.com/DeutschlandSimulator"

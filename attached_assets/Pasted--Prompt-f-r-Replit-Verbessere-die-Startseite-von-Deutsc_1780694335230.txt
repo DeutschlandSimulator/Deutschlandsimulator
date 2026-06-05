@@ -1,0 +1,131 @@
+**Prompt für Replit:**
+
+Verbessere die Startseite von DeutschlandSimulator, damit Besucher den Nutzen des Projekts innerhalb weniger Sekunden verstehen und stärker zum Ausprobieren motiviert werden.
+
+## 1. Bereich „Beispiel einer Simulation“ überarbeiten
+
+Der aktuelle Einzelwert („Einkommensteuer senken“) wirkt zu abstrakt und zeigt nicht die eigentliche Stärke des Simulators.
+
+Ersetze die einzelne Beispielkarte durch einen Vergleich mehrerer Maßnahmen:
+
+### Überschrift
+
+„Was passiert, wenn ...?“
+
+### Untertitel
+
+„Politische Entscheidungen haben unterschiedliche Auswirkungen auf Staat, Wirtschaft und Gesellschaft. Vergleiche mehrere Maßnahmen auf einen Blick.“
+
+### Beispieltabelle oder Kartenansicht
+
+* Einkommensteuer senken
+
+  * Staatseinnahmen: -18 Mrd. €
+  * Wirtschaftswachstum: +0,4 %
+  * Staatsverschuldung: +0,3 %
+
+* Renteneintrittsalter erhöhen
+
+  * Staatseinnahmen: +12 Mrd. €
+  * Wirtschaftswachstum: +0,2 %
+  * Staatsverschuldung: -0,4 %
+
+* Vermögensteuer einführen
+
+  * Staatseinnahmen: +15 Mrd. €
+  * Wirtschaftswachstum: -0,1 %
+  * Staatsverschuldung: -0,2 %
+
+Diese Werte dienen weiterhin nur als Demo-Beispiel.
+
+Darunter einen CTA:
+
+„Jetzt eigene Szenarien simulieren“
+
+---
+
+## 2. Bereich „Beliebte Szenarien“ aufwerten
+
+Die aktuellen Kacheln wirken wie einfache Links.
+
+Jede Kachel soll enthalten:
+
+* Icon
+* Titel
+* Kurzbeschreibung (1 Satz)
+* Optional: geschätzte Haupteffekt-Kennzahl
+* Button „Szenario starten“
+
+Beispiel:
+
+### 💎 Vermögensteuer einführen
+
+„Zusätzliche Besteuerung großer Vermögen zur Finanzierung öffentlicher Ausgaben.“
+
+Haupteffekt:
++15 Mrd. € Staatseinnahmen
+
+[ Szenario starten ]
+
+---
+
+### 👴 Renteneintrittsalter erhöhen
+
+„Schrittweise Anhebung des Rentenalters zur Stabilisierung der Sozialversicherungen.“
+
+Haupteffekt:
+-0,4 % Staatsverschuldung
+
+[ Szenario starten ]
+
+---
+
+## 3. Neuen Bereich „Aktuell diskutierte Themen“ einfügen
+
+Direkt oberhalb der beliebten Szenarien.
+
+### Überschrift
+
+„Aktuell diskutierte Themen“
+
+### Beschreibung
+
+„Teste politische Vorschläge, die derzeit öffentlich diskutiert werden.“
+
+Beispielkacheln:
+
+* Bürgergeld reformieren
+* Verteidigungsausgaben auf 3,5 % des BIP erhöhen
+* Renteneintrittsalter auf 69 Jahre erhöhen
+* Stromsteuer senken
+* Deutschlandticket abschaffen
+
+Jede Kachel soll direkt den Simulator mit den entsprechenden Parametern öffnen.
+
+---
+
+## 4. Vertrauenssignale stärker hervorheben
+
+Direkt unter dem Hero-Bereich einen kompakten Statistikbereich ergänzen:
+
+### DeutschlandSimulator in Zahlen
+
+* X Quellen hinterlegt
+* X Modellannahmen dokumentiert
+* X Szenarien simuliert
+* 100 % Open Source
+
+Falls keine echten Werte vorliegen, die Zahlen dynamisch vorbereiten und vorerst mit Platzhaltern versehen.
+
+---
+
+## 5. Ziel der Überarbeitung
+
+Die Startseite soll innerhalb von 10 Sekunden folgende Fragen beantworten:
+
+1. Was macht DeutschlandSimulator?
+2. Warum sollte ich den Ergebnissen vertrauen?
+3. Welche politischen Fragen kann ich damit untersuchen?
+4. Wie starte ich sofort eine Simulation?
+
+Achte auf ein modernes, hochwertiges Erscheinungsbild im bestehenden Dark-Mode-Design und verwende die vorhandene Farbwelt und Komponenten möglichst weiter.
