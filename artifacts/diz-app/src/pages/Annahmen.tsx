@@ -895,8 +895,8 @@ export default function AnnahmenPage() {
 
   // Stats
   const total      = ANNAHMEN.length;
-  const human      = ANNAHMEN.filter((a) => a.geprueftVon === "mensch").length;
-  const ki         = ANNAHMEN.filter((a) => a.geprueftVon === "ki").length;
+  const human      = ANNAHMEN.filter((a) => (statsMap.get(a.id)?.validationCount ?? 0) >= 1).length;
+  const ki         = total - human;
   const vollst     = ANNAHMEN.filter((a) => a.verifizierungsgrad === "vollstaendig").length;
   const partial    = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise").length;
   const none       = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht").length;
