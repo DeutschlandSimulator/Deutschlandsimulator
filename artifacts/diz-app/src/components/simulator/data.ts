@@ -360,6 +360,58 @@ export const SLIDER_INFO: Record<string, SliderInfo> = {
     evidenz: "mittel" as EvidenzLevel,
     evidenzHinweis: "Ausgabeneffekt direkt modellierbar; Wachstums- und Bildungseffekte langfristig und schwer isolierbar.",
   },
+  beitragssatz: {
+    titel: "Krankenversicherungs-Beitragssatz",
+    beschreibung: "Allgemeiner Beitragssatz zur gesetzlichen Krankenversicherung (GKV). Arbeitgeber und Arbeitnehmer teilen ihn je zur Hälfte. Der Zusatzbeitrag der Kassen ist nicht eingeschlossen. Eine Erhöhung erhöht die Lohnnebenkosten und wirkt damit beschäftigungshemmend.",
+    aktuellerWert: "14,6 % des Bruttolohns (je 7,3 % AG + AN)",
+    berechnungslogik: "Pro +1 Prozentpunkt: ca. +4 Mrd. € Mehreinnahmen für GKV (GKV-Ausgabenvolumen ~310 Mrd. €, ~44 Mio. Pflichtversicherte). Persönliche Belastung: ca. +25 €/Monat je 0,1 Prozentpunkt (Ø-Bruttolohn ~3.800 €).",
+    annahmen: ["~44 Mio. GKV-Pflichtversicherte", "Ø Bruttolohn 3.800 €/Monat", "Lineare Skalierung der Beitragseinnahmen", "Keine Verhaltensanpassung (Privatisierung) modelliert"],
+    quellen: [
+      { name: "Bundesministerium für Gesundheit – GKV-Finanzergebnisse", url: "https://bundesgesundheitsministerium.de", aktualisiert: "Jan 2024" },
+      { name: "GKV-Spitzenverband", url: "https://gkv-spitzenverband.de", aktualisiert: "Mär 2024" },
+    ],
+    evidenz: "mittel" as EvidenzLevel,
+    evidenzHinweis: "Fiskalischer Direkteffekt gut modellierbar; Beschäftigungs- und Verhaltenseffekte nicht enthalten.",
+  },
+  rentenniveau: {
+    titel: "Rentenniveau (% des Durchschnittslohns)",
+    beschreibung: "Das Rentenniveau beschreibt die Rente eines Durchschnittsverdieners nach 45 Beitragsjahren im Verhältnis zum aktuellen Durchschnittslohn (Standardrente). Derzeit liegt es bei 48 %. Ein sinkender Wert führt zu Altersarmut, ein steigender erhöht die Rentenausgaben erheblich.",
+    aktuellerWert: "48 % des Durchschnittslohns (Haltelinie bis 2025)",
+    berechnungslogik: "Pro +1 Prozentpunkt Niveau: ca. +4 Mrd. € Mehrausgaben p.a. (27 Mio. Rentner × Ø-Anpassung). Persönliche Wirkung: ±8 €/Monat je Prozentpunkt für einen Durchschnittsrentner.",
+    annahmen: ["~27 Mio. Rentenempfänger", "Lineare Skalierung der Ausgaben", "Keine Auswirkung auf Beitragseinnahmen modelliert", "Haltelinie 48 % als Baseline (bis 2025 gesetzlich)"],
+    quellen: [
+      { name: "Deutsche Rentenversicherung – Rentenatlas", url: "https://drv-bund.de", aktualisiert: "Mär 2024" },
+      { name: "Bundesministerium für Arbeit und Soziales", url: "https://bmas.de", aktualisiert: "Jan 2024" },
+    ],
+    evidenz: "mittel" as EvidenzLevel,
+    evidenzHinweis: "Ausgabeneffekt gut modellierbar; Verhaltensanpassungen der Beitragszahler und Altersarmuts-Folgekosten nicht einbezogen.",
+  },
+  unternehmenssteuer: {
+    titel: "Unternehmenssteuer (kombinierter Satz)",
+    beschreibung: "Kombinierter Satz aus Körperschaftsteuer (15 %) und durchschnittlicher Gewerbesteuer (~14,9 %). Beeinflusst die Standortattraktivität, Investitionsbereitschaft und Steuervermeidungsanreize. Deutschland liegt im oberen OECD-Drittel.",
+    aktuellerWert: "~29,9 % kombinierter Effektivsatz (KSt 15 % + GewSt ~14,9 %)",
+    berechnungslogik: "Pro +1 Prozentpunkt: ca. +3 Mrd. € Steuereinnahmen (linearer Schätzwert). Wachstumseffekt: −0,015 % BIP je +1 pp (OECD-Metaanalyse: Unternehmenssteuer ist die wachstumsschädlichste Steuerart). Investitionshemmnis: −0,3 % Nettoinvestitionsquote je +1 pp.",
+    annahmen: ["Lineare Skalierung der Steuereinnahmen", "OECD-Wachstumsmultiplikator −0,015 %/pp", "Keine Modellierung von Steuervermeidung oder Unternehmensabwanderung"],
+    quellen: [
+      { name: "Bundesministerium der Finanzen – Unternehmensbesteuerung", url: "https://bundesfinanzministerium.de", aktualisiert: "Feb 2024" },
+      { name: "OECD Tax Database", url: "https://oecd.org", aktualisiert: "Jan 2024" },
+    ],
+    evidenz: "mittel" as EvidenzLevel,
+    evidenzHinweis: "Steuereinnahmeneffekt modellierbar; Verhaltensanpassungen (Verlagerung, Vermeidung) haben große Unsicherheit.",
+  },
+  erbschaftssteuer: {
+    titel: "Erbschaft-Freibetrag (Kinder)",
+    beschreibung: "Persönlicher Freibetrag für Erbschaften von Kindern. Derzeit 400.000 € alle 10 Jahre. Alles oberhalb wird mit 7–30 % besteuert (Steuerklasse I). Eine Absenkung erhöht das Steueraufkommen, trifft aber auch selbstgenutztes Wohneigentum. Eine Erhöhung schont Erben, mindert jedoch Einnahmen.",
+    aktuellerWert: "400.000 € Freibetrag (Steuerklasse I, Kinder, alle 10 J.)",
+    berechnungslogik: "Pro −100.000 € Freibetrag (Absenkung): ca. +0,5 Mrd. € Steuermehreinnahmen. Gesamtaufkommen 2023: ~10,5 Mrd. €. Effekt stark abhängig von Immobilienpreisen und Vermögenskonzentration.",
+    annahmen: ["Erbschaftssteueraufkommen 2023: ~10,5 Mrd. €", "Linearer Schätzwert: 0,5 Mrd. je 100k € Freibetragssenkung", "Keine Modellierung von Schenkungen zur Steueroptimierung"],
+    quellen: [
+      { name: "Statistisches Bundesamt – Erbschaft- und Schenkungsteuer", url: "https://destatis.de", aktualisiert: "Feb 2024" },
+      { name: "Bundesministerium der Finanzen", url: "https://bundesfinanzministerium.de", aktualisiert: "Jan 2024" },
+    ],
+    evidenz: "mittel" as EvidenzLevel,
+    evidenzHinweis: "Aufkommenseffekte schwer zu schätzen wegen starker Abhängigkeit von Immobilienmarkt und Vermögensverteilung.",
+  },
 };
 
 export const scenarioMultipliers: Record<ScenarioMode, number> = {
