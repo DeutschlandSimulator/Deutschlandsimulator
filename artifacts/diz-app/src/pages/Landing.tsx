@@ -105,6 +105,27 @@ const SZENARIEN: Szenario[] = [
   },
 ];
 
+// ─── Trust badges ─────────────────────────────────────────────────────────────
+const TRUST_BADGES = [
+  { label: "Open Source",            color: "teal"  },
+  { label: "Unabhängig",             color: "green" },
+  { label: "Transparente Quellen",   color: "blue"  },
+  { label: "Dokumentierte Annahmen", color: "blue"  },
+];
+
+function TrustBadge({ label, color }: { label: string; color: string }) {
+  const styles: Record<string, string> = {
+    teal:  "bg-[#00c8b4]/10 text-[#00c8b4]  border-[#00c8b4]/25",
+    green: "bg-[#4caf82]/10 text-[#4caf82]  border-[#4caf82]/25",
+    blue:  "bg-[#4a90c4]/10 text-[#7ab3d8]  border-[#4a90c4]/25",
+  };
+  return (
+    <span className={`inline-flex items-center text-[10px] font-semibold uppercase tracking-wider border rounded-full px-2.5 py-0.5 ${styles[color]}`}>
+      {label}
+    </span>
+  );
+}
+
 // ─── Trust checklist ──────────────────────────────────────────────────────────
 const TRUST_POINTS = [
   "Unabhängiges Privatprojekt",
@@ -319,7 +340,12 @@ export default function Landing() {
 
         {/* ── Trust section ────────────────────────────────────────────────── */}
         <div className="bg-[#1a2b3c] border border-[#1e3048] rounded-xl px-5 py-5">
-          <h2 className="text-base font-bold text-[#f0f4f8] mb-4">Warum diesem Projekt vertrauen?</h2>
+          <h2 className="text-base font-bold text-[#f0f4f8] mb-3">Warum diesem Projekt vertrauen?</h2>
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {TRUST_BADGES.map((b) => (
+              <TrustBadge key={b.label} label={b.label} color={b.color} />
+            ))}
+          </div>
           <ul className="space-y-2.5 mb-5">
             {TRUST_POINTS.map((p) => (
               <li key={p} className="flex items-start gap-2.5 text-sm text-[#8faabb]">
