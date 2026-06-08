@@ -106,7 +106,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             { href: "/datenschutz",          label: "Datenschutz",            external: false },
             { href: "/annahmen",            label: "Transparenz & Annahmen", external: false },
             { href: "/mitmachen",           label: "Mitmachen",              external: false },
-            { href: "https://github.com/DeutschlandSimulator", label: "GitHub / Open Source", external: true },
+            { href: "https://github.com/orgs/DeutschlandSimulator/", label: "GitHub / Open Source", external: true },
             { href: "/haftungsausschluss",  label: "Haftungsausschluss",     external: false },
           ].map((l) =>
             l.external ? (
