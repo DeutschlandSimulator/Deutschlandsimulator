@@ -10,14 +10,22 @@ type ConsentState = {
 
 const STORAGE_KEY = "diz_cookie_consent";
 
-export function useCookieConsent() {
-  const raw = localStorage.getItem(STORAGE_KEY);
+function storageGet(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function storageSet(key: string, value: string): void {
+  try { localStorage.setItem(key, value); } catch { /* ignore */ }
+}
+
+function storageRemove(key: string): void {
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
+}
+
+export function useCookieConsent(): ConsentState | null {
+  const raw = storageGet(STORAGE_KEY);
   if (!raw) return null;
-  try {
-    return JSON.parse(raw) as ConsentState;
-  } catch {
-    return null;
-  }
+  try { return JSON.parse(raw) as ConsentState; } catch { return null; }
 }
 
 export function CookieBanner() {
@@ -25,13 +33,19 @@ export function CookieBanner() {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) setVisible(true);
+    if (!storageGet(STORAGE_KEY)) setVisible(true);
   }, []);
 
   function save(analytics: boolean) {
     const consent: ConsentState = { necessary: true, analytics, timestamp: Date.now() };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+    storageSet(STORAGE_KEY, JSON.stringify(consent));
     setVisible(false);
+  }
+
+  function reopen() {
+    storageRemove(STORAGE_KEY);
+    setVisible(true);
+    setExpanded(true);
   }
 
   return (
@@ -48,7 +62,6 @@ export function CookieBanner() {
         >
           <div className="rounded-xl border border-[#1e3a52] bg-[#0f2236]/95 backdrop-blur shadow-2xl px-5 py-4 space-y-3">
 
-            {/* Header */}
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2">
                 <Cookie size={16} className="text-[#00c8b4] shrink-0 mt-0.5" />
@@ -65,13 +78,11 @@ export function CookieBanner() {
               </button>
             </div>
 
-            {/* Short description */}
             <p className="text-xs text-[#8faabb] leading-relaxed">
               Wir setzen notwendige Cookies für den Betrieb und — mit deiner Zustimmung —
               anonyme Analyse-Cookies (keine personenbezogenen Daten, keine Weitergabe an Dritte).
             </p>
 
-            {/* Expandable detail */}
             <div>
               <button
                 onClick={() => setExpanded((e) => !e)}
@@ -109,11 +120,10 @@ export function CookieBanner() {
                         >
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-[#f0f4f8]">{c.name}</span>
-                            {c.always ? (
-                              <span className="text-[10px] text-[#4caf82] font-medium">Immer aktiv</span>
-                            ) : (
-                              <span className="text-[10px] text-[#8faabb]">Optional</span>
-                            )}
+                            {c.always
+                              ? <span className="text-[10px] text-[#4caf82] font-medium">Immer aktiv</span>
+                              : <span className="text-[10px] text-[#8faabb]">Optional</span>
+                            }
                           </div>
                           <p className="text-[11px] text-[#8faabb] leading-relaxed">{c.desc}</p>
                         </div>
@@ -124,7 +134,6 @@ export function CookieBanner() {
               </AnimatePresence>
             </div>
 
-            {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-2 pt-1">
               <button
                 onClick={() => save(false)}
@@ -143,11 +152,7 @@ export function CookieBanner() {
             <p className="text-[10px] text-[#4a6278] text-center">
               Einwilligung jederzeit in den{" "}
               <button
-                onClick={() => {
-                  localStorage.removeItem(STORAGE_KEY);
-                  setVisible(true);
-                  setExpanded(true);
-                }}
+                onClick={reopen}
                 className="underline hover:text-[#8faabb] transition-colors"
               >
                 Datenschutzeinstellungen
