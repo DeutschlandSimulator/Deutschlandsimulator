@@ -20,5 +20,67 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      (function () {
+        var KEY = 'diz_cookie_consent';
+        function storageGet() { try { return localStorage.getItem(KEY); } catch(e) { return null; } }
+        function storageSet(v) { try { localStorage.setItem(KEY, v); } catch(e) {} }
+
+        if (storageGet()) return; // already decided
+
+        var banner = document.createElement('div');
+        banner.id = 'diz-cookie-banner';
+        banner.innerHTML = [
+          '<div style="position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:99999;',
+          'width:min(660px,calc(100vw - 2rem));',
+          'background:rgba(15,34,54,0.97);border:1px solid #1e3a52;border-radius:.75rem;',
+          'padding:1rem 1.25rem;box-shadow:0 25px 50px rgba(0,0,0,.5);',
+          'font-family:Inter,sans-serif;color:#f0f4f8;">',
+            '<p style="margin:0 0 .4rem;font-size:.875rem;font-weight:600;">',
+              'Diese Seite verwendet Cookies',
+            '</p>',
+            '<p style="margin:0 0 .75rem;font-size:.75rem;color:#8faabb;line-height:1.6;">',
+              'Notwendige Cookies sind immer aktiv. Mit Ihrer Zustimmung setzen wir anonyme',
+              ' Analyse-Cookies (kein Profiling, keine Weitergabe an Dritte).',
+            '</p>',
+            '<div style="display:flex;gap:.5rem;">',
+              '<button id="diz-cookie-necessary" style="flex:1;padding:.45rem .75rem;font-size:.75rem;',
+              'border:1px solid #1e3a52;border-radius:.5rem;background:none;color:#8faabb;cursor:pointer;">',
+                'Nur notwendige',
+              '</button>',
+              '<button id="diz-cookie-all" style="flex:1;padding:.45rem .75rem;font-size:.75rem;font-weight:600;',
+              'border:none;border-radius:.5rem;background:#00c8b4;color:#0d1b2a;cursor:pointer;">',
+                'Alle akzeptieren',
+              '</button>',
+            '</div>',
+            '<p style="margin:.5rem 0 0;font-size:.625rem;color:#4a6278;text-align:center;">',
+              'Einwilligung jederzeit unter ',
+              '<a id="diz-cookie-revoke" href="#" style="color:inherit;text-decoration:underline;">',
+                'Datenschutzeinstellungen',
+              '</a>',
+              ' widerrufbar.',
+            '</p>',
+          '</div>'
+        ].join('');
+        document.body.appendChild(banner);
+
+        function dismiss(analytics) {
+          storageSet(JSON.stringify({ necessary: true, analytics: analytics, timestamp: Date.now() }));
+          var el = document.getElementById('diz-cookie-banner');
+          if (el) el.remove();
+        }
+
+        document.getElementById('diz-cookie-necessary').onclick = function(e) { e.preventDefault(); dismiss(false); };
+        document.getElementById('diz-cookie-all').onclick = function(e) { e.preventDefault(); dismiss(true); };
+        document.getElementById('diz-cookie-revoke').onclick = function(e) {
+          e.preventDefault();
+          try { localStorage.removeItem(KEY); } catch(err) {}
+          var el = document.getElementById('diz-cookie-banner');
+          if (el) el.remove();
+          // re-run after a tick
+          setTimeout(function() { banner.id && document.body.appendChild(banner); }, 0);
+        };
+      })();
+    </script>
   </body>
 </html>

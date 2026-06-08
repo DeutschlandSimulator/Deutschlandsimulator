@@ -1,5 +1,5 @@
 - [Auth + Validation Architecture](auth-validation-arch.md) — Replit Auth wired; community validation system with DB, API, and ValidationWidget built.
 - [Zod in api-server](zod-api-server.md) — zod is NOT installed in api-server; use plain JS validation or import from @workspace/api-zod instead.
 - [replit-auth-web vite types](replit-auth-web-vite.md) — lib needs vite as devDependency for import.meta.env types in tsconfig.
-- [CookieBanner lucide-react crash](cookie-banner-lucide.md) — lucide-react icon imports caused silent {} render crash in user browser; fix: pure React + inline styles only, no lucide imports in CookieBanner.
+- [CookieBanner must be vanilla JS](cookie-banner-vanilla.md) — any React-based CookieBanner crashes the app via runtimeErrorOverlay shim; solution: inline vanilla JS in index.html, zero React involvement.
 - [Port 8080 proxy to diz-app](port-routing.md) — api-server on port 8080 (external 80) must proxy non-/api requests to diz-app (port 21861); without this user sees 404/white screen in browser preview.
