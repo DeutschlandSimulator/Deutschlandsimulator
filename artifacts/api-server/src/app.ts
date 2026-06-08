@@ -35,4 +35,16 @@ app.use(authMiddleware);
 
 app.use("/api", router);
 
+if (process.env.NODE_ENV !== "production") {
+  const { createProxyMiddleware } = await import("http-proxy-middleware");
+  const DIZ_APP_PORT = process.env.DIZ_APP_PORT ?? "21861";
+  app.use(
+    createProxyMiddleware({
+      target: `http://localhost:${DIZ_APP_PORT}`,
+      changeOrigin: true,
+      ws: true,
+    }),
+  );
+}
+
 export default app;

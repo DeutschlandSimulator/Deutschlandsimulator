@@ -39,11 +39,11 @@ export default defineConfig({
             m.cartographer({
               root: path.resolve(import.meta.dirname, ".."),
             }),
-          ),
+          ).catch(() => null),
           await import("@replit/vite-plugin-dev-banner").then((m) =>
             m.devBanner(),
-          ),
-        ]
+          ).catch(() => null),
+        ].filter(Boolean)
       : []),
   ],
   resolve: {

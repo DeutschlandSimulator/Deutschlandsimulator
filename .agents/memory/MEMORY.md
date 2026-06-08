@@ -1,3 +1,1 @@
-- [Auth + Validation Architecture](auth-validation-arch.md) — Replit Auth wired; community validation system with DB, API, and ValidationWidget built.
-- [Zod in api-server](zod-api-server.md) — zod is NOT installed in api-server; use plain JS validation or import from @workspace/api-zod instead.
-- [replit-auth-web vite types](replit-auth-web-vite.md) — lib needs vite as devDependency for import.meta.env types in tsconfig.
+- [Dev proxy setup](dev-proxy.md) — API server on port 8080 (external :80) must proxy non-/api requests to diz-app on port 21861 in development.
