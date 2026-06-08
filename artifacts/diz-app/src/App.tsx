@@ -12,6 +12,7 @@ import HaftungsausschlussPage from "@/pages/Haftungsausschluss";
 import MitmachenPage from "@/pages/Mitmachen";
 import AdminPage from "@/pages/Admin";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { CookieBanner } from "@/components/CookieBanner";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ function App() {
             <Router />
           </WouterRouter>
           <Toaster />
+          <CookieBanner />
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>
