@@ -18,6 +18,7 @@ import { Layout } from "@/components/Layout";
 import { InfoPanel } from "@/components/simulator/InfoPanel";
 import { SLIDER_INFO, scenarioMultipliers } from "@/components/simulator/data";
 import { EvidenzLevel, ScenarioMode } from "@/components/simulator/types";
+import { PoliticalCompass } from "@/components/simulator/PoliticalCompass";
 import {
   computeKPIs,
   BEAMTE_DELAY, FK_INTEGRATION, RENTE_RISK,
@@ -1063,6 +1064,30 @@ export default function SimulatorPage() {
               </div>
             </div>
           </div>
+
+          {/* ── Politischer Kompass ── */}
+          <PoliticalCompass inputs={{
+            einkommensteuer,
+            unternehmenssteuer,
+            vermoegenssteuer,
+            einheitsversicherung,
+            privatAbschaffen,
+            buergergeld,
+            schuldenbremse,
+            sozialwohnungen,
+            mietpreisbremse,
+            wohngeld,
+            bafoeg,
+            kohleausstieg,
+            windausbau,
+            solarausbau,
+            co2Preis,
+            atomkraft,
+            kitaAusbau,
+            bildungsausgaben,
+            euZuwanderung,
+            fluechtlinge,
+          }} />
 
           </div>
         </div>
