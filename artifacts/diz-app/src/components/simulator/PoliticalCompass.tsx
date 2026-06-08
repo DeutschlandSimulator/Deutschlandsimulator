@@ -75,7 +75,6 @@ const PARTIES = [
   { label: "FDP",   econ:  0.55, social:  0.30, color: "#ffcb00", textColor: "#0d1b2a" },
   { label: "CDU",   econ:  0.25, social: -0.30, color: "#5a5a5a" },
   { label: "Linke", econ: -0.70, social:  0.45, color: "#be3075" },
-  { label: "AfD",   econ:  0.10, social: -0.75, color: "#009ee0" },
 ];
 
 const QUADRANTS = [
