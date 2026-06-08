@@ -254,6 +254,19 @@ export function ValidationWidget({
             value={`${verifInfo.icon} ${verifInfo.label}`}
             valueClass={verifInfo.color}
           />
+          {quellUrl && (
+            <div className="pt-1 border-t border-[#1e3048]">
+              <a
+                href={quellUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[11px] font-semibold text-[#00c8b4] hover:text-[#00e6d0] transition-colors w-fit"
+              >
+                <ExternalLink size={11} />
+                Primärquelle direkt öffnen
+              </a>
+            </div>
+          )}
         </div>
 
         {/* ── 2. Recherchestatus ──────────────────────────────────────── */}

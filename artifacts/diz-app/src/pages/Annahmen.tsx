@@ -800,10 +800,10 @@ function AnnahmeKarte({
           <span className="flex items-center gap-1">
             {a.quellUrl ? (
               <a href={a.quellUrl} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1 text-[#8faabb] hover:text-[#00c8b4] transition-colors">
+                className="flex items-center gap-1 text-[#00c8b4] hover:text-[#00e6d0] font-semibold transition-colors">
                 {a.quelle} <ExternalLink size={9} />
               </a>
-            ) : a.quelle}
+            ) : <span className="text-[#8faabb]">{a.quelle}</span>}
           </span>
           <span className="text-[#1e3048]">·</span>
           <span>Stand: {a.jahr}</span>
