@@ -1,0 +1,131 @@
+```text
+Der aktuelle "Einfache Modus" ist zu stark vereinfacht und fühlt sich eher wie ein kurzer Fragebogen als wie ein Politik-Simulator an.
+
+Ziel:
+Den Modus zu einem "Bürger-Modus" weiterentwickeln, der leicht verständlich bleibt, aber deutlich mehr Spieltiefe vermittelt.
+
+Wichtige Designprinzipien:
+
+1. Statt nur 5 Oberthemen sollen ca. 12–15 Politikfelder vorhanden sein.
+2. Keine technischen Fachbegriffe oder komplexen Regler.
+3. Jede Entscheidung wird als verständliche Bürgerfrage formuliert.
+4. Nutzer sollen das Gefühl haben, echte politische Prioritäten zu setzen.
+5. Auswirkungen müssen sofort sichtbar sein.
+6. Mobile-First-Design beibehalten.
+
+Neue Struktur:
+
+## Bereich 1: Die wichtigsten Herausforderungen
+
+Ganz oben drei große Karten:
+
+- Staatsfinanzen
+- Wirtschaft
+- Migration
+
+Diese erhalten eine visuelle Hervorhebung.
+
+## Bereich 2: Weitere Politikfelder
+
+Als Kartenraster:
+
+- Steuern
+- Rente
+- Bildung
+- Gesundheit
+- Klima & Energie
+- Wohnungsbau
+- Migration
+- Innere Sicherheit
+- Verteidigung
+- Digitalisierung
+- Infrastruktur
+- Familienpolitik
+
+## Kartenaufbau
+
+Beispiel:
+
+Titel:
+💰 Steuern
+
+Frage:
+"Wie soll der Staat künftig mehr Geld einnehmen?"
+
+Antwortmöglichkeiten:
+
+○ Höhere Steuern für Spitzenverdiener
+○ Mehr Schulden aufnehmen
+○ Ausgaben reduzieren
+○ Status quo
+
+Nicht mehr nur:
+- Senken
+- So lassen
+- Erhöhen
+
+Jede Antwort soll politisch verständlich sein.
+
+## Auswirkungen
+
+Nach jeder Entscheidung sofort aktualisieren:
+
+- Staatshaushalt
+- Wirtschaftswachstum
+- Lebenshaltungskosten
+- CO₂-Ausstoß
+- Zufriedenheit
+
+Die Werte sollen als kompakte KPI-Karten dargestellt werden.
+
+## Fortschritt
+
+Oben Progress-Anzeige:
+
+"4 von 12 Entscheidungen getroffen"
+
+Dadurch entsteht Motivation weiterzumachen.
+
+## Zwischenauswertung
+
+Nach jeweils 5 Entscheidungen:
+
+Ein kleines Popup anzeigen:
+
+"Deine Politik führt aktuell zu:
++ stärkerem Wirtschaftswachstum
+- höherem Staatsdefizit
++ sinkenden CO₂-Emissionen"
+
+## Ergebnis
+
+Nach Abschluss aller Themen:
+
+Große Auswertung mit:
+
+- Politisches Profil
+- Haushaltsbilanz
+- Wirtschaftsentwicklung
+- Klimawirkung
+- Gesellschaftliche Auswirkungen
+
+Zusätzlich ein Titel wie:
+
+- Sozialstaat-Ausbauer
+- Wirtschaftsliberaler Reformer
+- Pragmatiker
+- Grüner Modernisierer
+- Konservativer Konsolidierer
+
+## UI-Anforderungen
+
+- Modernes Dark Theme beibehalten
+- Karten etwas größer gestalten
+- Mehr Weißraum
+- Hover-Effekte
+- Fortschrittsanzeige oben
+- Animation bei Auswahl
+- Entscheidungen sollen sich wie ein Strategiespiel anfühlen, nicht wie ein Formular
+
+Bitte die bestehende Architektur weiterverwenden und den aktuellen "Einfachen Modus" entsprechend umbauen.
+```
