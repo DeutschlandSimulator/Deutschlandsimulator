@@ -13,6 +13,13 @@ import MitmachenPage from "@/pages/Mitmachen";
 import AdminPage from "@/pages/Admin";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { CookieBanner } from "@/components/CookieBanner";
+import { Component, type ReactNode } from "react";
+
+class BannerBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  constructor(props: { children: ReactNode }) { super(props); this.state = { failed: false }; }
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? null : this.props.children; }
+}
 
 const queryClient = new QueryClient();
 
@@ -41,7 +48,9 @@ function App() {
             <Router />
           </WouterRouter>
           <Toaster />
-          <CookieBanner />
+          <BannerBoundary>
+            <CookieBanner />
+          </BannerBoundary>
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>

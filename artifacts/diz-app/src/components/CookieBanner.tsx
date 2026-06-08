@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { Cookie, X, ChevronDown, ChevronUp } from "lucide-react";
 
 type ConsentState = {
@@ -13,11 +12,9 @@ const STORAGE_KEY = "diz_cookie_consent";
 function storageGet(key: string): string | null {
   try { return localStorage.getItem(key); } catch { return null; }
 }
-
 function storageSet(key: string, value: string): void {
   try { localStorage.setItem(key, value); } catch { /* ignore */ }
 }
-
 function storageRemove(key: string): void {
   try { localStorage.removeItem(key); } catch { /* ignore */ }
 }
@@ -31,137 +28,188 @@ export function useCookieConsent(): ConsentState | null {
 export function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!storageGet(STORAGE_KEY)) setVisible(true);
+    if (!storageGet(STORAGE_KEY)) {
+      setVisible(true);
+      timerRef.current = setTimeout(() => setMounted(true), 10);
+    }
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, []);
 
   function save(analytics: boolean) {
-    const consent: ConsentState = { necessary: true, analytics, timestamp: Date.now() };
-    storageSet(STORAGE_KEY, JSON.stringify(consent));
-    setVisible(false);
+    storageSet(STORAGE_KEY, JSON.stringify({ necessary: true, analytics, timestamp: Date.now() }));
+    setMounted(false);
+    setTimeout(() => setVisible(false), 320);
   }
 
   function reopen() {
     storageRemove(STORAGE_KEY);
     setVisible(true);
     setExpanded(true);
+    timerRef.current = setTimeout(() => setMounted(true), 10);
   }
 
+  if (!visible) return null;
+
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ y: 120, opacity: 0 }}
-          animate={{ y: 0,   opacity: 1 }}
-          exit={{   y: 120, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 260, damping: 28 }}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[min(680px,calc(100vw-2rem))]"
-          role="dialog"
-          aria-label="Cookie-Einstellungen"
-        >
-          <div className="rounded-xl border border-[#1e3a52] bg-[#0f2236]/95 backdrop-blur shadow-2xl px-5 py-4 space-y-3">
-
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <Cookie size={16} className="text-[#00c8b4] shrink-0 mt-0.5" />
-                <p className="text-sm font-semibold text-[#f0f4f8]">
-                  Diese Seite verwendet Cookies
-                </p>
-              </div>
-              <button
-                onClick={() => save(false)}
-                aria-label="Ablehnen und schließen"
-                className="p-1 rounded text-[#8faabb] hover:text-[#f0f4f8] transition-colors shrink-0"
-              >
-                <X size={14} />
-              </button>
-            </div>
-
-            <p className="text-xs text-[#8faabb] leading-relaxed">
-              Wir setzen notwendige Cookies für den Betrieb und — mit deiner Zustimmung —
-              anonyme Analyse-Cookies (keine personenbezogenen Daten, keine Weitergabe an Dritte).
-            </p>
-
-            <div>
-              <button
-                onClick={() => setExpanded((e) => !e)}
-                className="flex items-center gap-1 text-[11px] text-[#00c8b4] hover:text-[#00e5ce] transition-colors"
-              >
-                {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-                {expanded ? "Weniger anzeigen" : "Details anzeigen"}
-              </button>
-
-              <AnimatePresence>
-                {expanded && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {[
-                        {
-                          name: "Notwendig",
-                          always: true,
-                          desc: "Speichern deiner Cookie-Einwilligung und Simulator-Einstellungen (localStorage). Kein Tracking.",
-                        },
-                        {
-                          name: "Analyse",
-                          always: false,
-                          desc: "Anonyme Nutzungsstatistiken (Seitenaufrufe, Regler-Interaktionen). Keine IP-Speicherung, kein Profiling.",
-                        },
-                      ].map((c) => (
-                        <div
-                          key={c.name}
-                          className="rounded-lg border border-[#1e3a52] bg-[#0d1b2a]/60 px-3 py-2.5 space-y-1"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-[#f0f4f8]">{c.name}</span>
-                            {c.always
-                              ? <span className="text-[10px] text-[#4caf82] font-medium">Immer aktiv</span>
-                              : <span className="text-[10px] text-[#8faabb]">Optional</span>
-                            }
-                          </div>
-                          <p className="text-[11px] text-[#8faabb] leading-relaxed">{c.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-2 pt-1">
-              <button
-                onClick={() => save(false)}
-                className="flex-1 text-xs font-medium px-4 py-2 rounded-lg border border-[#1e3a52] text-[#8faabb] hover:border-[#00c8b4]/50 hover:text-[#f0f4f8] transition-colors"
-              >
-                Nur notwendige
-              </button>
-              <button
-                onClick={() => save(true)}
-                className="flex-1 text-xs font-semibold px-4 py-2 rounded-lg bg-[#00c8b4] text-[#0d1b2a] hover:bg-[#00e5ce] transition-colors"
-              >
-                Alle akzeptieren
-              </button>
-            </div>
-
-            <p className="text-[10px] text-[#4a6278] text-center">
-              Einwilligung jederzeit in den{" "}
-              <button
-                onClick={reopen}
-                className="underline hover:text-[#8faabb] transition-colors"
-              >
-                Datenschutzeinstellungen
-              </button>{" "}
-              widerrufbar.
+    <div
+      role="dialog"
+      aria-label="Cookie-Einstellungen"
+      style={{
+        position: "fixed",
+        bottom: "1rem",
+        left: "50%",
+        transform: `translateX(-50%) translateY(${mounted ? "0" : "120px"})`,
+        opacity: mounted ? 1 : 0,
+        transition: "transform 0.32s cubic-bezier(0.34,1.56,0.64,1), opacity 0.32s ease",
+        zIndex: 9999,
+        width: "min(680px, calc(100vw - 2rem))",
+      }}
+    >
+      <div style={{
+        borderRadius: "0.75rem",
+        border: "1px solid #1e3a52",
+        background: "rgba(15,34,54,0.97)",
+        backdropFilter: "blur(8px)",
+        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+        padding: "1rem 1.25rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.75rem",
+      }}>
+        {/* Header */}
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.75rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <Cookie size={16} color="#00c8b4" style={{ flexShrink: 0, marginTop: 2 }} />
+            <p style={{ margin: 0, fontSize: "0.875rem", fontWeight: 600, color: "#f0f4f8" }}>
+              Diese Seite verwendet Cookies
             </p>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <button
+            onClick={() => save(false)}
+            aria-label="Ablehnen und schließen"
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              padding: "0.25rem", borderRadius: "0.25rem",
+              color: "#8faabb", flexShrink: 0,
+            }}
+          >
+            <X size={14} />
+          </button>
+        </div>
+
+        {/* Description */}
+        <p style={{ margin: 0, fontSize: "0.75rem", color: "#8faabb", lineHeight: 1.6 }}>
+          Wir setzen notwendige Cookies für den Betrieb und — mit deiner Zustimmung —
+          anonyme Analyse-Cookies (keine personenbezogenen Daten, keine Weitergabe an Dritte).
+        </p>
+
+        {/* Expand toggle */}
+        <div>
+          <button
+            onClick={() => setExpanded((e) => !e)}
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", gap: "0.25rem",
+              fontSize: "0.6875rem", color: "#00c8b4", padding: 0,
+            }}
+          >
+            {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+            {expanded ? "Weniger anzeigen" : "Details anzeigen"}
+          </button>
+
+          <div style={{
+            overflow: "hidden",
+            maxHeight: expanded ? "300px" : "0",
+            opacity: expanded ? 1 : 0,
+            transition: "max-height 0.25s ease, opacity 0.2s ease",
+          }}>
+            <div style={{
+              marginTop: "0.75rem",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gap: "0.5rem",
+            }}>
+              {[
+                {
+                  name: "Notwendig",
+                  always: true,
+                  desc: "Speichern deiner Cookie-Einwilligung und Simulator-Einstellungen (localStorage). Kein Tracking.",
+                },
+                {
+                  name: "Analyse",
+                  always: false,
+                  desc: "Anonyme Nutzungsstatistiken (Seitenaufrufe, Regler-Interaktionen). Keine IP-Speicherung, kein Profiling.",
+                },
+              ].map((c) => (
+                <div key={c.name} style={{
+                  borderRadius: "0.5rem",
+                  border: "1px solid #1e3a52",
+                  background: "rgba(13,27,42,0.6)",
+                  padding: "0.625rem 0.75rem",
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem" }}>
+                    <span style={{ fontSize: "0.75rem", fontWeight: 600, color: "#f0f4f8" }}>{c.name}</span>
+                    <span style={{ fontSize: "0.625rem", color: c.always ? "#4caf82" : "#8faabb", fontWeight: c.always ? 500 : 400 }}>
+                      {c.always ? "Immer aktiv" : "Optional"}
+                    </span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: "0.6875rem", color: "#8faabb", lineHeight: 1.5 }}>{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div style={{ display: "flex", gap: "0.5rem", paddingTop: "0.25rem", flexWrap: "wrap" }}>
+          <button
+            onClick={() => save(false)}
+            style={{
+              flex: 1, minWidth: 120,
+              fontSize: "0.75rem", fontWeight: 500,
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              border: "1px solid #1e3a52",
+              background: "none", cursor: "pointer",
+              color: "#8faabb",
+            }}
+          >
+            Nur notwendige
+          </button>
+          <button
+            onClick={() => save(true)}
+            style={{
+              flex: 1, minWidth: 120,
+              fontSize: "0.75rem", fontWeight: 600,
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              border: "none", cursor: "pointer",
+              background: "#00c8b4",
+              color: "#0d1b2a",
+            }}
+          >
+            Alle akzeptieren
+          </button>
+        </div>
+
+        <p style={{ margin: 0, fontSize: "0.625rem", color: "#4a6278", textAlign: "center" }}>
+          Einwilligung jederzeit in den{" "}
+          <button
+            onClick={reopen}
+            style={{
+              background: "none", border: "none", cursor: "pointer",
+              textDecoration: "underline", color: "inherit", fontSize: "inherit", padding: 0,
+            }}
+          >
+            Datenschutzeinstellungen
+          </button>{" "}
+          widerrufbar.
+        </p>
+      </div>
+    </div>
   );
 }
