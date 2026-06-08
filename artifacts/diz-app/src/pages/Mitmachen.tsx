@@ -40,8 +40,8 @@ function ActionCard({ icon, title, description, buttonLabel, href }: ActionCardP
 }
 
 // ─── Unverified source row ─────────────────────────────────────────────────────
-function QuellenZeile({ parameter, quelle, quellUrl, kategorie, evidenz, unsicherheiten }: {
-  parameter: string; quelle: string; quellUrl?: string; kategorie: string;
+function QuellenZeile({ id, parameter, quelle, quellUrl, kategorie, evidenz, unsicherheiten }: {
+  id: string; parameter: string; quelle: string; quellUrl?: string; kategorie: string;
   evidenz: string; unsicherheiten?: string;
 }) {
   const evidenzColor = evidenz === "hoch" ? "#4caf82" : evidenz === "mittel" ? "#f5a623" : "#e05c5c";
@@ -69,14 +69,20 @@ function QuellenZeile({ parameter, quelle, quellUrl, kategorie, evidenz, unsiche
       {unsicherheiten && (
         <p className="text-[9px] text-[#f5a623]/70 mt-1 leading-snug">{unsicherheiten}</p>
       )}
-      <div className="mt-2">
+      <div className="mt-2 flex flex-wrap gap-2">
+        <Link
+          href={`/annahmen#${id}`}
+          className="text-[9px] font-semibold text-[#00c8b4] hover:text-[#00a896] transition-colors"
+        >
+          Validieren →
+        </Link>
         <a
           href={`${GITHUB.discussions}?discussions_q=${encodeURIComponent(parameter)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[9px] font-semibold text-[#00c8b4] hover:text-[#00a896] transition-colors"
+          className="text-[9px] text-[#8faabb] hover:text-[#f0f4f8] transition-colors"
         >
-          Auf GitHub diskutieren →
+          GitHub diskutieren →
         </a>
       </div>
     </div>

@@ -775,7 +775,7 @@ function AnnahmeKarte({
   }
 
   return (
-    <div className="bg-[#1a2b3c] rounded border border-[#1e3048] overflow-hidden">
+    <div id={a.id} className="bg-[#1a2b3c] rounded border border-[#1e3048] overflow-hidden scroll-mt-20">
       <div className="px-4 py-3">
         {/* Header row */}
         <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
