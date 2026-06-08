@@ -7,6 +7,7 @@ import Landing from "@/pages/Landing";
 import SimulatorPage from "@/pages/Simulator";
 
 import ImpressumPage from "@/pages/Impressum";
+import DatenschutzPage from "@/pages/Datenschutz";
 import AnnahmenPage from "@/pages/Annahmen";
 import HaftungsausschlussPage from "@/pages/Haftungsausschluss";
 import MitmachenPage from "@/pages/Mitmachen";
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/simulator" component={SimulatorPage} />
 
       <Route path="/impressum" component={ImpressumPage} />
+      <Route path="/datenschutz" component={DatenschutzPage} />
       <Route path="/annahmen" component={AnnahmenPage} />
       <Route path="/haftungsausschluss" component={HaftungsausschlussPage} />
       <Route path="/mitmachen" component={MitmachenPage} />

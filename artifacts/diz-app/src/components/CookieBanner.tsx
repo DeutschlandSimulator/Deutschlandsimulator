@@ -33,7 +33,7 @@ export function CookieBanner() {
           Diese Website setzt ein technisch notwendiges <strong className="text-[#f0f4f8] font-medium">Session-Cookie</strong> (<code className="text-[#00c8b4]">sid</code>),
           das ausschließlich beim Einloggen gespeichert wird und nach dem Ausloggen gelöscht wird.
           Es werden keine Tracking- oder Werbe-Cookies verwendet.{" "}
-          <Link href="/impressum" className="text-[#00c8b4] hover:underline">
+          <Link href="/datenschutz" className="text-[#00c8b4] hover:underline">
             Datenschutz
           </Link>
         </div>
