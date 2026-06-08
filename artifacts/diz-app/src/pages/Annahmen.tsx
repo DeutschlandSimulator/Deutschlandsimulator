@@ -785,7 +785,10 @@ function AnnahmeKarte({
           </div>
           <div className="flex flex-wrap gap-1.5 shrink-0">
             <EvidenzBadge level={a.evidenz} />
-            <VerifizierungBadge geprueftVon={a.geprueftVon} verifizierungsgrad={a.verifizierungsgrad} />
+            <VerifizierungBadge
+              geprueftVon={stats?.status === "community_geprueft" ? "mensch" : a.geprueftVon}
+              verifizierungsgrad={a.verifizierungsgrad}
+            />
           </div>
         </div>
 
@@ -910,17 +913,20 @@ export default function AnnahmenPage() {
     const q = search.toLowerCase();
     return ANNAHMEN.filter((a) => {
       if (filterEvidenz !== "alle" && a.evidenz           !== filterEvidenz) return false;
-      if (filterVon     !== "alle" && a.geprueftVon       !== filterVon)     return false;
+      if (filterVon !== "alle") {
+        const effective = statsMap.get(a.id)?.status === "community_geprueft" ? "mensch" : a.geprueftVon;
+        if (effective !== filterVon) return false;
+      }
       if (filterGrad    !== "alle" && a.verifizierungsgrad !== filterGrad)   return false;
       if (filterKat     !== "alle" && a.kategorie         !== filterKat)     return false;
       if (q && !`${a.parameter} ${a.quelle} ${a.erklaerung} ${a.kategorie} ${a.wert}`.toLowerCase().includes(q)) return false;
       return true;
     });
-  }, [search, filterEvidenz, filterVon, filterGrad, filterKat]);
+  }, [search, filterEvidenz, filterVon, filterGrad, filterKat, statsMap]);
 
   // Stats
   const total      = ANNAHMEN.length;
-  const human      = ANNAHMEN.filter((a) => (statsMap.get(a.id)?.validationCount ?? 0) >= 1).length;
+  const human      = ANNAHMEN.filter((a) => statsMap.get(a.id)?.status === "community_geprueft").length;
   const ki         = total - human;
   const vollst     = ANNAHMEN.filter((a) => a.verifizierungsgrad === "vollstaendig").length;
   const partial    = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise").length;

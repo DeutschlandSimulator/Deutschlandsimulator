@@ -1,12 +1,14 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { ExternalLink } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { GITHUB } from "@/config/github";
 import { ANNAHMEN } from "@/pages/Annahmen";
+import type { AssumptionStats } from "@/components/ValidationWidget";
 
-// ─── Derived lists ─────────────────────────────────────────────────────────────
-const MENSCH_GEPRUEFT   = ANNAHMEN.filter((a) => a.geprueftVon === "mensch");
-const KI_GEPRUEFT       = ANNAHMEN.filter((a) => a.geprueftVon === "ki");
+const API = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Static: these don't depend on community validations
 const VOLLSTAENDIG      = ANNAHMEN.filter((a) => a.verifizierungsgrad === "vollstaendig");
 const TEILWEISE         = ANNAHMEN.filter((a) => a.verifizierungsgrad === "teilweise");
 const NICHT_VERIFIZIERT = ANNAHMEN.filter((a) => a.verifizierungsgrad === "nicht");
@@ -90,6 +92,23 @@ function QuellenZeile({ id, parameter, quelle, quellUrl, kategorie, evidenz, uns
 }
 
 export default function Mitmachen() {
+  const [statsMap, setStatsMap] = useState<Map<string, AssumptionStats>>(new Map());
+
+  useEffect(() => {
+    fetch(`${API}/api/validations/stats`, { credentials: "include" })
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data?.stats) return;
+        const m = new Map<string, AssumptionStats>();
+        for (const s of data.stats as AssumptionStats[]) m.set(s.assumptionId, s);
+        setStatsMap(m);
+      })
+      .catch(() => {});
+  }, []);
+
+  const MENSCH_GEPRUEFT = ANNAHMEN.filter((a) => statsMap.get(a.id)?.status === "community_geprueft");
+  const KI_GEPRUEFT     = ANNAHMEN.filter((a) => statsMap.get(a.id)?.status !== "community_geprueft");
+
   return (
     <Layout>
       <div className="flex-1 max-w-3xl mx-auto px-4 md:px-6 py-10 md:py-14 w-full flex flex-col gap-8">
