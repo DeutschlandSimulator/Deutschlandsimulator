@@ -39,11 +39,11 @@ export default defineConfig({
             m.cartographer({
               root: path.resolve(import.meta.dirname, ".."),
             }),
-          ).catch(() => null),
+          ),
           await import("@replit/vite-plugin-dev-banner").then((m) =>
             m.devBanner(),
-          ).catch(() => null),
-        ].filter(Boolean)
+          ),
+        ]
       : []),
   ],
   resolve: {
@@ -63,10 +63,6 @@ export default defineConfig({
     strictPort: true,
     host: "0.0.0.0",
     allowedHosts: true,
-    headers:
-      process.env.NODE_ENV !== "production"
-        ? { "Cache-Control": "no-store" }
-        : {},
     fs: {
       strict: true,
     },
