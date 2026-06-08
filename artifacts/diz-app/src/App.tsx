@@ -11,6 +11,7 @@ import AnnahmenPage from "@/pages/Annahmen";
 import HaftungsausschlussPage from "@/pages/Haftungsausschluss";
 import MitmachenPage from "@/pages/Mitmachen";
 import AdminPage from "@/pages/Admin";
+import DatenschutzPage from "@/pages/Datenschutz";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/impressum" component={ImpressumPage} />
       <Route path="/annahmen" component={AnnahmenPage} />
       <Route path="/haftungsausschluss" component={HaftungsausschlussPage} />
+      <Route path="/datenschutz" component={DatenschutzPage} />
       <Route path="/mitmachen" component={MitmachenPage} />
       <Route path="/admin" component={AdminPage} />
       <Route component={NotFound} />

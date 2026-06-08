@@ -55,7 +55,7 @@
             '</div>',
             '<p style="margin:.5rem 0 0;font-size:.625rem;color:#4a6278;text-align:center;">',
               'Einwilligung jederzeit unter ',
-              '<a id="diz-cookie-revoke" href="#" style="color:inherit;text-decoration:underline;">',
+              '<a id="diz-cookie-revoke" href="/datenschutz" style="color:inherit;text-decoration:underline;">',
                 'Datenschutzeinstellungen',
               '</a>',
               ' widerrufbar.',
@@ -72,14 +72,6 @@
 
         document.getElementById('diz-cookie-necessary').onclick = function(e) { e.preventDefault(); dismiss(false); };
         document.getElementById('diz-cookie-all').onclick = function(e) { e.preventDefault(); dismiss(true); };
-        document.getElementById('diz-cookie-revoke').onclick = function(e) {
-          e.preventDefault();
-          try { localStorage.removeItem(KEY); } catch(err) {}
-          var el = document.getElementById('diz-cookie-banner');
-          if (el) el.remove();
-          // re-run after a tick
-          setTimeout(function() { banner.id && document.body.appendChild(banner); }, 0);
-        };
       })();
     </script>
   </body>
