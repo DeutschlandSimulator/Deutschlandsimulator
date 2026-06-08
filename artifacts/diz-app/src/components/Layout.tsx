@@ -3,7 +3,6 @@ import { Link, useLocation } from "wouter";
 import { Sun, Moon, LogIn, LogOut, User } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@workspace/replit-auth-web";
-import { CookieBanner } from "./CookieBanner";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -95,8 +94,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 flex flex-col">
         {children}
       </main>
-
-      <CookieBanner />
 
       <footer className="diz-border-t px-6 py-5 space-y-3">
         <p className="text-xs diz-text-secondary text-center leading-relaxed max-w-2xl mx-auto">
