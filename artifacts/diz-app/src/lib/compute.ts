@@ -95,7 +95,7 @@ export function computeKPIs(s: ScenarioMode, smVal: number, params: ComputeParam
                          : kohleausstieg === "offen"? { stromD: -3, emD:  70 }
                          : { stromD: 0, emD: 0 };
   const co2GrowthEffect  = -(Math.max(0, co2Delta) * 0.002);
-  const co2Emissionen    = Math.max(0, 670 - co2Delta * 1.8 - windDelta * 0.8 - solarDelta * 0.3 - atomEffekt.emD + kohleEffekt.emD);
+  const co2Emissionen    = Math.max(0, 670 - co2Delta * 1.8 - windDelta * 0.8 - solarDelta * 0.3 + atomEffekt.emD + kohleEffekt.emD);
   const strompreis       = Math.max(8, 32 + co2Delta * 0.02 - windDelta * 0.025 - solarDelta * 0.01 + atomEffekt.stromD + kohleEffekt.stromD);
 
   const sozWohnAusg  = (sozialwohnungen - 30) * 0.045;

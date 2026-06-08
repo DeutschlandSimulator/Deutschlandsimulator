@@ -570,18 +570,29 @@ describe("Atomkraft", () => {
     const r = computeKPIs("realistisch", 1.0, { ...DEFAULT_PARAMS, atomkraft: "ausstieg" });
     expect(r.ausgabenDelta).toBeCloseTo(0, 5);
     expect(r.strompreis).toBeCloseTo(32, 5);
+    expect(r.co2Emissionen).toBeCloseTo(670, 1);
   });
 
-  it("'verlaengerung' – spart 1 Mrd. Ausgaben und senkt Strompreis um 2 ct/kWh", () => {
+  it("'verlaengerung' – spart 1 Mrd. Ausgaben, senkt Strompreis um 2 ct/kWh und CO₂ um 20 Mt", () => {
     const r = computeKPIs("realistisch", 1.0, { ...DEFAULT_PARAMS, atomkraft: "verlaengerung" });
     expect(r.ausgabenDelta).toBeCloseTo(-1, 5);
     expect(r.strompreis).toBeCloseTo(30, 5);
+    expect(r.co2Emissionen).toBeCloseTo(650, 1);
   });
 
-  it("'neubau' – kostet 15 Mrd. Ausgaben und senkt Strompreis um 4 ct/kWh", () => {
+  it("'neubau' – kostet 15 Mrd. Ausgaben, senkt Strompreis um 4 ct/kWh und CO₂ um 50 Mt", () => {
     const r = computeKPIs("realistisch", 1.0, { ...DEFAULT_PARAMS, atomkraft: "neubau" });
     expect(r.ausgabenDelta).toBeCloseTo(15, 5);
     expect(r.strompreis).toBeCloseTo(28, 5);
+    expect(r.co2Emissionen).toBeCloseTo(620, 1);
+  });
+
+  it("Kernkraft senkt CO₂ gegenüber Baseline (nicht erhöht)", () => {
+    const base = computeKPIs("realistisch", 1.0, DEFAULT_PARAMS);
+    const verl = computeKPIs("realistisch", 1.0, { ...DEFAULT_PARAMS, atomkraft: "verlaengerung" });
+    const neub = computeKPIs("realistisch", 1.0, { ...DEFAULT_PARAMS, atomkraft: "neubau" });
+    expect(verl.co2Emissionen).toBeLessThan(base.co2Emissionen);
+    expect(neub.co2Emissionen).toBeLessThan(base.co2Emissionen);
   });
 });
 
