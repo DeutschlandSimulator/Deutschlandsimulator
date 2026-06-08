@@ -103,7 +103,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
           {[
             { href: "/impressum",           label: "Impressum",              external: false },
-            { href: "/impressum",           label: "Datenschutz",            external: false },
+            { href: "/datenschutz",          label: "Datenschutz",            external: false },
             { href: "/annahmen",            label: "Transparenz & Annahmen", external: false },
             { href: "/mitmachen",           label: "Mitmachen",              external: false },
             { href: "https://github.com/DeutschlandSimulator", label: "GitHub / Open Source", external: true },

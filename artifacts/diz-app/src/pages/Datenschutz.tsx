@@ -92,7 +92,7 @@ export default function DatenschutzPage() {
           </div>
         </Section>
 
-        <Section title="5. Hosting">
+        <Section title="5. Hosting & Schriftarten">
           <p>
             Diese Website wird auf Servern von <strong className="text-[#f0f4f8]">Replit, Inc.</strong> gehostet.
             Beim Aufruf der Website können serverseitig technische Daten (IP-Adresse, Zeitstempel,
@@ -105,6 +105,10 @@ export default function DatenschutzPage() {
             >
               Datenschutzerklärung von Replit
             </a>.
+          </p>
+          <p className="mt-3">
+            Die verwendeten Schriftarten (Inter) werden <strong className="text-[#f0f4f8]">lokal vom eigenen Server</strong> ausgeliefert.
+            Es findet keine Verbindung zu externen Schriftarten-Diensten (z. B. Google Fonts) statt.
           </p>
         </Section>
 
